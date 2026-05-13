@@ -25,10 +25,12 @@ import {
 } from "@/lib/dores-data";
 import { useDores } from "@/lib/dores-store";
 import { useDiscovery } from "@/lib/discovery-store";
+import { useStrategy } from "@/lib/strategy-store";
 import {
   hypothesisStatusConfig,
   roadmapStatusConfig,
 } from "@/lib/discovery-data";
+import { formatPeriod, okrStatusConfig } from "@/lib/strategy-data";
 import { Plus } from "lucide-react";
 import { Avatar } from "@/components/shared/avatar";
 
@@ -45,10 +47,13 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
     createHypothesis,
     createRoadmap,
   } = useDiscovery();
+  const { pillarsByProduct, okrsByProduct, getPillar, getOKR } = useStrategy();
 
   const pain = getPain(id);
   const linkedHypotheses = pain ? hypothesesByPain(pain.id) : [];
   const linkedRoadmap = pain ? roadmapByPain(pain.id) : [];
+  const productPillars = pain ? pillarsByProduct(pain.productId) : [];
+  const productOkrs = pain ? okrsByProduct(pain.productId) : [];
 
   const titleInputRef = useRef<HTMLInputElement>(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
