@@ -98,6 +98,12 @@ export default function HypothesisDetail({ params }: { params: Promise<{ id: str
             />
           </div>
 
+          <VisualEvidence
+            prototypes={h.prototypes}
+            images={h.images}
+            onChange={(patch) => updateHypothesis(h.id, patch)}
+          />
+
           <div className="mt-6">
             <div className="mb-2 flex items-center justify-between">
               <div className="text-[11px] font-semibold uppercase tracking-wider text-[var(--fg-faint)]">
