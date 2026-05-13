@@ -74,7 +74,7 @@ export default function PillarDetailPage({ params }: { params: Promise<{ id: str
         }}
       />
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_400px]">
         <div>
           <div className="font-mono text-[12px] text-[var(--fg-faint)]">{pillar.id}</div>
           <input
