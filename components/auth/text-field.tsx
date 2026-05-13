@@ -56,7 +56,7 @@ export function TextField({
           {...props}
           id={fieldId}
           type={inputType}
-          className="flex-1 bg-transparent py-2.5 pr-3 text-sm outline-none placeholder:text-[color:#9ca3af]"
+          className="flex-1 bg-transparent py-2.5 pr-3 text-sm outline-none placeholder:text-[color:var(--fg-faint)]"
           style={{ color: p.textPrimary }}
         />
         {isPassword ? (

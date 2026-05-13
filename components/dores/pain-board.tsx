@@ -61,7 +61,7 @@ export function PainBoard({ pains, onMove }: Props) {
           <div key={status} className="flex w-[300px] shrink-0 flex-col rounded-xl">
             <div
               className="relative flex items-center justify-between rounded-t-xl px-2 py-2"
-              style={{ backgroundColor: status === "em_validacao" ? "#eff6ff" : "#f9fafb" }}
+              style={{ backgroundColor: status === "em_validacao" ? "var(--info-soft)" : "var(--bg-muted)" }}
             >
               {cfg.accent && (
                 <span
@@ -71,14 +71,14 @@ export function PainBoard({ pains, onMove }: Props) {
               )}
               <div className="flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full" style={{ backgroundColor: cfg.dot }} />
-                <span className="text-[14px] font-semibold" style={{ color: "#2b364a" }}>
+                <span className="text-[14px] font-semibold" style={{ color: "var(--fg)" }}>
                   {cfg.label}
                 </span>
-                <span className="text-[13px]" style={{ color: "#9ca3af" }}>
+                <span className="text-[13px]" style={{ color: "var(--fg-faint)" }}>
                   ({items.length})
                 </span>
               </div>
-              <div className="flex items-center gap-1" style={{ color: "#9ca3af" }}>
+              <div className="flex items-center gap-1" style={{ color: "var(--fg-faint)" }}>
                 <button className="rounded p-1 hover:bg-white" aria-label="Adicionar dor">
                   <Plus size={14} />
                 </button>

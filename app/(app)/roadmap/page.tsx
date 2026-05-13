@@ -48,17 +48,17 @@ export default function RoadmapPage() {
                 <div key={s} className="flex flex-col rounded-xl">
                   <div
                     className="flex items-center justify-between rounded-t-xl px-3 py-2"
-                    style={{ backgroundColor: "#f9fafb" }}
+                    style={{ backgroundColor: "var(--bg-muted)" }}
                   >
                     <div className="flex items-center gap-2">
                       <span className="h-2 w-2 rounded-full" style={{ backgroundColor: cfg.dot }} />
-                      <span className="text-[14px] font-semibold text-[#2b364a]">{cfg.label}</span>
-                      <span className="text-[12px] text-[#9ca3af]">({col.length})</span>
+                      <span className="text-[14px] font-semibold text-[var(--fg)]">{cfg.label}</span>
+                      <span className="text-[12px] text-[var(--fg-faint)]">({col.length})</span>
                     </div>
                   </div>
                   <div className="flex flex-col gap-2 rounded-b-xl p-2">
                     {col.length === 0 && (
-                      <div className="px-2 py-3 text-[12px] text-[#cbd5e1]">Vazio</div>
+                      <div className="px-2 py-3 text-[12px] text-[var(--border-strong)]">Vazio</div>
                     )}
                     {col.map((r) => {
                       const pain = r.painId ? getPain(r.painId) : undefined;
@@ -66,17 +66,17 @@ export default function RoadmapPage() {
                         <Link
                           key={r.id}
                           href={`/roadmap/${r.id}`}
-                          className="rounded-lg border bg-white p-3 text-[13px] hover:bg-[#f9fafb]"
-                          style={{ borderColor: "#e5e7eb" }}
+                          className="rounded-lg border bg-white p-3 text-[13px] hover:bg-[var(--bg-muted)]"
+                          style={{ borderColor: "var(--border)" }}
                         >
-                          <div className="flex items-center justify-between font-mono text-[11px] text-[#9ca3af]">
+                          <div className="flex items-center justify-between font-mono text-[11px] text-[var(--fg-faint)]">
                             <span>{r.id}</span>
                             <span>{formatDateOnly(r.targetDate)}</span>
                           </div>
-                          <div className="mt-1 font-semibold text-[#2b364a]">{r.title}</div>
+                          <div className="mt-1 font-semibold text-[var(--fg)]">{r.title}</div>
                           <div className="mt-2 flex items-center justify-between">
                             {pain ? (
-                              <span className="inline-flex items-center gap-1 rounded bg-[#fff7ed] px-1.5 py-0.5 text-[11px] text-[#ea580c]">
+                              <span className="inline-flex items-center gap-1 rounded bg-[var(--warn-soft)] px-1.5 py-0.5 text-[11px] text-[var(--warn-strong)]">
                                 Dor {pain.id}
                               </span>
                             ) : (

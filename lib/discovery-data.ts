@@ -60,41 +60,41 @@ export interface RoadmapItem {
 }
 
 export const hypothesisStatusConfig: Record<HypothesisStatus, { label: string; dot: string }> = {
-  rascunho: { label: "Rascunho", dot: "#9ca3af" },
-  em_teste: { label: "Em teste", dot: "#3b82f6" },
-  validada: { label: "Validada", dot: "#16a34a" },
-  invalidada: { label: "Invalidada", dot: "#ef4444" },
+  rascunho: { label: "Rascunho", dot: "var(--fg-faint)" },
+  em_teste: { label: "Em teste", dot: "var(--info)" },
+  validada: { label: "Validada", dot: "var(--success)" },
+  invalidada: { label: "Invalidada", dot: "var(--danger)" },
 };
 
 export const experimentStatusConfig: Record<ExperimentStatus, { label: string; dot: string }> = {
-  planejado: { label: "Planejado", dot: "#9ca3af" },
-  em_andamento: { label: "Em andamento", dot: "#3b82f6" },
-  concluido: { label: "Concluído", dot: "#16a34a" },
-  cancelado: { label: "Cancelado", dot: "#cbd5e1" },
+  planejado: { label: "Planejado", dot: "var(--fg-faint)" },
+  em_andamento: { label: "Em andamento", dot: "var(--info)" },
+  concluido: { label: "Concluído", dot: "var(--success)" },
+  cancelado: { label: "Cancelado", dot: "var(--border-strong)" },
 };
 
 export const experimentResultConfig: Record<
   Exclude<ExperimentResult, null>,
   { label: string; color: string }
 > = {
-  valida: { label: "Valida hipótese", color: "#16a34a" },
-  invalida: { label: "Invalida hipótese", color: "#ef4444" },
-  inconclusivo: { label: "Inconclusivo", color: "#9ca3af" },
+  valida: { label: "Valida hipótese", color: "var(--success)" },
+  invalida: { label: "Invalida hipótese", color: "var(--danger)" },
+  inconclusivo: { label: "Inconclusivo", color: "var(--fg-faint)" },
 };
 
 export const roadmapStatusConfig: Record<RoadmapStatus, { label: string; dot: string }> = {
-  now: { label: "Now", dot: "#13c8b5" },
-  next: { label: "Next", dot: "#3b82f6" },
-  later: { label: "Later", dot: "#9ca3af" },
-  concluido: { label: "Concluído", dot: "#16a34a" },
+  now: { label: "Now", dot: "var(--primary)" },
+  next: { label: "Next", dot: "var(--info)" },
+  later: { label: "Later", dot: "var(--fg-faint)" },
+  concluido: { label: "Concluído", dot: "var(--success)" },
 };
 
 export const evidenceTypeConfig: Record<EvidenceType, { label: string; color: string }> = {
-  entrevista: { label: "Entrevista", color: "#7c3aed" },
-  metrica: { label: "Métrica", color: "#0891b2" },
-  suporte: { label: "Ticket/Suporte", color: "#ea580c" },
-  nps: { label: "NPS", color: "#16a34a" },
-  outro: { label: "Outro", color: "#9ca3af" },
+  entrevista: { label: "Entrevista", color: "var(--purple)" },
+  metrica: { label: "Métrica", color: "var(--cyan)" },
+  suporte: { label: "Ticket/Suporte", color: "var(--warn-strong)" },
+  nps: { label: "NPS", color: "var(--success)" },
+  outro: { label: "Outro", color: "var(--fg-faint)" },
 };
 
 export const hypothesisStatuses: HypothesisStatus[] = [

@@ -10,9 +10,9 @@ export interface Product {
 }
 
 export const initialProducts: Product[] = [
-  { id: "prod-core", name: "PM Core", initials: "PC", color: "#13c8b5" },
-  { id: "prod-insights", name: "Insights Hub", initials: "IH", color: "#7c3aed" },
-  { id: "prod-mobile", name: "Mobile Companion", initials: "MC", color: "#ea580c" },
+  { id: "prod-core", name: "PM Core", initials: "PC", color: "var(--primary)" },
+  { id: "prod-insights", name: "Insights Hub", initials: "IH", color: "var(--purple)" },
+  { id: "prod-mobile", name: "Mobile Companion", initials: "MC", color: "var(--warn-strong)" },
 ];
 
 const STORAGE_KEY = "products-store-v1";
@@ -28,7 +28,7 @@ interface Ctx {
 
 const ProductsCtx = createContext<Ctx | null>(null);
 
-const colors = ["#13c8b5", "#7c3aed", "#ea580c", "#0891b2", "#16a34a", "#ef4444"];
+const colors = ["var(--primary)", "var(--purple)", "var(--warn-strong)", "var(--cyan)", "var(--success)", "var(--danger)"];
 
 export function ProductsProvider({ children }: { children: React.ReactNode }) {
   const [products, setProducts] = useState<Product[]>(initialProducts);

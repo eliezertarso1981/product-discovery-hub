@@ -34,7 +34,7 @@ export function PainFlow({ pains }: Props) {
     return (
       <div
         className="rounded-xl border p-10 text-center text-[13px]"
-        style={{ borderColor: "#e5e7eb", color: "#9ca3af" }}
+        style={{ borderColor: "var(--border)", color: "var(--fg-faint)" }}
       >
         Nenhuma dor para exibir.
       </div>
@@ -49,15 +49,15 @@ export function PainFlow({ pains }: Props) {
     <div className="space-y-4">
       {/* Selector */}
       <div className="flex items-center gap-3">
-        <span className="text-[12px] font-medium" style={{ color: "#6b7280" }}>
+        <span className="text-[12px] font-medium" style={{ color: "var(--fg-subtle)" }}>
           Visualizar dor:
         </span>
         <div className="relative">
           <select
             value={selectedId}
             onChange={(e) => setSelectedId(e.target.value)}
-            className="appearance-none rounded-md border bg-white py-1.5 pl-3 pr-8 text-[13px] font-medium outline-none focus:border-[#13c8b5]"
-            style={{ borderColor: "#e5e7eb", color: "#2b364a" }}
+            className="appearance-none rounded-md border bg-white py-1.5 pl-3 pr-8 text-[13px] font-medium outline-none focus:border-[var(--primary)]"
+            style={{ borderColor: "var(--border)", color: "var(--fg)" }}
           >
             {pains.map((p) => (
               <option key={p.id} value={p.id}>
@@ -68,7 +68,7 @@ export function PainFlow({ pains }: Props) {
           <ChevronDown
             size={14}
             className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2"
-            style={{ color: "#9ca3af" }}
+            style={{ color: "var(--fg-faint)" }}
           />
         </div>
       </div>
@@ -76,14 +76,14 @@ export function PainFlow({ pains }: Props) {
       {/* Tree */}
       <div
         className="rounded-xl border bg-white p-6"
-        style={{ borderColor: "#e5e7eb" }}
+        style={{ borderColor: "var(--border)" }}
       >
         <div className="flex flex-col items-center">
           {/* Pain root */}
           <Node
             href={`/dores/${pain.id}`}
             icon={AlertCircle}
-            iconColor="#ef4444"
+            iconColor="var(--danger)"
             id={pain.id}
             title={pain.title}
             statusLabel={painStatusConfig[pain.status].label}
@@ -113,7 +113,7 @@ export function PainFlow({ pains }: Props) {
                       <Node
                         href={`/hipoteses/${h.id}`}
                         icon={FlaskConical}
-                        iconColor="#7c3aed"
+                        iconColor="var(--purple)"
                         id={h.id}
                         title={h.title}
                         statusLabel={hypothesisStatusConfig[h.status].label}
@@ -138,7 +138,7 @@ export function PainFlow({ pains }: Props) {
                                 <Node
                                   href={`/experimentos/${e.id}`}
                                   icon={Beaker}
-                                  iconColor="#0891b2"
+                                  iconColor="var(--cyan)"
                                   id={e.id}
                                   title={e.title}
                                   statusLabel={experimentStatusConfig[e.status].label}
@@ -163,12 +163,12 @@ export function PainFlow({ pains }: Props) {
             <>
               <div
                 className="my-6 w-full text-center text-[11px] font-semibold uppercase tracking-wider"
-                style={{ color: "#9ca3af" }}
+                style={{ color: "var(--fg-faint)" }}
               >
                 <div className="relative">
                   <div
                     className="absolute left-0 right-0 top-1/2 h-px"
-                    style={{ backgroundColor: "#e5e7eb" }}
+                    style={{ backgroundColor: "var(--border)" }}
                   />
                   <span className="relative bg-white px-3">Itens de roadmap originados</span>
                 </div>
@@ -183,7 +183,7 @@ export function PainFlow({ pains }: Props) {
                     <Node
                       href={`/roadmap/${r.id}`}
                       icon={Map}
-                      iconColor="#13c8b5"
+                      iconColor="var(--primary)"
                       id={r.id}
                       title={r.title}
                       statusLabel={roadmapStatusConfig[r.status].label}
@@ -229,9 +229,9 @@ function Node({
   return (
     <Link
       href={href}
-      className="group block rounded-lg border bg-white p-3 shadow-sm transition-all hover:border-[#13c8b5] hover:shadow-md"
+      className="group block rounded-lg border bg-white p-3 shadow-sm transition-all hover:border-[var(--primary)] hover:shadow-md"
       style={{
-        borderColor: "#e5e7eb",
+        borderColor: "var(--border)",
         width: wide ? 320 : small ? 200 : 220,
       }}
     >
@@ -245,13 +245,13 @@ function Node({
             {kind}
           </span>
         </div>
-        <span className="font-mono text-[10px]" style={{ color: "#9ca3af" }}>
+        <span className="font-mono text-[10px]" style={{ color: "var(--fg-faint)" }}>
           {id}
         </span>
       </div>
       <div
-        className="mt-1.5 line-clamp-2 text-[13px] font-medium leading-snug group-hover:text-[#13c8b5]"
-        style={{ color: "#2b364a" }}
+        className="mt-1.5 line-clamp-2 text-[13px] font-medium leading-snug group-hover:text-[var(--primary)]"
+        style={{ color: "var(--fg)" }}
       >
         {title}
       </div>
@@ -262,7 +262,7 @@ function Node({
             className="h-1.5 w-1.5 rounded-full"
             style={{ backgroundColor: statusColor }}
           />
-          <span className="text-[11px]" style={{ color: "#6b7280" }}>
+          <span className="text-[11px]" style={{ color: "var(--fg-subtle)" }}>
             {statusLabel}
           </span>
         </div>
@@ -278,7 +278,7 @@ function Trunk({ small }: { small?: boolean }) {
       style={{
         width: 2,
         height: small ? 20 : 28,
-        backgroundColor: "#e5e7eb",
+        backgroundColor: "var(--border)",
       }}
     />
   );
@@ -307,7 +307,7 @@ function Branches({
                     style={{
                       width: 2,
                       height: 20,
-                      backgroundColor: "#e5e7eb",
+                      backgroundColor: "var(--border)",
                     }}
                   />
                   {child}
@@ -330,7 +330,7 @@ function HorizontalConnector() {
       style={{
         top: 0,
         height: 2,
-        backgroundColor: "#e5e7eb",
+        backgroundColor: "var(--border)",
         marginLeft: "12.5%",
         marginRight: "12.5%",
       }}
@@ -343,8 +343,8 @@ function Empty({ children, small }: { children: React.ReactNode; small?: boolean
     <div
       className="rounded-lg border border-dashed text-center"
       style={{
-        borderColor: "#e5e7eb",
-        color: "#9ca3af",
+        borderColor: "var(--border)",
+        color: "var(--fg-faint)",
         padding: small ? "8px 12px" : "12px 16px",
         fontSize: small ? 11 : 12,
       }}

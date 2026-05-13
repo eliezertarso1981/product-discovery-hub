@@ -12,7 +12,7 @@ export function SeverityDots({ level }: Props) {
         <span
           key={i}
           className="h-1.5 w-1.5 rounded-full"
-          style={{ backgroundColor: i <= level ? color : "#e5e7eb" }}
+          style={{ backgroundColor: i <= level ? color : "var(--border)" }}
         />
       ))}
     </div>

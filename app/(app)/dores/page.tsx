@@ -1,12 +1,12 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Download, Bookmark, Plus } from "lucide-react";
-import { type PainStatus } from "@/lib/dores-data";
+import { type PainStatus, statusConfig } from "@/lib/dores-data";
 import { useDores } from "@/lib/dores-store";
-import { useState } from "react";
 import { DoresToolbar, type ViewMode } from "@/components/dores/dores-toolbar";
 import { PainBoard } from "@/components/dores/pain-board";
 import { PainList } from "@/components/dores/pain-list";
@@ -31,10 +31,14 @@ export default function DoresPage() {
     return { total, ativas, descartada };
   }, [pains]);
 
-  const handleMove = (id: string, status: PainStatus) => moveStatus(id, status);
+  const handleMove = (id: string, status: PainStatus) => {
+    moveStatus(id, status);
+    toast.success(`Movida para "${statusConfig[status].label}"`);
+  };
 
   const handleCreate = () => {
     const created = createPain(currentProduct.id);
+    toast.success("Nova dor criada");
     router.push(`/dores/${created.id}?new=1`);
   };
 
@@ -42,19 +46,19 @@ export default function DoresPage() {
     <div className="px-6 py-5">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <div className="text-[13px]" style={{ color: "#9ca3af" }}>
+          <div className="text-[13px]" style={{ color: "var(--fg-faint)" }}>
             <Link href="/dashboard" className="hover:underline">
               Discovery
             </Link>{" "}
-            <span className="mx-1">›</span> <span style={{ color: "#4b5563" }}>Dores</span>
+            <span className="mx-1">›</span> <span style={{ color: "var(--fg-muted)" }}>Dores</span>
           </div>
           <h1
             className="mt-1 text-[28px] font-semibold tracking-tight"
-            style={{ color: "#2b364a" }}
+            style={{ color: "var(--fg)" }}
           >
             Dores
           </h1>
-          <div className="mt-1 text-[13px]" style={{ color: "#6b7280" }}>
+          <div className="mt-1 text-[13px]" style={{ color: "var(--fg-subtle)" }}>
             <span className="font-mono">{counts.total} dores</span>
             <Sep /> <span className="font-mono">{counts.ativas} ativas</span>
             <Sep /> <span className="font-mono">{counts.descartada} descartada(s)</span>
@@ -63,21 +67,21 @@ export default function DoresPage() {
 
         <div className="flex items-center gap-2">
           <button
-            className="inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-[13px] hover:bg-[#f9fafb]"
-            style={{ borderColor: "#e5e7eb", color: "#4b5563" }}
+            className="inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-[13px] hover:bg-[var(--bg-muted)]"
+            style={{ borderColor: "var(--border)", color: "var(--fg-muted)" }}
           >
             <Download size={14} /> Exportar
           </button>
           <button
-            className="inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-[13px] hover:bg-[#f9fafb]"
-            style={{ borderColor: "#e5e7eb", color: "#4b5563" }}
+            className="inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-[13px] hover:bg-[var(--bg-muted)]"
+            style={{ borderColor: "var(--border)", color: "var(--fg-muted)" }}
           >
             <Bookmark size={14} /> Filtros salvos
           </button>
           <button
             onClick={handleCreate}
             className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[13px] font-semibold text-white transition-opacity hover:opacity-90"
-            style={{ backgroundColor: "#13c8b5" }}
+            style={{ backgroundColor: "var(--primary)" }}
           >
             <Plus size={14} /> Nova dor
           </button>
@@ -96,7 +100,7 @@ export default function DoresPage() {
         {view === "calendar" && (
           <div
             className="rounded-xl border p-10 text-center text-[13px]"
-            style={{ borderColor: "#e5e7eb", color: "#9ca3af" }}
+            style={{ borderColor: "var(--border)", color: "var(--fg-faint)" }}
           >
             Calendário em breve.
           </div>
@@ -108,7 +112,7 @@ export default function DoresPage() {
 
 function Sep() {
   return (
-    <span className="mx-1.5" style={{ color: "#d1d5db" }}>
+    <span className="mx-1.5" style={{ color: "var(--fg-disabled)" }}>
       ·
     </span>
   );

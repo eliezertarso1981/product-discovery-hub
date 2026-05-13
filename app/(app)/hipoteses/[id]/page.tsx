@@ -42,15 +42,15 @@ export default function HypothesisDetail({ params }: { params: Promise<{ id: str
     }
   }, [isNew]);
 
-  if (!ready) return <div className="px-6 py-10 text-[#9ca3af]">Carregando...</div>;
+  if (!ready) return <div className="px-6 py-10 text-[var(--fg-faint)]">Carregando...</div>;
   const h = getHypothesis(id);
   if (!h)
     return (
       <div className="px-6 py-10">
-        <Link href="/hipoteses" className="text-[#13c8b5] hover:underline">
+        <Link href="/hipoteses" className="text-[var(--primary)] hover:underline">
           ← Voltar
         </Link>
-        <p className="mt-3 text-[#4b5563]">Hipótese não encontrada.</p>
+        <p className="mt-3 text-[var(--fg-muted)]">Hipótese não encontrada.</p>
       </div>
     );
 
@@ -68,8 +68,8 @@ export default function HypothesisDetail({ params }: { params: Promise<{ id: str
               router.push("/hipoteses");
             }
           }}
-          className="inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[12px] text-[#ef4444] hover:bg-[#fef2f2]"
-          style={{ borderColor: "#fecaca" }}
+          className="inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[12px] text-[var(--danger)] hover:bg-[var(--danger-soft)]"
+          style={{ borderColor: "var(--danger-border)" }}
         >
           <Trash2 size={13} /> Excluir
         </button>
@@ -77,16 +77,16 @@ export default function HypothesisDetail({ params }: { params: Promise<{ id: str
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
         <div>
-          <div className="font-mono text-[12px] text-[#9ca3af]">{h.id}</div>
+          <div className="font-mono text-[12px] text-[var(--fg-faint)]">{h.id}</div>
           <input
             ref={titleRef}
             value={h.title}
             onChange={(e) => updateHypothesis(h.id, { title: e.target.value })}
-            className="mt-1 w-full border-0 bg-transparent text-[24px] font-semibold tracking-tight text-[#2b364a] outline-none focus:bg-[#f9fafb] focus:px-2 focus:py-1"
+            className="mt-1 w-full border-0 bg-transparent text-[24px] font-semibold tracking-tight text-[var(--fg)] outline-none focus:bg-[var(--bg-muted)] focus:px-2 focus:py-1"
           />
 
           <div className="mt-6">
-            <div className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#9ca3af]">
+            <div className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-[var(--fg-faint)]">
               Enunciado
             </div>
             <Textarea
@@ -99,7 +99,7 @@ export default function HypothesisDetail({ params }: { params: Promise<{ id: str
 
           <div className="mt-6">
             <div className="mb-2 flex items-center justify-between">
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#9ca3af]">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-[var(--fg-faint)]">
                 Experimentos ({experiments.length})
               </div>
               <button
@@ -107,14 +107,14 @@ export default function HypothesisDetail({ params }: { params: Promise<{ id: str
                   const e = createExperiment(h.productId, h.id);
                   router.push(`/experimentos/${e.id}?new=1`);
                 }}
-                className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-[11px] text-[#4b5563] hover:bg-[#f9fafb]"
-                style={{ borderColor: "#e5e7eb" }}
+                className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-[11px] text-[var(--fg-muted)] hover:bg-[var(--bg-muted)]"
+                style={{ borderColor: "var(--border)" }}
               >
                 <Plus size={12} /> Novo experimento
               </button>
             </div>
             {experiments.length === 0 ? (
-              <p className="text-[13px] text-[#9ca3af]">Nenhum experimento ainda.</p>
+              <p className="text-[13px] text-[var(--fg-faint)]">Nenhum experimento ainda.</p>
             ) : (
               <ul className="space-y-1.5">
                 {experiments.map((e) => {
@@ -123,14 +123,14 @@ export default function HypothesisDetail({ params }: { params: Promise<{ id: str
                     <li key={e.id}>
                       <Link
                         href={`/experimentos/${e.id}`}
-                        className="flex items-center justify-between rounded-md border bg-white px-2.5 py-2 text-[13px] hover:bg-[#f9fafb]"
-                        style={{ borderColor: "#e5e7eb" }}
+                        className="flex items-center justify-between rounded-md border bg-white px-2.5 py-2 text-[13px] hover:bg-[var(--bg-muted)]"
+                        style={{ borderColor: "var(--border)" }}
                       >
                         <span className="flex min-w-0 items-center gap-2">
-                          <span className="font-mono text-[11px] text-[#9ca3af]">{e.id}</span>
-                          <span className="truncate text-[#2b364a]">{e.title}</span>
+                          <span className="font-mono text-[11px] text-[var(--fg-faint)]">{e.id}</span>
+                          <span className="truncate text-[var(--fg)]">{e.title}</span>
                         </span>
-                        <span className="inline-flex items-center gap-1.5 text-[12px] text-[#4b5563]">
+                        <span className="inline-flex items-center gap-1.5 text-[12px] text-[var(--fg-muted)]">
                           <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: cfg.dot }} />
                           {cfg.label}
                         </span>
@@ -160,22 +160,22 @@ export default function HypothesisDetail({ params }: { params: Promise<{ id: str
             {pain ? (
               <Link
                 href={`/dores/${pain.id}`}
-                className="block rounded-md border bg-white p-2.5 text-[13px] hover:bg-[#f9fafb]"
-                style={{ borderColor: "#e5e7eb" }}
+                className="block rounded-md border bg-white p-2.5 text-[13px] hover:bg-[var(--bg-muted)]"
+                style={{ borderColor: "var(--border)" }}
               >
-                <div className="font-mono text-[11px] text-[#9ca3af]">{pain.id}</div>
-                <div className="mt-0.5 text-[#2b364a]">{pain.title}</div>
+                <div className="font-mono text-[11px] text-[var(--fg-faint)]">{pain.id}</div>
+                <div className="mt-0.5 text-[var(--fg)]">{pain.title}</div>
               </Link>
             ) : (
-              <p className="text-[13px] text-[#9ca3af]">Sem dor vinculada.</p>
+              <p className="text-[13px] text-[var(--fg-faint)]">Sem dor vinculada.</p>
             )}
           </Field>
 
           <Field label="Owner">
-            <div className="text-[13px] text-[#4b5563]">{h.owner.name ?? h.owner.initials}</div>
+            <div className="text-[13px] text-[var(--fg-muted)]">{h.owner.name ?? h.owner.initials}</div>
           </Field>
           <Field label="Atualizada em">
-            <div className="text-[13px] text-[#4b5563]">{formatDate(h.updatedAt)}</div>
+            <div className="text-[13px] text-[var(--fg-muted)]">{formatDate(h.updatedAt)}</div>
           </Field>
         </aside>
       </div>

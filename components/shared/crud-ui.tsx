@@ -25,7 +25,7 @@ export function PageHeader({
   return (
     <div className="flex flex-wrap items-start justify-between gap-4">
       <div>
-        <div className="text-[13px]" style={{ color: "#9ca3af" }}>
+        <div className="text-[13px]" style={{ color: "var(--fg-faint)" }}>
           {crumb.parent && (
             <>
               <Link href={crumb.parent.href} className="hover:underline">
@@ -34,24 +34,24 @@ export function PageHeader({
               <span className="mx-1">›</span>
             </>
           )}
-          <span style={{ color: "#4b5563" }}>{crumb.title}</span>
+          <span style={{ color: "var(--fg-muted)" }}>{crumb.title}</span>
         </div>
         <h1
           className="mt-1 text-[28px] font-semibold tracking-tight"
-          style={{ color: "#2b364a" }}
+          style={{ color: "var(--fg)" }}
         >
           {title}
         </h1>
         {count && (
-          <div className="mt-1 font-mono text-[13px]" style={{ color: "#6b7280" }}>
+          <div className="mt-1 font-mono text-[13px]" style={{ color: "var(--fg-subtle)" }}>
             {count}
           </div>
         )}
       </div>
       <div className="flex items-center gap-2">
         <button
-          className="inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-[13px] hover:bg-[#f9fafb]"
-          style={{ borderColor: "#e5e7eb", color: "#4b5563" }}
+          className="inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-[13px] hover:bg-[var(--bg-muted)]"
+          style={{ borderColor: "var(--border)", color: "var(--fg-muted)" }}
         >
           <Download size={14} /> Exportar
         </button>
@@ -59,7 +59,7 @@ export function PageHeader({
           <button
             onClick={onCreate}
             className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[13px] font-semibold text-white transition-opacity hover:opacity-90"
-            style={{ backgroundColor: "#13c8b5" }}
+            style={{ backgroundColor: "var(--primary)" }}
           >
             <Plus size={14} /> {createLabel}
           </button>
@@ -73,9 +73,9 @@ export function EmptyState({ title, hint }: { title: string; hint?: string }) {
   return (
     <div
       className="rounded-xl border p-10 text-center"
-      style={{ borderColor: "#e5e7eb", color: "#9ca3af" }}
+      style={{ borderColor: "var(--border)", color: "var(--fg-faint)" }}
     >
-      <p className="text-[14px] font-semibold text-[#4b5563]">{title}</p>
+      <p className="text-[14px] font-semibold text-[var(--fg-muted)]">{title}</p>
       {hint && <p className="mt-1 text-[12px]">{hint}</p>}
     </div>
   );
@@ -85,7 +85,7 @@ export function BackLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className="inline-flex items-center gap-1.5 text-[13px] text-[#6b7280] hover:text-[#2b364a]"
+      className="inline-flex items-center gap-1.5 text-[13px] text-[var(--fg-subtle)] hover:text-[var(--fg)]"
     >
       ← {label}
     </Link>
@@ -101,7 +101,7 @@ export function Field({
 }) {
   return (
     <div>
-      <div className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#9ca3af]">
+      <div className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-[var(--fg-faint)]">
         {label}
       </div>
       {children}
@@ -114,10 +114,10 @@ export function TextInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
     <input
       {...props}
       className={
-        "w-full rounded-md border bg-white px-2.5 py-1.5 text-[13px] text-[#2b364a] outline-none focus:border-[#13c8b5] " +
+        "w-full rounded-md border bg-white px-2.5 py-1.5 text-[13px] text-[var(--fg)] outline-none focus:border-[var(--primary)] " +
         (props.className ?? "")
       }
-      style={{ borderColor: "#e5e7eb", ...props.style }}
+      style={{ borderColor: "var(--border)", ...props.style }}
     />
   );
 }
@@ -127,10 +127,10 @@ export function Textarea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement
     <textarea
       {...props}
       className={
-        "w-full rounded-md border bg-white px-3 py-2 text-[14px] text-[#2b364a] outline-none focus:border-[#13c8b5] " +
+        "w-full rounded-md border bg-white px-3 py-2 text-[14px] text-[var(--fg)] outline-none focus:border-[var(--primary)] " +
         (props.className ?? "")
       }
-      style={{ borderColor: "#e5e7eb", ...props.style }}
+      style={{ borderColor: "var(--border)", ...props.style }}
     />
   );
 }
@@ -152,13 +152,13 @@ export function Select<T extends string>({
           <button
             key={o.value}
             onClick={() => onChange(o.value)}
-            className="flex items-center justify-between rounded-md border px-2.5 py-1.5 text-[13px] hover:bg-[#f9fafb]"
+            className="flex items-center justify-between rounded-md border px-2.5 py-1.5 text-[13px] hover:bg-[var(--bg-muted)]"
             style={{
-              borderColor: active ? "#13c8b5" : "#e5e7eb",
-              backgroundColor: active ? "#f4fdfb" : "white",
+              borderColor: active ? "var(--primary)" : "var(--border)",
+              backgroundColor: active ? "var(--primary-soft-2)" : "white",
             }}
           >
-            <span className="inline-flex items-center gap-2 text-[#2b364a]">
+            <span className="inline-flex items-center gap-2 text-[var(--fg)]">
               {o.dot && (
                 <span className="h-2 w-2 rounded-full" style={{ backgroundColor: o.dot }} />
               )}

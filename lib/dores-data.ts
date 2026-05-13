@@ -50,33 +50,33 @@ export interface Pain {
 }
 
 export const personas: Record<string, PersonaTag> = {
-  S: { id: "S", initial: "S", color: "#13c8b5" },
-  E: { id: "E", initial: "E", color: "#7c3aed" },
+  S: { id: "S", initial: "S", color: "var(--primary)" },
+  E: { id: "E", initial: "E", color: "var(--purple)" },
   D: { id: "D", initial: "D", color: "#b45309" },
 };
 
 export const owners: Record<string, PainOwner> = {
-  CM: { id: "CM", initials: "CM", color: "#13c8b5", name: "Camila Moraes" },
-  JC: { id: "JC", initials: "JC", color: "#ea580c", name: "João Costa" },
-  AS: { id: "AS", initials: "AS", color: "#7c3aed", name: "Ana Silva" },
-  RP: { id: "RP", initials: "RP", color: "#0891b2", name: "Rafael Pires" },
+  CM: { id: "CM", initials: "CM", color: "var(--primary)", name: "Camila Moraes" },
+  JC: { id: "JC", initials: "JC", color: "var(--warn-strong)", name: "João Costa" },
+  AS: { id: "AS", initials: "AS", color: "var(--purple)", name: "Ana Silva" },
+  RP: { id: "RP", initials: "RP", color: "var(--cyan)", name: "Rafael Pires" },
 };
 
 export const ownersList = Object.values(owners);
 
 export const statusConfig: Record<PainStatus, { label: string; dot: string; accent?: string }> = {
-  backlog: { label: "Backlog", dot: "#9ca3af" },
-  em_validacao: { label: "Em validação", dot: "#3b82f6", accent: "#3b82f6" },
-  validada: { label: "Validada", dot: "#16a34a" },
-  descartada: { label: "Descartada", dot: "#cbd5e1" },
+  backlog: { label: "Backlog", dot: "var(--fg-faint)" },
+  em_validacao: { label: "Em validação", dot: "var(--info)", accent: "var(--info)" },
+  validada: { label: "Validada", dot: "var(--success)" },
+  descartada: { label: "Descartada", dot: "var(--border-strong)" },
 };
 
 export const boardColumns: PainStatus[] = ["backlog", "em_validacao", "validada", "descartada"];
 
 export function severityColor(level: 1 | 2 | 3 | 4 | 5): string {
-  if (level <= 2) return "#16a34a";
-  if (level <= 4) return "#f59e0b";
-  return "#ef4444";
+  if (level <= 2) return "var(--success)";
+  if (level <= 4) return "var(--warn)";
+  return "var(--danger)";
 }
 
 const now = new Date().toISOString();
