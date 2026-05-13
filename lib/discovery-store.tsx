@@ -78,6 +78,9 @@ const seedEvidences: Evidence[] = [
     source: "Entrevista 12/05",
     type: "entrevista",
     notes: "Antes consolidava manualmente. Hub eliminou cópia/cola entre 4 ferramentas.",
+    attachments: [
+      { id: "att-1", label: "Transcrição da entrevista", url: "https://docs.google.com/document/d/exemplo" },
+    ],
     createdAt: now(),
     updatedAt: now(),
   },
@@ -155,6 +158,10 @@ export function DiscoveryProvider({ children }: { children: React.ReactNode }) {
         parsed.experiments = (parsed.experiments ?? []).map((e) => ({
           ...e,
           expectedResults: Array.isArray(e.expectedResults) ? e.expectedResults : [],
+        }));
+        parsed.evidences = (parsed.evidences ?? []).map((e) => ({
+          ...e,
+          attachments: Array.isArray(e.attachments) ? e.attachments : [],
         }));
         setState(parsed);
       }
@@ -259,6 +266,7 @@ export function DiscoveryProvider({ children }: { children: React.ReactNode }) {
           source: "",
           type: "entrevista",
           notes: "",
+          attachments: [],
           createdAt: now(),
           updatedAt: now(),
         };
