@@ -44,6 +44,8 @@ export interface Pain {
   responsibles: PainOwner[];
   attachments: PainAttachment[];
   comments: PainComment[];
+  pillarId?: string;
+  okrIds?: string[];
   dueDate?: string;
   createdAt: string;
   updatedAt: string;
