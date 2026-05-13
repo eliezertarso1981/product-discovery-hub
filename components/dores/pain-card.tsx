@@ -25,13 +25,16 @@ export function PainCard({ pain, selected, dragging, onSelect, onDragStart, onDr
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
       onClick={onSelect}
-      className="group relative cursor-grab rounded-lg border p-3 transition-all hover:-translate-y-px hover:shadow-sm active:cursor-grabbing"
+      className="group relative cursor-grab rounded-lg border p-3 transition-all duration-150 ease-out hover:-translate-y-0.5 hover:shadow-md active:cursor-grabbing active:scale-[1.02] active:shadow-lg"
       style={{
         backgroundColor: baseBg,
-        borderColor: baseBorder,
-        opacity: dragging ? 0.95 : 1,
-        transform: dragging ? "rotate(2deg)" : undefined,
-        boxShadow: dragging ? "0 16px 32px -12px rgba(15,20,25,0.18)" : undefined,
+        borderColor: dragging ? "#13c8b5" : baseBorder,
+        opacity: dragging ? 0.92 : 1,
+        transform: dragging ? "rotate(3deg) scale(1.04)" : undefined,
+        boxShadow: dragging
+          ? "0 24px 40px -14px rgba(19,200,181,0.35), 0 0 0 2px rgba(19,200,181,0.4)"
+          : undefined,
+        cursor: dragging ? "grabbing" : undefined,
       }}
     >
       <span
