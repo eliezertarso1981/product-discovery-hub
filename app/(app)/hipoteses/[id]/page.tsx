@@ -1,0 +1,184 @@
+"use client";
+
+import { use, useEffect, useRef } from "react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Trash2, Plus } from "lucide-react";
+import { useDiscovery } from "@/lib/discovery-store";
+import { useDores } from "@/lib/dores-store";
+import {
+  hypothesisStatusConfig,
+  hypothesisStatuses,
+  experimentStatusConfig,
+} from "@/lib/discovery-data";
+import {
+  BackLink,
+  Field,
+  Select,
+  TextInput,
+  Textarea,
+  formatDate,
+} from "@/components/shared/crud-ui";
+
+export default function HypothesisDetail({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
+  const router = useRouter();
+  const isNew = useSearchParams().get("new") === "1";
+  const {
+    ready,
+    getHypothesis,
+    updateHypothesis,
+    deleteHypothesis,
+    experimentsByHypothesis,
+    createExperiment,
+  } = useDiscovery();
+  const { getPain } = useDores();
+
+  const titleRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (isNew) {
+      titleRef.current?.focus();
+      titleRef.current?.select();
+    }
+  }, [isNew]);
+
+  if (!ready) return <div className="px-6 py-10 text-[#9ca3af]">Carregando...</div>;
+  const h = getHypothesis(id);
+  if (!h)
+    return (
+      <div className="px-6 py-10">
+        <Link href="/hipoteses" className="text-[#13c8b5] hover:underline">
+          ← Voltar
+        </Link>
+        <p className="mt-3 text-[#4b5563]">Hipótese não encontrada.</p>
+      </div>
+    );
+
+  const pain = h.painId ? getPain(h.painId) : undefined;
+  const experiments = experimentsByHypothesis(h.id);
+
+  return (
+    <div className="px-6 py-5">
+      <div className="mb-4 flex items-center justify-between">
+        <BackLink href="/hipoteses" label="Hipóteses" />
+        <button
+          onClick={() => {
+            if (confirm("Excluir esta hipótese?")) {
+              deleteHypothesis(h.id);
+              router.push("/hipoteses");
+            }
+          }}
+          className="inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[12px] text-[#ef4444] hover:bg-[#fef2f2]"
+          style={{ borderColor: "#fecaca" }}
+        >
+          <Trash2 size={13} /> Excluir
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
+        <div>
+          <div className="font-mono text-[12px] text-[#9ca3af]">{h.id}</div>
+          <input
+            ref={titleRef}
+            value={h.title}
+            onChange={(e) => updateHypothesis(h.id, { title: e.target.value })}
+            className="mt-1 w-full border-0 bg-transparent text-[24px] font-semibold tracking-tight text-[#2b364a] outline-none focus:bg-[#f9fafb] focus:px-2 focus:py-1"
+          />
+
+          <div className="mt-6">
+            <div className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#9ca3af]">
+              Enunciado
+            </div>
+            <Textarea
+              rows={4}
+              value={h.statement}
+              onChange={(e) => updateHypothesis(h.id, { statement: e.target.value })}
+              placeholder="Acreditamos que [solução] para [persona] vai gerar [resultado] e saberemos disso quando [métrica]."
+            />
+          </div>
+
+          <div className="mt-6">
+            <div className="mb-2 flex items-center justify-between">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#9ca3af]">
+                Experimentos ({experiments.length})
+              </div>
+              <button
+                onClick={() => {
+                  const e = createExperiment(h.productId, h.id);
+                  router.push(`/experimentos/${e.id}?new=1`);
+                }}
+                className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-[11px] text-[#4b5563] hover:bg-[#f9fafb]"
+                style={{ borderColor: "#e5e7eb" }}
+              >
+                <Plus size={12} /> Novo experimento
+              </button>
+            </div>
+            {experiments.length === 0 ? (
+              <p className="text-[13px] text-[#9ca3af]">Nenhum experimento ainda.</p>
+            ) : (
+              <ul className="space-y-1.5">
+                {experiments.map((e) => {
+                  const cfg = experimentStatusConfig[e.status];
+                  return (
+                    <li key={e.id}>
+                      <Link
+                        href={`/experimentos/${e.id}`}
+                        className="flex items-center justify-between rounded-md border bg-white px-2.5 py-2 text-[13px] hover:bg-[#f9fafb]"
+                        style={{ borderColor: "#e5e7eb" }}
+                      >
+                        <span className="flex min-w-0 items-center gap-2">
+                          <span className="font-mono text-[11px] text-[#9ca3af]">{e.id}</span>
+                          <span className="truncate text-[#2b364a]">{e.title}</span>
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 text-[12px] text-[#4b5563]">
+                          <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: cfg.dot }} />
+                          {cfg.label}
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        </div>
+
+        <aside className="space-y-5">
+          <Field label="Status">
+            <Select
+              value={h.status}
+              onChange={(s) => updateHypothesis(h.id, { status: s })}
+              options={hypothesisStatuses.map((s) => ({
+                value: s,
+                label: hypothesisStatusConfig[s].label,
+                dot: hypothesisStatusConfig[s].dot,
+              }))}
+            />
+          </Field>
+
+          <Field label="Dor de origem">
+            {pain ? (
+              <Link
+                href={`/dores/${pain.id}`}
+                className="block rounded-md border bg-white p-2.5 text-[13px] hover:bg-[#f9fafb]"
+                style={{ borderColor: "#e5e7eb" }}
+              >
+                <div className="font-mono text-[11px] text-[#9ca3af]">{pain.id}</div>
+                <div className="mt-0.5 text-[#2b364a]">{pain.title}</div>
+              </Link>
+            ) : (
+              <p className="text-[13px] text-[#9ca3af]">Sem dor vinculada.</p>
+            )}
+          </Field>
+
+          <Field label="Owner">
+            <div className="text-[13px] text-[#4b5563]">{h.owner.name ?? h.owner.initials}</div>
+          </Field>
+          <Field label="Atualizada em">
+            <div className="text-[13px] text-[#4b5563]">{formatDate(h.updatedAt)}</div>
+          </Field>
+        </aside>
+      </div>
+    </div>
+  );
+}

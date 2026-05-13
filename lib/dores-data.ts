@@ -31,6 +31,7 @@ export interface PainComment {
 
 export interface Pain {
   id: string;
+  productId: string;
   title: string;
   description: string;
   status: PainStatus;
@@ -43,6 +44,7 @@ export interface Pain {
   responsibles: PainOwner[];
   attachments: PainAttachment[];
   comments: PainComment[];
+  dueDate?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -82,6 +84,7 @@ const now = new Date().toISOString();
 export const initialPains: Pain[] = [
   {
     id: "PN-01",
+    productId: "prod-core",
     title: "PMs perdem horas consolidando feedback de múltiplas fontes",
     description:
       "Feedback vive espalhado em Slack, email, Zendesk, Notion. PMs gastam até 4h/semana consolidando.",
@@ -107,6 +110,7 @@ export const initialPains: Pain[] = [
   },
   {
     id: "PN-02",
+    productId: "prod-core",
     title: "Time-to-value alto pra novos clientes",
     description:
       "Novos clientes levam em média 2 semanas pra modelar estratégia inicial. Muitos abandonam antes.",
@@ -125,6 +129,7 @@ export const initialPains: Pain[] = [
   },
   {
     id: "PN-03",
+    productId: "prod-core",
     title: "Falta de relatórios executivos prontos",
     description:
       "Liderança quer reports mensais, e PMs montam manualmente em PowerPoint. Esforço de 4–6h/mês por PM.",
@@ -143,6 +148,7 @@ export const initialPains: Pain[] = [
   },
   {
     id: "PN-04",
+    productId: "prod-mobile",
     title: "Performance ruim no mobile gera abandono",
     description: "Timeline carrega em 8s no mobile. 78% abandonam em <30s.",
     status: "backlog",
@@ -160,6 +166,7 @@ export const initialPains: Pain[] = [
   },
   {
     id: "PN-05",
+    productId: "prod-core",
     title: "Difícil rastrear quais decisões mudaram porque",
     description:
       'Mudanças de prioridade no roadmap acontecem mas o motivo se perde. Time pergunta "por que isso saiu?"',
@@ -178,6 +185,7 @@ export const initialPains: Pain[] = [
   },
   {
     id: "PN-06",
+    productId: "prod-insights",
     title: "Falta integração com algumas ferramentas de nicho",
     description: "Pedidos esporádicos de integrações com tools de pequena adoção.",
     status: "descartada",
@@ -195,6 +203,7 @@ export const initialPains: Pain[] = [
   },
   {
     id: "PN-07",
+    productId: "prod-core",
     title: "Falta exportação de roadmap para PowerPoint",
     description:
       "PMs precisam apresentar roadmap pra liderança e gastam tempo refazendo slides manualmente.",

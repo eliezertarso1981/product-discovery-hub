@@ -11,9 +11,16 @@ import { DoresToolbar, type ViewMode } from "@/components/dores/dores-toolbar";
 import { PainBoard } from "@/components/dores/pain-board";
 import { PainList } from "@/components/dores/pain-list";
 
+import { useProducts } from "@/lib/products-context";
+
 export default function DoresPage() {
   const router = useRouter();
-  const { pains, moveStatus, createPain } = useDores();
+  const { currentProduct } = useProducts();
+  const { pains: allPains, moveStatus, createPain } = useDores();
+  const pains = useMemo(
+    () => allPains.filter((p) => p.productId === currentProduct.id),
+    [allPains, currentProduct.id],
+  );
   const [view, setView] = useState<ViewMode>("board");
 
   const counts = useMemo(() => {
@@ -26,7 +33,7 @@ export default function DoresPage() {
   const handleMove = (id: string, status: PainStatus) => moveStatus(id, status);
 
   const handleCreate = () => {
-    const created = createPain();
+    const created = createPain(currentProduct.id);
     router.push(`/dores/${created.id}?new=1`);
   };
 

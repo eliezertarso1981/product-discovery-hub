@@ -11,7 +11,7 @@ import {
   type PainStatus,
 } from "./dores-data";
 
-const STORAGE_KEY = "dores-store-v2";
+const STORAGE_KEY = "dores-store-v3";
 
 const STATUS_MIGRATION: Record<string, PainStatus> = {
   identificada: "backlog",
@@ -22,13 +22,14 @@ const STATUS_MIGRATION: Record<string, PainStatus> = {
   descartada: "descartada",
 };
 
-function sanitize(p: Pain): Pain {
+function sanitize(p: Pain, fallbackProductId: string): Pain {
   const status = (boardColumns as string[]).includes(p.status)
     ? p.status
     : (STATUS_MIGRATION[p.status as unknown as string] ?? "backlog");
   return {
     ...p,
     status,
+    productId: p.productId ?? fallbackProductId,
     responsibles: p.responsibles ?? (p.owner ? [p.owner] : []),
     attachments: p.attachments ?? [],
     comments: p.comments ?? [],
@@ -43,7 +44,7 @@ interface Ctx {
   ready: boolean;
   currentUser: typeof owners.CM;
   getPain: (id: string) => Pain | undefined;
-  createPain: () => Pain;
+  createPain: (productId: string) => Pain;
   updatePain: (id: string, patch: Partial<Pain>) => void;
   deletePain: (id: string) => void;
   moveStatus: (id: string, status: PainStatus) => void;
@@ -69,7 +70,8 @@ export function DoresProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setPains((JSON.parse(raw) as Pain[]).map(sanitize));
+      if (raw)
+        setPains((JSON.parse(raw) as Pain[]).map((p) => sanitize(p, "prod-core")));
     } catch {
       // ignore
     }
@@ -97,31 +99,33 @@ export function DoresProvider({ children }: { children: React.ReactNode }) {
     );
   }, []);
 
-  const createPain = useCallback((): Pain => {
-    const now = new Date().toISOString();
-    const id = nextPainId(pains);
-    const newPain: Pain = {
-      id,
-      title: "Nova dor",
-      description: "",
-      status: "backlog",
-      severity: 3,
-      reach: 0,
-      evidences: 0,
-      hypotheses: 0,
-      personas: [],
-      owner: currentUser,
-      responsibles: [currentUser],
-      attachments: [],
-      comments: [],
-      createdAt: now,
-      updatedAt: now,
-    };
-    setPains((prev) =>
-      prev.some((p) => p.id === id) ? prev : [newPain, ...prev],
-    );
-    return newPain;
-  }, [pains, currentUser]);
+  const createPain = useCallback(
+    (productId: string): Pain => {
+      const now = new Date().toISOString();
+      const id = nextPainId(pains);
+      const newPain: Pain = {
+        id,
+        productId,
+        title: "Nova dor",
+        description: "",
+        status: "backlog",
+        severity: 3,
+        reach: 0,
+        evidences: 0,
+        hypotheses: 0,
+        personas: [],
+        owner: currentUser,
+        responsibles: [currentUser],
+        attachments: [],
+        comments: [],
+        createdAt: now,
+        updatedAt: now,
+      };
+      setPains((prev) => (prev.some((p) => p.id === id) ? prev : [newPain, ...prev]));
+      return newPain;
+    },
+    [pains, currentUser],
+  );
 
 
   const deletePain = useCallback((id: string) => {

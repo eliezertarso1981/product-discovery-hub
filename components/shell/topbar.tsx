@@ -1,6 +1,7 @@
 import { Search, Plus, Bell, ChevronDown } from "lucide-react";
 import { Avatar } from "@/components/shared/avatar";
 import { currentUser } from "@/lib/mock-data";
+import { ProductSwitcher } from "./product-switcher";
 
 export function Topbar() {
   return (
@@ -8,6 +9,7 @@ export function Topbar() {
       className="flex h-14 items-center gap-4 border-b px-6"
       style={{ borderColor: "#e5e7eb", backgroundColor: "#ffffff" }}
     >
+      <ProductSwitcher />
       <div className="flex-1 flex justify-center">
         <div
           className="flex w-full max-w-xl items-center gap-2 rounded-lg border px-3 py-1.5"
