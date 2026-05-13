@@ -78,6 +78,9 @@ const seedEvidences: Evidence[] = [
     source: "Entrevista 12/05",
     type: "entrevista",
     notes: "Antes consolidava manualmente. Hub eliminou cópia/cola entre 4 ferramentas.",
+    attachments: [
+      { id: "att-1", label: "Transcrição da entrevista", url: "https://docs.google.com/document/d/exemplo" },
+    ],
     createdAt: now(),
     updatedAt: now(),
   },
