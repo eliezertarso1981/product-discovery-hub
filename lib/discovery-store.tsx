@@ -159,6 +159,11 @@ export function DiscoveryProvider({ children }: { children: React.ReactNode }) {
       if (raw) {
         const parsed = JSON.parse(raw) as State;
         // migrate older shapes
+        parsed.hypotheses = (parsed.hypotheses ?? []).map((h) => ({
+          ...h,
+          prototypes: Array.isArray(h.prototypes) ? h.prototypes : [],
+          images: Array.isArray(h.images) ? h.images : [],
+        }));
         parsed.experiments = (parsed.experiments ?? []).map((e) => ({
           ...e,
           expectedResults: Array.isArray(e.expectedResults) ? e.expectedResults : [],
