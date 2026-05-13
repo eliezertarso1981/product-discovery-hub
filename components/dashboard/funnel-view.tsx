@@ -27,9 +27,8 @@ export function FunnelView() {
 
       <div className="mt-6 flex w-full items-stretch gap-1">
         {funnel.map((stage, i) => (
-          <>
+          <Fragment key={stage.label}>
             <div
-              key={stage.label}
               className="flex min-w-0 flex-1 flex-col rounded-xl p-3"
               style={{ backgroundColor: "var(--primary-soft)" }}
             >
