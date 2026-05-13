@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { ChevronRight, AlertTriangle } from "lucide-react";
 import { funnel, bottleneck } from "@/lib/mock-data";
 
