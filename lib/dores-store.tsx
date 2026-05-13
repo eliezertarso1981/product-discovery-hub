@@ -33,6 +33,7 @@ function sanitize(p: Pain, fallbackProductId: string): Pain {
     responsibles: p.responsibles ?? (p.owner ? [p.owner] : []),
     attachments: p.attachments ?? [],
     comments: p.comments ?? [],
+    okrIds: Array.isArray(p.okrIds) ? p.okrIds : [],
     createdAt: p.createdAt ?? new Date().toISOString(),
     updatedAt: p.updatedAt ?? new Date().toISOString(),
   };
@@ -118,6 +119,7 @@ export function DoresProvider({ children }: { children: React.ReactNode }) {
         responsibles: [currentUser],
         attachments: [],
         comments: [],
+        okrIds: [],
         createdAt: now,
         updatedAt: now,
       };
