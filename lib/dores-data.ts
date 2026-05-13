@@ -31,6 +31,7 @@ export interface PainComment {
 
 export interface Pain {
   id: string;
+  productId: string;
   title: string;
   description: string;
   status: PainStatus;
@@ -43,6 +44,7 @@ export interface Pain {
   responsibles: PainOwner[];
   attachments: PainAttachment[];
   comments: PainComment[];
+  dueDate?: string;
   createdAt: string;
   updatedAt: string;
 }
