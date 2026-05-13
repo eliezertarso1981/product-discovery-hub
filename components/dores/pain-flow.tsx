@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowRight, AlertCircle, FlaskConical, Beaker, Map } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { Pain } from "@/lib/dores-data";
-import { painStatusConfig } from "@/lib/dores-data";
+import { statusConfig as painStatusConfig } from "@/lib/dores-data";
 import { useDiscovery } from "@/lib/discovery-store";
 import {
   hypothesisStatusConfig,
