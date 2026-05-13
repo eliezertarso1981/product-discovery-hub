@@ -159,6 +159,10 @@ export function DiscoveryProvider({ children }: { children: React.ReactNode }) {
           ...e,
           expectedResults: Array.isArray(e.expectedResults) ? e.expectedResults : [],
         }));
+        parsed.evidences = (parsed.evidences ?? []).map((e) => ({
+          ...e,
+          attachments: Array.isArray(e.attachments) ? e.attachments : [],
+        }));
         setState(parsed);
       }
     } catch {
