@@ -34,7 +34,7 @@ export function ProductSwitcher() {
             <div className="px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-[var(--fg-faint)]">
               Produto
             </div>
-            {products.map((p) => (
+            {products.filter((p) => p.status === "active").map((p) => (
               <button
                 key={p.id}
                 onClick={() => {
