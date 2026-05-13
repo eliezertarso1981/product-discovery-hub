@@ -10,6 +10,7 @@ import { useState } from "react";
 import { DoresToolbar, type ViewMode } from "@/components/dores/dores-toolbar";
 import { PainBoard } from "@/components/dores/pain-board";
 import { PainList } from "@/components/dores/pain-list";
+import { PainFlow } from "@/components/dores/pain-flow";
 
 import { useProducts } from "@/lib/products-context";
 
