@@ -61,7 +61,7 @@ export function PainBoard({ pains, onMove }: Props) {
           <div key={status} className="flex w-[300px] shrink-0 flex-col rounded-xl">
             <div
               className="relative flex items-center justify-between rounded-t-xl px-2 py-2"
-              style={{ backgroundColor: status === "enderecada" ? "#fffbeb" : "#f9fafb" }}
+              style={{ backgroundColor: status === "em_validacao" ? "#eff6ff" : "#f9fafb" }}
             >
               {cfg.accent && (
                 <span
