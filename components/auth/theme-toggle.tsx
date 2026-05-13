@@ -4,13 +4,7 @@ import { Sun, Moon } from "lucide-react";
 import type { AuthTheme } from "@/lib/theme";
 import { palette } from "@/lib/theme";
 
-export function ThemeToggle({
-  theme,
-  onToggle,
-}: {
-  theme: AuthTheme;
-  onToggle: () => void;
-}) {
+export function ThemeToggle({ theme, onToggle }: { theme: AuthTheme; onToggle: () => void }) {
   const p = palette[theme];
   const Icon = theme === "dark" ? Sun : Moon;
   return (

@@ -8,13 +8,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-export type EntityType =
-  | "evidence"
-  | "pain"
-  | "hypothesis"
-  | "experiment"
-  | "roadmap"
-  | "outcome";
+export type EntityType = "evidence" | "pain" | "hypothesis" | "experiment" | "roadmap" | "outcome";
 
 export const entityConfig: Record<
   EntityType,

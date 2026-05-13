@@ -31,10 +31,7 @@ export function FunnelView() {
               className="flex min-w-[110px] flex-col rounded-xl p-3"
               style={{ backgroundColor: "#e6f8f5" }}
             >
-              <div
-                className="text-[11px] leading-tight"
-                style={{ color: "#0f766e" }}
-              >
+              <div className="text-[11px] leading-tight" style={{ color: "#0f766e" }}>
                 {stage.label}
               </div>
               <div className="mt-2 text-2xl font-semibold" style={{ color: "#2b364a" }}>

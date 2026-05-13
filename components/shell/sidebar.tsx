@@ -48,10 +48,7 @@ export function Sidebar() {
           <NavItem href="/outcomes" icon={Target} label="Outcomes" />
         </Group>
 
-        <div
-          className="my-4 h-px"
-          style={{ backgroundColor: "#e5e7eb" }}
-        />
+        <div className="my-4 h-px" style={{ backgroundColor: "#e5e7eb" }} />
         <div className="space-y-1">
           <NavItem href="/personas" icon={Users} label="Personas" />
           <NavItem href="/settings" icon={Settings} label="Settings" />

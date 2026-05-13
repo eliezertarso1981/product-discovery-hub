@@ -11,7 +11,8 @@ export function useAuthTheme(): [AuthTheme, (t: AuthTheme) => void, boolean] {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const saved = (typeof window !== "undefined" && (localStorage.getItem(KEY) as AuthTheme)) || "light";
+    const saved =
+      (typeof window !== "undefined" && (localStorage.getItem(KEY) as AuthTheme)) || "light";
     setThemeState(saved === "dark" ? "dark" : "light");
     setReady(true);
   }, []);
