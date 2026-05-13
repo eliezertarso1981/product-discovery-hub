@@ -56,7 +56,7 @@ export function FunnelView() {
                 <ChevronRight size={16} color="var(--fg-faint)" />
               </div>
             )}
-          </>
+          </Fragment>
         ))}
       </div>
 
