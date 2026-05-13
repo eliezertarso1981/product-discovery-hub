@@ -31,6 +31,8 @@ const seedHypotheses: Hypothesis[] = [
       "Acreditamos que se PMs tiverem um hub que conecta Slack/Zendesk/email, reduziremos o tempo de consolidação em 70%.",
     status: "em_teste",
     owner: owners.AS,
+    prototypes: [],
+    images: [],
     createdAt: now(),
     updatedAt: now(),
   },
