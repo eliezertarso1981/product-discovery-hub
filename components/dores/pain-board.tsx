@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Sortable from "sortablejs";
 import { Plus, MoreHorizontal } from "lucide-react";
 import { boardColumns, statusConfig, type Pain, type PainStatus } from "@/lib/dores-data";
@@ -12,7 +13,7 @@ interface Props {
 }
 
 export function PainBoard({ pains, onMove }: Props) {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const router = useRouter();
   const listRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const onMoveRef = useRef(onMove);
   onMoveRef.current = onMove;
@@ -60,7 +61,7 @@ export function PainBoard({ pains, onMove }: Props) {
           <div key={status} className="flex w-[300px] shrink-0 flex-col rounded-xl">
             <div
               className="relative flex items-center justify-between rounded-t-xl px-2 py-2"
-              style={{ backgroundColor: status === "enderecada" ? "#fffbeb" : "#f9fafb" }}
+              style={{ backgroundColor: status === "em_validacao" ? "#eff6ff" : "#f9fafb" }}
             >
               {cfg.accent && (
                 <span
@@ -96,11 +97,7 @@ export function PainBoard({ pains, onMove }: Props) {
             >
               {items.map((p) => (
                 <div key={p.id} data-pain-id={p.id}>
-                  <PainCard
-                    pain={p}
-                    selected={selectedId === p.id}
-                    onSelect={() => setSelectedId(p.id === selectedId ? null : p.id)}
-                  />
+                  <PainCard pain={p} onSelect={() => router.push(`/dores/${p.id}`)} />
                 </div>
               ))}
             </div>
