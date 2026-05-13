@@ -52,6 +52,8 @@ export function Topbar() {
         />
       </button>
 
+      <ThemeToggle />
+
       <Avatar initials={currentUser.initials} color="var(--primary)" size={32} />
     </header>
   );
