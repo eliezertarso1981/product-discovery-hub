@@ -13,7 +13,7 @@ export function Sidebar() {
 
   return (
     <aside
-      className="relative flex h-screen flex-col border-r transition-[width] duration-200"
+      className="sticky top-0 flex h-screen shrink-0 flex-col self-start border-r transition-[width] duration-200"
       style={{ backgroundColor: "#f7f8fa", borderColor: "#e5e7eb", width }}
     >
       <button
