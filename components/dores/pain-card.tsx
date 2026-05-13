@@ -31,9 +31,7 @@ export function PainCard({ pain, selected, dragging, onSelect, onDragStart, onDr
         borderColor: baseBorder,
         opacity: dragging ? 0.95 : 1,
         transform: dragging ? "rotate(2deg)" : undefined,
-        boxShadow: dragging
-          ? "0 16px 32px -12px rgba(15,20,25,0.18)"
-          : undefined,
+        boxShadow: dragging ? "0 16px 32px -12px rgba(15,20,25,0.18)" : undefined,
       }}
     >
       <span
@@ -55,17 +53,11 @@ export function PainCard({ pain, selected, dragging, onSelect, onDragStart, onDr
         <SeverityDots level={pain.severity} />
       </div>
 
-      <h3
-        className="mt-2 text-[14px] font-semibold leading-snug"
-        style={{ color: "#2b364a" }}
-      >
+      <h3 className="mt-2 text-[14px] font-semibold leading-snug" style={{ color: "#2b364a" }}>
         {pain.title}
       </h3>
 
-      <p
-        className="mt-1.5 text-[13px] leading-snug"
-        style={{ color: "#6b7280" }}
-      >
+      <p className="mt-1.5 text-[13px] leading-snug" style={{ color: "#6b7280" }}>
         {pain.description}
       </p>
 

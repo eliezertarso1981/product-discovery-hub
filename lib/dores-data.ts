@@ -43,10 +43,7 @@ export const owners: Record<string, PainOwner> = {
   AS: { id: "AS", initials: "AS", color: "#13c8b5" },
 };
 
-export const statusConfig: Record<
-  PainStatus,
-  { label: string; dot: string; accent?: string }
-> = {
+export const statusConfig: Record<PainStatus, { label: string; dot: string; accent?: string }> = {
   identificada: { label: "Identificada", dot: "#9ca3af" },
   investigando: { label: "Investigando", dot: "#3b82f6" },
   priorizada: { label: "Priorizada", dot: "#8b5cf6" },
@@ -143,8 +140,7 @@ export const initialPains: Pain[] = [
   {
     id: "PN-08",
     title: "Sincronização com Jira perde contexto em loops longos",
-    description:
-      "Itens com sub-tarefas profundas no Jira chegam ao roadmap sem hierarquia clara.",
+    description: "Itens com sub-tarefas profundas no Jira chegam ao roadmap sem hierarquia clara.",
     status: "priorizada",
     severity: 3,
     reach: 220,

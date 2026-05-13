@@ -2,12 +2,7 @@
 
 import { useState } from "react";
 import { Plus, MoreHorizontal } from "lucide-react";
-import {
-  boardColumns,
-  statusConfig,
-  type Pain,
-  type PainStatus,
-} from "@/lib/dores-data";
+import { boardColumns, statusConfig, type Pain, type PainStatus } from "@/lib/dores-data";
 import { PainCard } from "./pain-card";
 
 interface Props {
@@ -69,16 +64,10 @@ export function PainBoard({ pains, onMove }: Props) {
                 </span>
               </div>
               <div className="flex items-center gap-1" style={{ color: "#9ca3af" }}>
-                <button
-                  className="rounded p-1 hover:bg-white"
-                  aria-label="Adicionar dor"
-                >
+                <button className="rounded p-1 hover:bg-white" aria-label="Adicionar dor">
                   <Plus size={14} />
                 </button>
-                <button
-                  className="rounded p-1 hover:bg-white"
-                  aria-label="Mais opções"
-                >
+                <button className="rounded p-1 hover:bg-white" aria-label="Mais opções">
                   <MoreHorizontal size={14} />
                 </button>
               </div>

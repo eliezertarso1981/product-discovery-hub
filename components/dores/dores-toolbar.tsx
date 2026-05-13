@@ -1,6 +1,15 @@
 "use client";
 
-import { ChevronDown, SlidersHorizontal, X, Search, LayoutGrid, List, Columns3, Calendar } from "lucide-react";
+import {
+  ChevronDown,
+  SlidersHorizontal,
+  X,
+  Search,
+  LayoutGrid,
+  List,
+  Columns3,
+  Calendar,
+} from "lucide-react";
 
 export type ViewMode = "grid" | "list" | "board" | "calendar";
 
@@ -54,7 +63,10 @@ export function DoresToolbar({ view, onViewChange }: Props) {
           Mais filtros
           <ChevronDown size={12} />
         </button>
-        <button className="text-[13px] underline-offset-2 hover:underline" style={{ color: "#6b7280" }}>
+        <button
+          className="text-[13px] underline-offset-2 hover:underline"
+          style={{ color: "#6b7280" }}
+        >
           Limpar filtros
         </button>
       </div>
@@ -77,10 +89,22 @@ export function DoresToolbar({ view, onViewChange }: Props) {
           className="flex items-center rounded-md border p-0.5"
           style={{ borderColor: "#e5e7eb", backgroundColor: "#ffffff" }}
         >
-          <ViewBtn icon={LayoutGrid} active={view === "grid"} onClick={() => onViewChange("grid")} />
+          <ViewBtn
+            icon={LayoutGrid}
+            active={view === "grid"}
+            onClick={() => onViewChange("grid")}
+          />
           <ViewBtn icon={List} active={view === "list"} onClick={() => onViewChange("list")} />
-          <ViewBtn icon={Columns3} active={view === "board"} onClick={() => onViewChange("board")} />
-          <ViewBtn icon={Calendar} active={view === "calendar"} onClick={() => onViewChange("calendar")} />
+          <ViewBtn
+            icon={Columns3}
+            active={view === "board"}
+            onClick={() => onViewChange("board")}
+          />
+          <ViewBtn
+            icon={Calendar}
+            active={view === "calendar"}
+            onClick={() => onViewChange("calendar")}
+          />
         </div>
       </div>
     </div>

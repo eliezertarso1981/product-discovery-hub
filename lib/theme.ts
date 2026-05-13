@@ -21,7 +21,9 @@ export function useAuthTheme(): [AuthTheme, (t: AuthTheme) => void, boolean] {
     setThemeState(t);
     try {
       localStorage.setItem(KEY, t);
-    } catch { /* noop */ }
+    } catch {
+      /* noop */
+    }
   };
 
   return [theme, setTheme, ready];
