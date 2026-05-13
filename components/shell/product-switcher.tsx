@@ -60,7 +60,7 @@ export function ProductSwitcher() {
               onClick={() => {
                 const name = prompt("Nome do novo produto?");
                 if (name?.trim()) {
-                  addProduct(name.trim());
+                  addProduct({ name: name.trim() });
                   setOpen(false);
                 }
               }}
