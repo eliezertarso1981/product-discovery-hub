@@ -24,8 +24,8 @@ export function NavItem({ href, icon: Icon, label, badge, collapsed }: NavItemPr
         collapsed ? "justify-center px-2" : "px-3"
       }`}
       style={{
-        backgroundColor: active ? "#e6f8f5" : "transparent",
-        color: active ? "#13c8b5" : "#4b5563",
+        backgroundColor: active ? "var(--primary-soft)" : "transparent",
+        color: active ? "var(--primary)" : "var(--fg-muted)",
         fontWeight: active ? 600 : 500,
       }}
     >
@@ -33,7 +33,7 @@ export function NavItem({ href, icon: Icon, label, badge, collapsed }: NavItemPr
         <span
           aria-hidden
           className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full"
-          style={{ backgroundColor: "#13c8b5" }}
+          style={{ backgroundColor: "var(--primary)" }}
         />
       )}
       <Icon size={18} />
@@ -43,7 +43,7 @@ export function NavItem({ href, icon: Icon, label, badge, collapsed }: NavItemPr
           {badge !== undefined && (
             <span
               className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-md px-1.5 text-xs font-semibold"
-              style={{ backgroundColor: "#fee2e2", color: "#dc2626" }}
+              style={{ backgroundColor: "var(--danger-soft)", color: "var(--danger-strong)" }}
             >
               {badge}
             </span>

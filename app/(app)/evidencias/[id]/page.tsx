@@ -22,15 +22,15 @@ export default function EvidenceDetail({ params }: { params: Promise<{ id: strin
     }
   }, [isNew]);
 
-  if (!ready) return <div className="px-6 py-10 text-[#9ca3af]">Carregando...</div>;
+  if (!ready) return <div className="px-6 py-10 text-[var(--fg-faint)]">Carregando...</div>;
   const ev = getEvidence(id);
   if (!ev)
     return (
       <div className="px-6 py-10">
-        <Link href="/evidencias" className="text-[#13c8b5] hover:underline">
+        <Link href="/evidencias" className="text-[var(--primary)] hover:underline">
           ← Voltar
         </Link>
-        <p className="mt-3 text-[#4b5563]">Evidência não encontrada.</p>
+        <p className="mt-3 text-[var(--fg-muted)]">Evidência não encontrada.</p>
       </div>
     );
 
@@ -47,8 +47,8 @@ export default function EvidenceDetail({ params }: { params: Promise<{ id: strin
               router.push("/evidencias");
             }
           }}
-          className="inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[12px] text-[#ef4444] hover:bg-[#fef2f2]"
-          style={{ borderColor: "#fecaca" }}
+          className="inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[12px] text-[var(--danger)] hover:bg-[var(--danger-soft)]"
+          style={{ borderColor: "var(--danger-border)" }}
         >
           <Trash2 size={13} /> Excluir
         </button>
@@ -56,16 +56,16 @@ export default function EvidenceDetail({ params }: { params: Promise<{ id: strin
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
         <div>
-          <div className="font-mono text-[12px] text-[#9ca3af]">{ev.id}</div>
+          <div className="font-mono text-[12px] text-[var(--fg-faint)]">{ev.id}</div>
           <input
             ref={titleRef}
             value={ev.title}
             onChange={(e) => updateEvidence(ev.id, { title: e.target.value })}
-            className="mt-1 w-full border-0 bg-transparent text-[24px] font-semibold tracking-tight text-[#2b364a] outline-none focus:bg-[#f9fafb] focus:px-2 focus:py-1"
+            className="mt-1 w-full border-0 bg-transparent text-[24px] font-semibold tracking-tight text-[var(--fg)] outline-none focus:bg-[var(--bg-muted)] focus:px-2 focus:py-1"
           />
 
           <div className="mt-6">
-            <div className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#9ca3af]">
+            <div className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-[var(--fg-faint)]">
               Notas
             </div>
             <Textarea
@@ -89,8 +89,8 @@ export default function EvidenceDetail({ params }: { params: Promise<{ id: strin
                     onClick={() => updateEvidence(ev.id, { type: t as EvidenceType })}
                     className="rounded-md border px-2.5 py-1 text-[12px]"
                     style={{
-                      borderColor: active ? cfg.color : "#e5e7eb",
-                      color: active ? cfg.color : "#6b7280",
+                      borderColor: active ? cfg.color : "var(--border)",
+                      color: active ? cfg.color : "var(--fg-subtle)",
                       backgroundColor: active ? `${cfg.color}10` : "white",
                     }}
                   >
@@ -113,19 +113,19 @@ export default function EvidenceDetail({ params }: { params: Promise<{ id: strin
             {exp ? (
               <Link
                 href={`/experimentos/${exp.id}`}
-                className="block rounded-md border bg-white p-2.5 text-[13px] hover:bg-[#f9fafb]"
-                style={{ borderColor: "#e5e7eb" }}
+                className="block rounded-md border bg-white p-2.5 text-[13px] hover:bg-[var(--bg-muted)]"
+                style={{ borderColor: "var(--border)" }}
               >
-                <div className="font-mono text-[11px] text-[#9ca3af]">{exp.id}</div>
-                <div className="mt-0.5 text-[#2b364a]">{exp.title}</div>
+                <div className="font-mono text-[11px] text-[var(--fg-faint)]">{exp.id}</div>
+                <div className="mt-0.5 text-[var(--fg)]">{exp.title}</div>
               </Link>
             ) : (
-              <p className="text-[13px] text-[#9ca3af]">Sem experimento vinculado.</p>
+              <p className="text-[13px] text-[var(--fg-faint)]">Sem experimento vinculado.</p>
             )}
           </Field>
 
           <Field label="Atualizada">
-            <div className="text-[13px] text-[#4b5563]">{formatDate(ev.updatedAt)}</div>
+            <div className="text-[13px] text-[var(--fg-muted)]">{formatDate(ev.updatedAt)}</div>
           </Field>
         </aside>
       </div>

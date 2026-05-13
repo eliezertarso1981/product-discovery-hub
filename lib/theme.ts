@@ -31,20 +31,20 @@ export function useAuthTheme(): [AuthTheme, (t: AuthTheme) => void, boolean] {
 
 export const palette = {
   light: {
-    canvas: "#ffffff",
-    textPrimary: "#2b364a",
-    textSecondary: "#6b7280",
-    textMuted: "#9ca3af",
-    border: "#e5e7eb",
-    inputBg: "#ffffff",
-    socialBg: "#ffffff",
-    hover: "#f9fafb",
-    errorBg: "#ffffff",
+    canvas: "var(--bg-elevated)",
+    textPrimary: "var(--fg)",
+    textSecondary: "var(--fg-subtle)",
+    textMuted: "var(--fg-faint)",
+    border: "var(--border)",
+    inputBg: "var(--bg-elevated)",
+    socialBg: "var(--bg-elevated)",
+    hover: "var(--bg-muted)",
+    errorBg: "var(--bg-elevated)",
   },
   dark: {
     canvas: "#0a0f1c",
-    textPrimary: "#ffffff",
-    textSecondary: "#94a3b8",
+    textPrimary: "var(--bg-elevated)",
+    textSecondary: "var(--fg-faint)",
     textMuted: "#64748b",
     border: "#1e293b",
     inputBg: "#111827",
@@ -55,10 +55,10 @@ export const palette = {
 } as const;
 
 export const brand = {
-  primary: "#13c8b5",
+  primary: "var(--primary)",
   primaryHover: "#0fb3a1",
-  primarySoft: "#e6f8f5",
-  danger: "#ef4444",
-  dangerSoft: "#fef2f2",
+  primarySoft: "var(--primary-soft)",
+  danger: "var(--danger)",
+  dangerSoft: "var(--danger-soft)",
   panelDark: "#0f172a",
 };

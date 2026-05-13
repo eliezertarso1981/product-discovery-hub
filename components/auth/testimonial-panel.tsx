@@ -18,20 +18,20 @@ export function TestimonialPanel() {
       </div>
 
       <div className="max-w-xl">
-        <Quote size={28} color="#13c8b5" className="mb-5" />
+        <Quote size={28} color="var(--primary)" className="mb-5" />
         <p className="text-2xl font-semibold leading-snug text-white">
           Pela primeira vez consigo provar que o que entregamos moveu o que prometemos.
         </p>
         <div className="mt-8 flex items-center gap-3">
           <div
             className="flex h-11 w-11 items-center justify-center rounded-full text-sm font-semibold text-white"
-            style={{ backgroundColor: "#13c8b5" }}
+            style={{ backgroundColor: "var(--primary)" }}
           >
             MS
           </div>
           <div>
             <div className="text-sm font-semibold text-white">Maria Souza</div>
-            <div className="text-xs" style={{ color: "#94a3b8" }}>
+            <div className="text-xs" style={{ color: "var(--fg-faint)" }}>
               VP de Produto, Acme Corp
             </div>
           </div>

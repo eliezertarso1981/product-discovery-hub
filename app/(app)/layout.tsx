@@ -9,7 +9,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <ProductsProvider>
       <DoresProvider>
         <DiscoveryProvider>
-          <div className="flex min-h-screen" style={{ backgroundColor: "#ffffff" }}>
+          <div className="flex min-h-screen" style={{ backgroundColor: "var(--bg-elevated)" }}>
             <Sidebar />
             <div className="flex flex-1 flex-col">
               <Topbar />

@@ -31,15 +31,15 @@ export default function RoadmapDetail({ params }: { params: Promise<{ id: string
     }
   }, [isNew]);
 
-  if (!ready) return <div className="px-6 py-10 text-[#9ca3af]">Carregando...</div>;
+  if (!ready) return <div className="px-6 py-10 text-[var(--fg-faint)]">Carregando...</div>;
   const r = getRoadmap(id);
   if (!r)
     return (
       <div className="px-6 py-10">
-        <Link href="/roadmap" className="text-[#13c8b5] hover:underline">
+        <Link href="/roadmap" className="text-[var(--primary)] hover:underline">
           ← Voltar
         </Link>
-        <p className="mt-3 text-[#4b5563]">Item não encontrado.</p>
+        <p className="mt-3 text-[var(--fg-muted)]">Item não encontrado.</p>
       </div>
     );
 
@@ -56,8 +56,8 @@ export default function RoadmapDetail({ params }: { params: Promise<{ id: string
               router.push("/roadmap");
             }
           }}
-          className="inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[12px] text-[#ef4444] hover:bg-[#fef2f2]"
-          style={{ borderColor: "#fecaca" }}
+          className="inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[12px] text-[var(--danger)] hover:bg-[var(--danger-soft)]"
+          style={{ borderColor: "var(--danger-border)" }}
         >
           <Trash2 size={13} /> Excluir
         </button>
@@ -65,16 +65,16 @@ export default function RoadmapDetail({ params }: { params: Promise<{ id: string
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
         <div>
-          <div className="font-mono text-[12px] text-[#9ca3af]">{r.id}</div>
+          <div className="font-mono text-[12px] text-[var(--fg-faint)]">{r.id}</div>
           <input
             ref={titleRef}
             value={r.title}
             onChange={(e) => updateRoadmap(r.id, { title: e.target.value })}
-            className="mt-1 w-full border-0 bg-transparent text-[24px] font-semibold tracking-tight text-[#2b364a] outline-none focus:bg-[#f9fafb] focus:px-2 focus:py-1"
+            className="mt-1 w-full border-0 bg-transparent text-[24px] font-semibold tracking-tight text-[var(--fg)] outline-none focus:bg-[var(--bg-muted)] focus:px-2 focus:py-1"
           />
 
           <div className="mt-6">
-            <div className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#9ca3af]">
+            <div className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-[var(--fg-faint)]">
               Descrição
             </div>
             <Textarea
@@ -103,14 +103,14 @@ export default function RoadmapDetail({ params }: { params: Promise<{ id: string
             {pain ? (
               <Link
                 href={`/dores/${pain.id}`}
-                className="block rounded-md border bg-white p-2.5 text-[13px] hover:bg-[#f9fafb]"
-                style={{ borderColor: "#e5e7eb" }}
+                className="block rounded-md border bg-white p-2.5 text-[13px] hover:bg-[var(--bg-muted)]"
+                style={{ borderColor: "var(--border)" }}
               >
-                <div className="font-mono text-[11px] text-[#9ca3af]">{pain.id}</div>
-                <div className="mt-0.5 text-[#2b364a]">{pain.title}</div>
+                <div className="font-mono text-[11px] text-[var(--fg-faint)]">{pain.id}</div>
+                <div className="mt-0.5 text-[var(--fg)]">{pain.title}</div>
               </Link>
             ) : (
-              <p className="text-[13px] text-[#9ca3af]">Sem dor vinculada.</p>
+              <p className="text-[13px] text-[var(--fg-faint)]">Sem dor vinculada.</p>
             )}
           </Field>
 
@@ -127,7 +127,7 @@ export default function RoadmapDetail({ params }: { params: Promise<{ id: string
           </Field>
 
           <Field label="Atualizado">
-            <div className="text-[13px] text-[#4b5563]">{formatDate(r.updatedAt)}</div>
+            <div className="text-[13px] text-[var(--fg-muted)]">{formatDate(r.updatedAt)}</div>
           </Field>
         </aside>
       </div>

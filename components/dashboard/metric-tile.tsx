@@ -9,9 +9,9 @@ interface MetricTileProps {
 }
 
 const toneConfig = {
-  up: { color: "#16a34a", icon: TrendingUp },
-  flat: { color: "#6b7280", icon: Minus },
-  warn: { color: "#f59e0b", icon: Clock },
+  up: { color: "var(--success)", icon: TrendingUp },
+  flat: { color: "var(--fg-subtle)", icon: Minus },
+  warn: { color: "var(--warn)", icon: Clock },
 };
 
 export function MetricTile({ label, value, delta, deltaTone, deltaLabel }: MetricTileProps) {
@@ -20,15 +20,15 @@ export function MetricTile({ label, value, delta, deltaTone, deltaLabel }: Metri
   return (
     <div
       className="rounded-2xl border p-5"
-      style={{ borderColor: "#e5e7eb", backgroundColor: "#ffffff" }}
+      style={{ borderColor: "var(--border)", backgroundColor: "var(--bg-elevated)" }}
     >
       <div
         className="text-[11px] font-semibold uppercase tracking-wider"
-        style={{ color: "#9ca3af" }}
+        style={{ color: "var(--fg-faint)" }}
       >
         {label}
       </div>
-      <div className="mt-3 text-4xl font-semibold" style={{ color: "#2b364a" }}>
+      <div className="mt-3 text-4xl font-semibold" style={{ color: "var(--fg)" }}>
         {value}
       </div>
       <div className="mt-4 flex items-center gap-1.5 text-xs">
@@ -38,7 +38,7 @@ export function MetricTile({ label, value, delta, deltaTone, deltaLabel }: Metri
             {delta}
           </span>
         )}
-        <span style={{ color: "#6b7280" }}>{deltaLabel}</span>
+        <span style={{ color: "var(--fg-subtle)" }}>{deltaLabel}</span>
       </div>
     </div>
   );

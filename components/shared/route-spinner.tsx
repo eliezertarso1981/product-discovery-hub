@@ -14,7 +14,7 @@ export function RouteSpinner({ label = "Carregando…" }: { label?: string }) {
         <span className="ls-particles ls-part-4" />
         <span className="ls-particles ls-part-5" />
       </div>
-      <span className="text-[13px] font-medium" style={{ color: "#6b7280" }}>
+      <span className="text-[13px] font-medium" style={{ color: "var(--fg-subtle)" }}>
         {label}
       </span>
     </div>

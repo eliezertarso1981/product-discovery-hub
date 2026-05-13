@@ -14,10 +14,10 @@ export const entityConfig: Record<
   EntityType,
   { icon: LucideIcon; label: string; color: string; bg: string }
 > = {
-  evidence: { icon: Lightbulb, label: "Evidências", color: "#0891b2", bg: "#ecfeff" },
-  pain: { icon: AlertCircle, label: "Dor", color: "#ea580c", bg: "#fff7ed" },
-  hypothesis: { icon: FlaskConical, label: "Hipótese", color: "#7c3aed", bg: "#f5f3ff" },
+  evidence: { icon: Lightbulb, label: "Evidências", color: "var(--cyan)", bg: "#ecfeff" },
+  pain: { icon: AlertCircle, label: "Dor", color: "var(--warn-strong)", bg: "var(--warn-soft)" },
+  hypothesis: { icon: FlaskConical, label: "Hipótese", color: "var(--purple)", bg: "#f5f3ff" },
   experiment: { icon: Beaker, label: "Experimento", color: "#0ea5e9", bg: "#f0f9ff" },
-  roadmap: { icon: Map, label: "Roadmap", color: "#16a34a", bg: "#f0fdf4" },
-  outcome: { icon: Target, label: "Outcome", color: "#13c8b5", bg: "#e6f8f5" },
+  roadmap: { icon: Map, label: "Roadmap", color: "var(--success)", bg: "var(--success-soft)" },
+  outcome: { icon: Target, label: "Outcome", color: "var(--primary)", bg: "var(--primary-soft)" },
 };

@@ -41,12 +41,12 @@ export default function ExperimentosPage() {
             hint="Experimentos validam ou invalidam hipóteses."
           />
         ) : (
-          <div className="overflow-x-auto rounded-xl border" style={{ borderColor: "#e5e7eb" }}>
+          <div className="overflow-x-auto rounded-xl border" style={{ borderColor: "var(--border)" }}>
             <table className="w-full text-left text-sm">
               <thead>
                 <tr
                   className="text-[11px] uppercase tracking-wider"
-                  style={{ color: "#9ca3af", backgroundColor: "#f9fafb" }}
+                  style={{ color: "var(--fg-faint)", backgroundColor: "var(--bg-muted)" }}
                 >
                   <th className="px-4 py-3 font-semibold">ID</th>
                   <th className="px-4 py-3 font-semibold">Experimento</th>
@@ -67,14 +67,14 @@ export default function ExperimentosPage() {
                   return (
                     <tr
                       key={e.id}
-                      className="cursor-pointer border-t transition-colors hover:bg-[#f9fafb]"
-                      style={{ borderColor: "#f1f5f9" }}
+                      className="cursor-pointer border-t transition-colors hover:bg-[var(--bg-muted)]"
+                      style={{ borderColor: "var(--bg-muted-2)" }}
                       onClick={() => router.push(`/experimentos/${e.id}`)}
                     >
-                      <td className="px-4 py-3 font-mono text-[12px] text-[#6b7280]">{e.id}</td>
+                      <td className="px-4 py-3 font-mono text-[12px] text-[var(--fg-subtle)]">{e.id}</td>
                       <td className="px-4 py-3">
-                        <div className="font-semibold text-[#2b364a]">{e.title}</div>
-                        <div className="mt-0.5 line-clamp-1 text-[13px] text-[#9ca3af]">
+                        <div className="font-semibold text-[var(--fg)]">{e.title}</div>
+                        <div className="mt-0.5 line-clamp-1 text-[13px] text-[var(--fg-faint)]">
                           {e.method || e.description}
                         </div>
                       </td>
@@ -83,16 +83,16 @@ export default function ExperimentosPage() {
                           <Link
                             href={`/hipoteses/${hyp.id}`}
                             onClick={(ev) => ev.stopPropagation()}
-                            className="font-mono text-[12px] text-[#13c8b5] hover:underline"
+                            className="font-mono text-[12px] text-[var(--primary)] hover:underline"
                           >
                             {hyp.id}
                           </Link>
                         ) : (
-                          <span className="text-[#cbd5e1]">—</span>
+                          <span className="text-[var(--border-strong)]">—</span>
                         )}
                       </td>
                       <td className="px-4 py-3 text-[13px]">
-                        <span className="inline-flex items-center gap-2 text-[#4b5563]">
+                        <span className="inline-flex items-center gap-2 text-[var(--fg-muted)]">
                           <span className="h-2 w-2 rounded-full" style={{ backgroundColor: cfg.dot }} />
                           {cfg.label}
                         </span>
@@ -101,11 +101,11 @@ export default function ExperimentosPage() {
                         {result ? (
                           <span style={{ color: result.color }}>{result.label}</span>
                         ) : (
-                          <span className="text-[#cbd5e1]">—</span>
+                          <span className="text-[var(--border-strong)]">—</span>
                         )}
                       </td>
-                      <td className="px-4 py-3 font-mono text-[13px] text-[#4b5563]">{evCount}</td>
-                      <td className="px-4 py-3 text-[13px] text-[#6b7280]">
+                      <td className="px-4 py-3 font-mono text-[13px] text-[var(--fg-muted)]">{evCount}</td>
+                      <td className="px-4 py-3 text-[13px] text-[var(--fg-subtle)]">
                         {formatDateOnly(e.startDate)}
                       </td>
                       <td className="px-4 py-3">

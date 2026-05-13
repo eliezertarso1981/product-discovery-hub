@@ -7,7 +7,7 @@ interface AvatarProps {
   className?: string;
 }
 
-export function Avatar({ initials, color = "#13c8b5", size = 32, className }: AvatarProps) {
+export function Avatar({ initials, color = "var(--primary)", size = 32, className }: AvatarProps) {
   return (
     <div
       className={cn(

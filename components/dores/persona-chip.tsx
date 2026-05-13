@@ -29,7 +29,7 @@ export function PersonaStack({ personas }: { personas: PersonaTag[] }) {
             backgroundColor: p.color,
             fontSize: 11,
             // ring color is set via boxShadow for token independence
-            boxShadow: "0 0 0 2px #ffffff",
+            boxShadow: "0 0 0 2px var(--bg-elevated)",
           }}
         >
           {p.initial}

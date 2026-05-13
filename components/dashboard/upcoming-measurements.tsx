@@ -5,15 +5,15 @@ export function UpcomingMeasurements() {
   return (
     <div
       className="rounded-2xl border p-6"
-      style={{ borderColor: "#e5e7eb", backgroundColor: "#ffffff" }}
+      style={{ borderColor: "var(--border)", backgroundColor: "var(--bg-elevated)" }}
     >
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold" style={{ color: "#2b364a" }}>
+        <h2 className="text-lg font-semibold" style={{ color: "var(--fg)" }}>
           Próximas medições
         </h2>
         <button
           className="inline-flex items-center gap-1 text-sm font-semibold"
-          style={{ color: "#13c8b5" }}
+          style={{ color: "var(--primary)" }}
         >
           Ver outcomes <ChevronRight size={14} />
         </button>
@@ -23,24 +23,24 @@ export function UpcomingMeasurements() {
         {upcomingMeasurements.map((m) => {
           const tone =
             m.tone === "danger"
-              ? { bg: "#fef2f2", color: "#b91c1c" }
-              : { bg: "#fff7ed", color: "#c2410c" };
+              ? { bg: "var(--danger-soft)", color: "var(--danger-fg)" }
+              : { bg: "var(--warn-soft)", color: "var(--warn-fg)" };
           return (
             <li
               key={m.id}
-              className="flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-[#f9fafb]"
+              className="flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-[var(--bg-muted)]"
             >
               <div
                 className="flex h-9 w-9 flex-none items-center justify-center rounded-lg"
-                style={{ backgroundColor: "#e6f8f5" }}
+                style={{ backgroundColor: "var(--primary-soft)" }}
               >
-                <Target size={16} color="#13c8b5" />
+                <Target size={16} color="var(--primary)" />
               </div>
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-semibold" style={{ color: "#2b364a" }}>
+                <div className="text-sm font-semibold" style={{ color: "var(--fg)" }}>
                   {m.title}
                 </div>
-                <div className="mt-0.5 text-xs" style={{ color: "#6b7280" }}>
+                <div className="mt-0.5 text-xs" style={{ color: "var(--fg-subtle)" }}>
                   Medindo: {m.measuring}
                 </div>
               </div>

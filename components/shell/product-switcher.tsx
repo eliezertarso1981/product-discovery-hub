@@ -12,8 +12,8 @@ export function ProductSwitcher() {
     <div className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2 rounded-md border px-2.5 py-1.5 text-[13px] hover:bg-[#f9fafb]"
-        style={{ borderColor: "#e5e7eb", color: "#2b364a" }}
+        className="flex items-center gap-2 rounded-md border px-2.5 py-1.5 text-[13px] hover:bg-[var(--bg-muted)]"
+        style={{ borderColor: "var(--border)", color: "var(--fg)" }}
       >
         <span
           className="flex h-6 w-6 items-center justify-center rounded text-[10px] font-bold text-white"
@@ -22,16 +22,16 @@ export function ProductSwitcher() {
           {currentProduct.initials}
         </span>
         <span className="font-semibold">{currentProduct.name}</span>
-        <ChevronDown size={14} color="#9ca3af" />
+        <ChevronDown size={14} color="var(--fg-faint)" />
       </button>
       {open && (
         <>
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
           <div
             className="absolute left-0 z-20 mt-1 w-64 rounded-md border bg-white py-1 shadow-lg"
-            style={{ borderColor: "#e5e7eb" }}
+            style={{ borderColor: "var(--border)" }}
           >
-            <div className="px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-[#9ca3af]">
+            <div className="px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-[var(--fg-faint)]">
               Produto
             </div>
             {products.map((p) => (
@@ -41,7 +41,7 @@ export function ProductSwitcher() {
                   setCurrentProductId(p.id);
                   setOpen(false);
                 }}
-                className="flex w-full items-center justify-between px-2 py-1.5 text-[13px] hover:bg-[#f9fafb]"
+                className="flex w-full items-center justify-between px-2 py-1.5 text-[13px] hover:bg-[var(--bg-muted)]"
               >
                 <span className="flex items-center gap-2">
                   <span
@@ -50,12 +50,12 @@ export function ProductSwitcher() {
                   >
                     {p.initials}
                   </span>
-                  <span className="text-[#2b364a]">{p.name}</span>
+                  <span className="text-[var(--fg)]">{p.name}</span>
                 </span>
-                {p.id === currentProduct.id && <Check size={14} color="#13c8b5" />}
+                {p.id === currentProduct.id && <Check size={14} color="var(--primary)" />}
               </button>
             ))}
-            <div className="my-1 h-px" style={{ backgroundColor: "#f1f5f9" }} />
+            <div className="my-1 h-px" style={{ backgroundColor: "var(--bg-muted-2)" }} />
             <button
               onClick={() => {
                 const name = prompt("Nome do novo produto?");
@@ -64,7 +64,7 @@ export function ProductSwitcher() {
                   setOpen(false);
                 }
               }}
-              className="flex w-full items-center gap-2 px-2 py-1.5 text-[13px] text-[#13c8b5] hover:bg-[#f4fdfb]"
+              className="flex w-full items-center gap-2 px-2 py-1.5 text-[13px] text-[var(--primary)] hover:bg-[var(--primary-soft-2)]"
             >
               <Plus size={14} /> Novo produto
             </button>

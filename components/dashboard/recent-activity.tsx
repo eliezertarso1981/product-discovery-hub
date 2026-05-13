@@ -7,15 +7,15 @@ export function RecentActivity() {
   return (
     <div
       className="rounded-2xl border p-6"
-      style={{ borderColor: "#e5e7eb", backgroundColor: "#ffffff" }}
+      style={{ borderColor: "var(--border)", backgroundColor: "var(--bg-elevated)" }}
     >
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold" style={{ color: "#2b364a" }}>
+        <h2 className="text-lg font-semibold" style={{ color: "var(--fg)" }}>
           Atividade recente
         </h2>
         <button
           className="inline-flex items-center gap-1 text-sm font-semibold"
-          style={{ color: "#13c8b5" }}
+          style={{ color: "var(--primary)" }}
         >
           Ver tudo <ChevronRight size={14} />
         </button>
@@ -28,7 +28,7 @@ export function RecentActivity() {
           return (
             <li
               key={item.id}
-              className="flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-[#f9fafb]"
+              className="flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-[var(--bg-muted)]"
             >
               <div
                 className="flex h-9 w-9 flex-none items-center justify-center rounded-lg"
@@ -37,10 +37,10 @@ export function RecentActivity() {
                 <Icon size={16} color={cfg.color} />
               </div>
               <div className="flex-1 min-w-0">
-                <div className="text-sm" style={{ color: "#2b364a" }}>
+                <div className="text-sm" style={{ color: "var(--fg)" }}>
                   <span className="font-semibold">{item.who}</span> {item.text}
                 </div>
-                <div className="mt-0.5 text-xs" style={{ color: "#6b7280" }}>
+                <div className="mt-0.5 text-xs" style={{ color: "var(--fg-subtle)" }}>
                   {item.meta} · {item.when}
                 </div>
               </div>

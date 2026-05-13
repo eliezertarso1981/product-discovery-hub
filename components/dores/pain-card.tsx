@@ -13,8 +13,8 @@ interface Props {
 }
 
 export function PainCard({ pain, selected, onSelect }: Props) {
-  const baseBorder = selected ? "#13c8b5" : "#e5e7eb";
-  const baseBg = selected ? "#f4fdfb" : "#ffffff";
+  const baseBorder = selected ? "var(--primary)" : "var(--border)";
+  const baseBg = selected ? "var(--primary-soft-2)" : "var(--bg-elevated)";
 
   return (
     <div
@@ -24,7 +24,7 @@ export function PainCard({ pain, selected, onSelect }: Props) {
     >
       <span
         className="absolute left-1 top-2 opacity-0 transition-opacity group-hover:opacity-100"
-        style={{ color: "#9ca3af" }}
+        style={{ color: "var(--fg-faint)" }}
         aria-hidden
       >
         <GripVertical size={12} />
@@ -33,7 +33,7 @@ export function PainCard({ pain, selected, onSelect }: Props) {
       <div className="flex items-center justify-between">
         <div
           className="inline-flex items-center gap-1.5 font-mono text-[12px]"
-          style={{ color: "#6b7280" }}
+          style={{ color: "var(--fg-subtle)" }}
         >
           <AlertCircle size={13} />
           {pain.id}
@@ -41,23 +41,23 @@ export function PainCard({ pain, selected, onSelect }: Props) {
         <SeverityDots level={pain.severity} />
       </div>
 
-      <h3 className="mt-2 text-[14px] font-semibold leading-snug" style={{ color: "#2b364a" }}>
+      <h3 className="mt-2 text-[14px] font-semibold leading-snug" style={{ color: "var(--fg)" }}>
         {pain.title}
       </h3>
 
-      <p className="mt-1.5 text-[13px] leading-snug" style={{ color: "#6b7280" }}>
+      <p className="mt-1.5 text-[13px] leading-snug" style={{ color: "var(--fg-subtle)" }}>
         {pain.description}
       </p>
 
       <div className="mt-3 flex items-center gap-2">
-        <span className="text-[11px] uppercase tracking-wider" style={{ color: "#9ca3af" }}>
+        <span className="text-[11px] uppercase tracking-wider" style={{ color: "var(--fg-faint)" }}>
           Afeta:
         </span>
         <PersonaStack personas={pain.personas} />
       </div>
 
       <div className="mt-3 flex items-center justify-between">
-        <div className="flex items-center gap-3 font-mono text-[12px]" style={{ color: "#6b7280" }}>
+        <div className="flex items-center gap-3 font-mono text-[12px]" style={{ color: "var(--fg-subtle)" }}>
           <span className="inline-flex items-center gap-1">
             <Users size={12} /> {pain.reach}
           </span>

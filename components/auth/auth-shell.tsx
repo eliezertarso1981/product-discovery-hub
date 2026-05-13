@@ -15,7 +15,7 @@ export function AuthShell({ children, showFooter = true }: AuthShellProps) {
   const p = palette[theme];
 
   if (!ready) {
-    return <div style={{ minHeight: "100vh", backgroundColor: "#ffffff" }} />;
+    return <div style={{ minHeight: "100vh", backgroundColor: "var(--bg-elevated)" }} />;
   }
 
   return (

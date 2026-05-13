@@ -37,12 +37,12 @@ export default function EvidenciasPage() {
             hint="Evidências nascem dos experimentos."
           />
         ) : (
-          <div className="overflow-x-auto rounded-xl border" style={{ borderColor: "#e5e7eb" }}>
+          <div className="overflow-x-auto rounded-xl border" style={{ borderColor: "var(--border)" }}>
             <table className="w-full text-left text-sm">
               <thead>
                 <tr
                   className="text-[11px] uppercase tracking-wider"
-                  style={{ color: "#9ca3af", backgroundColor: "#f9fafb" }}
+                  style={{ color: "var(--fg-faint)", backgroundColor: "var(--bg-muted)" }}
                 >
                   <th className="px-4 py-3 font-semibold">ID</th>
                   <th className="px-4 py-3 font-semibold">Evidência</th>
@@ -59,14 +59,14 @@ export default function EvidenciasPage() {
                   return (
                     <tr
                       key={ev.id}
-                      className="cursor-pointer border-t transition-colors hover:bg-[#f9fafb]"
-                      style={{ borderColor: "#f1f5f9" }}
+                      className="cursor-pointer border-t transition-colors hover:bg-[var(--bg-muted)]"
+                      style={{ borderColor: "var(--bg-muted-2)" }}
                       onClick={() => router.push(`/evidencias/${ev.id}`)}
                     >
-                      <td className="px-4 py-3 font-mono text-[12px] text-[#6b7280]">{ev.id}</td>
+                      <td className="px-4 py-3 font-mono text-[12px] text-[var(--fg-subtle)]">{ev.id}</td>
                       <td className="px-4 py-3">
-                        <div className="font-semibold text-[#2b364a]">{ev.title}</div>
-                        <div className="mt-0.5 line-clamp-1 text-[13px] text-[#9ca3af]">
+                        <div className="font-semibold text-[var(--fg)]">{ev.title}</div>
+                        <div className="mt-0.5 line-clamp-1 text-[13px] text-[var(--fg-faint)]">
                           {ev.notes}
                         </div>
                       </td>
@@ -78,21 +78,21 @@ export default function EvidenciasPage() {
                           {t.label}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-[13px] text-[#4b5563]">{ev.source || "—"}</td>
+                      <td className="px-4 py-3 text-[13px] text-[var(--fg-muted)]">{ev.source || "—"}</td>
                       <td className="px-4 py-3 text-[13px]">
                         {exp ? (
                           <Link
                             href={`/experimentos/${exp.id}`}
                             onClick={(e) => e.stopPropagation()}
-                            className="font-mono text-[12px] text-[#13c8b5] hover:underline"
+                            className="font-mono text-[12px] text-[var(--primary)] hover:underline"
                           >
                             {exp.id}
                           </Link>
                         ) : (
-                          <span className="text-[#cbd5e1]">—</span>
+                          <span className="text-[var(--border-strong)]">—</span>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-[13px] text-[#6b7280]">
+                      <td className="px-4 py-3 text-[13px] text-[var(--fg-subtle)]">
                         {formatDate(ev.updatedAt)}
                       </td>
                     </tr>

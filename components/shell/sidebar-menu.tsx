@@ -40,7 +40,7 @@ export function SidebarMenu({ collapsed = false }: { collapsed?: boolean }) {
         <NavItem href="/outcomes" icon={Target} label="Outcomes" collapsed={collapsed} />
       </Group>
 
-      <div className="my-4 h-px" style={{ backgroundColor: "#e5e7eb" }} />
+      <div className="my-4 h-px" style={{ backgroundColor: "var(--border)" }} />
       <div className="space-y-1">
         <NavItem href="/personas" icon={Users} label="Personas" collapsed={collapsed} />
         <NavItem href="/settings" icon={Settings} label="Settings" collapsed={collapsed} />
@@ -83,7 +83,7 @@ function Group({
   if (collapsed) {
     return (
       <div className="mt-6">
-        <div className="mx-2 mb-2 h-px" style={{ backgroundColor: "#e5e7eb" }} />
+        <div className="mx-2 mb-2 h-px" style={{ backgroundColor: "var(--border)" }} />
         <div className="space-y-1">{children}</div>
       </div>
     );
@@ -95,8 +95,8 @@ function Group({
         type="button"
         onClick={toggle}
         aria-expanded={open}
-        className="mb-2 flex w-full items-center justify-between px-3 text-[11px] font-semibold uppercase tracking-wider transition-colors hover:text-[#4b5563]"
-        style={{ color: "#9ca3af" }}
+        className="mb-2 flex w-full items-center justify-between px-3 text-[11px] font-semibold uppercase tracking-wider transition-colors hover:text-[var(--fg-muted)]"
+        style={{ color: "var(--fg-faint)" }}
       >
         <span>{title}</span>
         <ChevronDown

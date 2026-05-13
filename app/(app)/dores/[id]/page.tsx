@@ -57,13 +57,13 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
   }, [isNew]);
 
   if (!ready) {
-    return <div className="px-6 py-10 text-[13px] text-[#9ca3af]">Carregando...</div>;
+    return <div className="px-6 py-10 text-[13px] text-[var(--fg-faint)]">Carregando...</div>;
   }
   if (!pain) {
     return (
       <div className="px-6 py-10">
-        <p className="text-[14px] text-[#4b5563]">Dor não encontrada.</p>
-        <Link href="/dores" className="mt-3 inline-block text-[13px] text-[#13c8b5] hover:underline">
+        <p className="text-[14px] text-[var(--fg-muted)]">Dor não encontrada.</p>
+        <Link href="/dores" className="mt-3 inline-block text-[13px] text-[var(--primary)] hover:underline">
           ← Voltar para Dores
         </Link>
       </div>
@@ -75,7 +75,7 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
       <div className="mb-4 flex items-center justify-between">
         <Link
           href="/dores"
-          className="inline-flex items-center gap-1.5 text-[13px] text-[#6b7280] hover:text-[#2b364a]"
+          className="inline-flex items-center gap-1.5 text-[13px] text-[var(--fg-subtle)] hover:text-[var(--fg)]"
         >
           <ArrowLeft size={14} /> Dores
         </Link>
@@ -86,8 +86,8 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
               router.push("/dores");
             }
           }}
-          className="inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[12px] text-[#ef4444] hover:bg-[#fef2f2]"
-          style={{ borderColor: "#fecaca" }}
+          className="inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[12px] text-[var(--danger)] hover:bg-[var(--danger-soft)]"
+          style={{ borderColor: "var(--danger-border)" }}
         >
           <Trash2 size={13} /> Excluir
         </button>
@@ -95,13 +95,13 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
         <div>
-          <div className="font-mono text-[12px] text-[#9ca3af]">{pain.id}</div>
+          <div className="font-mono text-[12px] text-[var(--fg-faint)]">{pain.id}</div>
           <input
             ref={titleInputRef}
             value={pain.title}
             onChange={(e) => updatePain(pain.id, { title: e.target.value })}
             placeholder="Título da dor"
-            className="mt-1 w-full border-0 bg-transparent text-[24px] font-semibold tracking-tight text-[#2b364a] outline-none placeholder:text-[#cbd5e1] focus:bg-[#f9fafb] focus:px-2 focus:py-1"
+            className="mt-1 w-full border-0 bg-transparent text-[24px] font-semibold tracking-tight text-[var(--fg)] outline-none placeholder:text-[var(--border-strong)] focus:bg-[var(--bg-muted)] focus:px-2 focus:py-1"
           />
 
           <Section title="Descrição">
@@ -110,8 +110,8 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
               onChange={(e) => updatePain(pain.id, { description: e.target.value })}
               placeholder="Descreva o problema, contexto e impacto..."
               rows={5}
-              className="w-full rounded-md border bg-white px-3 py-2 text-[14px] text-[#2b364a] outline-none transition-colors placeholder:text-[#cbd5e1] focus:border-[#13c8b5]"
-              style={{ borderColor: "#e5e7eb" }}
+              className="w-full rounded-md border bg-white px-3 py-2 text-[14px] text-[var(--fg)] outline-none transition-colors placeholder:text-[var(--border-strong)] focus:border-[var(--primary)]"
+              style={{ borderColor: "var(--border)" }}
             />
           </Section>
 
@@ -123,15 +123,15 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
                   const h = createHypothesis(pain.productId, pain.id);
                   router.push(`/hipoteses/${h.id}?new=1`);
                 }}
-                className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-[11px] text-[#4b5563] hover:bg-[#f9fafb]"
-                style={{ borderColor: "#e5e7eb" }}
+                className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-[11px] text-[var(--fg-muted)] hover:bg-[var(--bg-muted)]"
+                style={{ borderColor: "var(--border)" }}
               >
                 <Plus size={12} /> Nova hipótese
               </button>
             }
           >
             {linkedHypotheses.length === 0 ? (
-              <p className="text-[13px] text-[#9ca3af]">Ainda não há hipóteses derivadas desta dor.</p>
+              <p className="text-[13px] text-[var(--fg-faint)]">Ainda não há hipóteses derivadas desta dor.</p>
             ) : (
               <ul className="space-y-1.5">
                 {linkedHypotheses.map((h) => {
@@ -140,14 +140,14 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
                     <li key={h.id}>
                       <Link
                         href={`/hipoteses/${h.id}`}
-                        className="flex items-center justify-between rounded-md border bg-white px-2.5 py-2 text-[13px] hover:bg-[#f9fafb]"
-                        style={{ borderColor: "#e5e7eb" }}
+                        className="flex items-center justify-between rounded-md border bg-white px-2.5 py-2 text-[13px] hover:bg-[var(--bg-muted)]"
+                        style={{ borderColor: "var(--border)" }}
                       >
                         <span className="flex min-w-0 items-center gap-2">
-                          <span className="font-mono text-[11px] text-[#9ca3af]">{h.id}</span>
-                          <span className="truncate text-[#2b364a]">{h.title}</span>
+                          <span className="font-mono text-[11px] text-[var(--fg-faint)]">{h.id}</span>
+                          <span className="truncate text-[var(--fg)]">{h.title}</span>
                         </span>
-                        <span className="inline-flex shrink-0 items-center gap-1.5 text-[12px] text-[#4b5563]">
+                        <span className="inline-flex shrink-0 items-center gap-1.5 text-[12px] text-[var(--fg-muted)]">
                           <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: cfg.dot }} />
                           {cfg.label}
                         </span>
@@ -168,15 +168,15 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
                     const r = createRoadmap(pain.productId, pain.id);
                     router.push(`/roadmap/${r.id}?new=1`);
                   }}
-                  className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-[11px] text-[#4b5563] hover:bg-[#f9fafb]"
-                  style={{ borderColor: "#e5e7eb" }}
+                  className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-[11px] text-[var(--fg-muted)] hover:bg-[var(--bg-muted)]"
+                  style={{ borderColor: "var(--border)" }}
                 >
                   <Plus size={12} /> Novo item
                 </button>
               }
             >
               {linkedRoadmap.length === 0 ? (
-                <p className="text-[13px] text-[#9ca3af]">Nenhum item de roadmap ainda.</p>
+                <p className="text-[13px] text-[var(--fg-faint)]">Nenhum item de roadmap ainda.</p>
               ) : (
                 <ul className="space-y-1.5">
                   {linkedRoadmap.map((r) => {
@@ -185,14 +185,14 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
                       <li key={r.id}>
                         <Link
                           href={`/roadmap/${r.id}`}
-                          className="flex items-center justify-between rounded-md border bg-white px-2.5 py-2 text-[13px] hover:bg-[#f9fafb]"
-                          style={{ borderColor: "#e5e7eb" }}
+                          className="flex items-center justify-between rounded-md border bg-white px-2.5 py-2 text-[13px] hover:bg-[var(--bg-muted)]"
+                          style={{ borderColor: "var(--border)" }}
                         >
                           <span className="flex min-w-0 items-center gap-2">
-                            <span className="font-mono text-[11px] text-[#9ca3af]">{r.id}</span>
-                            <span className="truncate text-[#2b364a]">{r.title}</span>
+                            <span className="font-mono text-[11px] text-[var(--fg-faint)]">{r.id}</span>
+                            <span className="truncate text-[var(--fg)]">{r.title}</span>
                           </span>
-                          <span className="inline-flex shrink-0 items-center gap-1.5 text-[12px] text-[#4b5563]">
+                          <span className="inline-flex shrink-0 items-center gap-1.5 text-[12px] text-[var(--fg-muted)]">
                             <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: cfg.dot }} />
                             {cfg.label}
                           </span>
@@ -252,16 +252,16 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
                   dueDate: e.target.value ? new Date(e.target.value).toISOString() : undefined,
                 })
               }
-              className="w-full rounded-md border bg-white px-2.5 py-1.5 text-[13px] text-[#2b364a] outline-none focus:border-[#13c8b5]"
-              style={{ borderColor: "#e5e7eb" }}
+              className="w-full rounded-md border bg-white px-2.5 py-1.5 text-[13px] text-[var(--fg)] outline-none focus:border-[var(--primary)]"
+              style={{ borderColor: "var(--border)" }}
             />
           </Field>
 
           <Field label="Criado em">
-            <div className="text-[13px] text-[#4b5563]">{formatDate(pain.createdAt)}</div>
+            <div className="text-[13px] text-[var(--fg-muted)]">{formatDate(pain.createdAt)}</div>
           </Field>
           <Field label="Última atualização">
-            <div className="text-[13px] text-[#4b5563]">{formatDate(pain.updatedAt)}</div>
+            <div className="text-[13px] text-[var(--fg-muted)]">{formatDate(pain.updatedAt)}</div>
           </Field>
         </aside>
       </div>
@@ -281,7 +281,7 @@ function Section({
   return (
     <div className="mt-6">
       <div className="mb-2 flex items-center justify-between">
-        <div className="text-[11px] font-semibold uppercase tracking-wider text-[#9ca3af]">
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-[var(--fg-faint)]">
           {title}
         </div>
         {action}
@@ -294,7 +294,7 @@ function Section({
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <div className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#9ca3af]">
+      <div className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-[var(--fg-faint)]">
         {label}
       </div>
       {children}
@@ -318,17 +318,17 @@ function StatusSelect({
           <button
             key={s}
             onClick={() => onChange(s)}
-            className="flex items-center justify-between rounded-md border px-2.5 py-1.5 text-[13px] transition-colors hover:bg-[#f9fafb]"
+            className="flex items-center justify-between rounded-md border px-2.5 py-1.5 text-[13px] transition-colors hover:bg-[var(--bg-muted)]"
             style={{
-              borderColor: active ? "#13c8b5" : "#e5e7eb",
-              backgroundColor: active ? "#f4fdfb" : "white",
+              borderColor: active ? "var(--primary)" : "var(--border)",
+              backgroundColor: active ? "var(--primary-soft-2)" : "white",
             }}
           >
-            <span className="inline-flex items-center gap-2 text-[#2b364a]">
+            <span className="inline-flex items-center gap-2 text-[var(--fg)]">
               <span className="h-2 w-2 rounded-full" style={{ backgroundColor: cfg.dot }} />
               {cfg.label}
             </span>
-            {active && <Check size={14} color="#13c8b5" />}
+            {active && <Check size={14} color="var(--primary)" />}
           </button>
         );
       })}
@@ -356,12 +356,12 @@ function SeveritySelect({
             className="h-4 w-4 rounded-full border transition-transform hover:scale-110"
             style={{
               backgroundColor: filled ? color : "transparent",
-              borderColor: filled ? color : "#d1d5db",
+              borderColor: filled ? color : "var(--fg-disabled)",
             }}
           />
         );
       })}
-      <span className="ml-2 text-[12px] text-[#6b7280]">{value}/5</span>
+      <span className="ml-2 text-[12px] text-[var(--fg-subtle)]">{value}/5</span>
     </div>
   );
 }
@@ -385,24 +385,24 @@ function ResponsiblesSelect({
     <div className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between rounded-md border bg-white px-2.5 py-1.5 text-[13px] hover:bg-[#f9fafb]"
-        style={{ borderColor: "#e5e7eb" }}
+        className="flex w-full items-center justify-between rounded-md border bg-white px-2.5 py-1.5 text-[13px] hover:bg-[var(--bg-muted)]"
+        style={{ borderColor: "var(--border)" }}
       >
         <div className="flex flex-wrap items-center gap-1.5">
-          {selected.length === 0 && <span className="text-[#9ca3af]">Ninguém</span>}
+          {selected.length === 0 && <span className="text-[var(--fg-faint)]">Ninguém</span>}
           {selected.map((o) => (
             <span key={o.id} className="inline-flex items-center gap-1">
               <Avatar initials={o.initials} color={o.color} size={20} />
-              <span className="text-[12px] text-[#4b5563]">{o.name ?? o.initials}</span>
+              <span className="text-[12px] text-[var(--fg-muted)]">{o.name ?? o.initials}</span>
             </span>
           ))}
         </div>
-        <ChevronDown size={14} color="#9ca3af" />
+        <ChevronDown size={14} color="var(--fg-faint)" />
       </button>
       {open && (
         <div
           className="absolute z-10 mt-1 w-full rounded-md border bg-white py-1 shadow-lg"
-          style={{ borderColor: "#e5e7eb" }}
+          style={{ borderColor: "var(--border)" }}
         >
           {ownersList.map((o) => {
             const isSel = selectedIds.has(o.id);
@@ -410,13 +410,13 @@ function ResponsiblesSelect({
               <button
                 key={o.id}
                 onClick={() => toggle(o)}
-                className="flex w-full items-center justify-between px-2.5 py-1.5 text-[13px] hover:bg-[#f9fafb]"
+                className="flex w-full items-center justify-between px-2.5 py-1.5 text-[13px] hover:bg-[var(--bg-muted)]"
               >
                 <span className="inline-flex items-center gap-2">
                   <Avatar initials={o.initials} color={o.color} size={22} />
-                  <span className="text-[#2b364a]">{o.name ?? o.initials}</span>
+                  <span className="text-[var(--fg)]">{o.name ?? o.initials}</span>
                 </span>
-                {isSel && <Check size={14} color="#13c8b5" />}
+                {isSel && <Check size={14} color="var(--primary)" />}
               </button>
             );
           })}
@@ -468,8 +468,8 @@ function Attachments({
     <div>
       <button
         onClick={() => inputRef.current?.click()}
-        className="inline-flex items-center gap-1.5 rounded-md border border-dashed px-3 py-2 text-[13px] text-[#4b5563] hover:bg-[#f9fafb]"
-        style={{ borderColor: "#cbd5e1" }}
+        className="inline-flex items-center gap-1.5 rounded-md border border-dashed px-3 py-2 text-[13px] text-[var(--fg-muted)] hover:bg-[var(--bg-muted)]"
+        style={{ borderColor: "var(--border-strong)" }}
       >
         <Paperclip size={14} /> Adicionar anexos
       </button>
@@ -486,29 +486,29 @@ function Attachments({
             <li
               key={a.id}
               className="flex items-center justify-between rounded-md border bg-white px-2.5 py-1.5 text-[13px]"
-              style={{ borderColor: "#e5e7eb" }}
+              style={{ borderColor: "var(--border)" }}
             >
               <div className="flex min-w-0 items-center gap-2">
-                <Paperclip size={13} color="#9ca3af" />
+                <Paperclip size={13} color="var(--fg-faint)" />
                 {a.dataUrl ? (
                   <a
                     href={a.dataUrl}
                     download={a.name}
-                    className="truncate text-[#2b364a] hover:underline"
+                    className="truncate text-[var(--fg)] hover:underline"
                   >
                     {a.name}
                   </a>
                 ) : (
-                  <span className="truncate text-[#2b364a]">{a.name}</span>
+                  <span className="truncate text-[var(--fg)]">{a.name}</span>
                 )}
-                <span className="shrink-0 text-[11px] text-[#9ca3af]">
+                <span className="shrink-0 text-[11px] text-[var(--fg-faint)]">
                   {formatSize(a.size)}
                 </span>
               </div>
               <button
                 onClick={() => onRemove(a.id)}
                 aria-label="Remover anexo"
-                className="rounded p-1 text-[#9ca3af] hover:bg-[#f3f4f6] hover:text-[#ef4444]"
+                className="rounded p-1 text-[var(--fg-faint)] hover:bg-[var(--bg-muted)] hover:text-[var(--danger)]"
               >
                 <X size={13} />
               </button>
@@ -537,19 +537,19 @@ function Comments({
     <div className="space-y-3">
       <ul className="space-y-3">
         {comments.length === 0 && (
-          <li className="text-[13px] text-[#9ca3af]">Nenhum comentário ainda.</li>
+          <li className="text-[13px] text-[var(--fg-faint)]">Nenhum comentário ainda.</li>
         )}
         {comments.map((c) => (
           <li key={c.id} className="flex gap-2.5">
             <Avatar initials={c.author.initials} color={c.author.color} size={28} />
-            <div className="flex-1 rounded-md border bg-white px-3 py-2" style={{ borderColor: "#e5e7eb" }}>
+            <div className="flex-1 rounded-md border bg-white px-3 py-2" style={{ borderColor: "var(--border)" }}>
               <div className="flex items-center justify-between">
-                <span className="text-[12px] font-semibold text-[#2b364a]">
+                <span className="text-[12px] font-semibold text-[var(--fg)]">
                   {c.author.name ?? c.author.initials}
                 </span>
-                <span className="text-[11px] text-[#9ca3af]">{formatDate(c.createdAt)}</span>
+                <span className="text-[11px] text-[var(--fg-faint)]">{formatDate(c.createdAt)}</span>
               </div>
-              <p className="mt-1 whitespace-pre-wrap text-[13px] text-[#4b5563]">{c.text}</p>
+              <p className="mt-1 whitespace-pre-wrap text-[13px] text-[var(--fg-muted)]">{c.text}</p>
             </div>
           </li>
         ))}
@@ -566,14 +566,14 @@ function Comments({
           }}
           rows={2}
           placeholder="Escreva um comentário... (⌘+Enter para enviar)"
-          className="flex-1 rounded-md border bg-white px-3 py-2 text-[13px] outline-none placeholder:text-[#cbd5e1] focus:border-[#13c8b5]"
-          style={{ borderColor: "#e5e7eb" }}
+          className="flex-1 rounded-md border bg-white px-3 py-2 text-[13px] outline-none placeholder:text-[var(--border-strong)] focus:border-[var(--primary)]"
+          style={{ borderColor: "var(--border)" }}
         />
         <button
           onClick={submit}
           disabled={!text.trim()}
           className="inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-[13px] font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
-          style={{ backgroundColor: "#13c8b5" }}
+          style={{ backgroundColor: "var(--primary)" }}
         >
           <Send size={13} /> Enviar
         </button>
