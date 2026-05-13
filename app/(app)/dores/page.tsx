@@ -31,10 +31,14 @@ export default function DoresPage() {
     return { total, ativas, descartada };
   }, [pains]);
 
-  const handleMove = (id: string, status: PainStatus) => moveStatus(id, status);
+  const handleMove = (id: string, status: PainStatus) => {
+    moveStatus(id, status);
+    toast.success(`Movida para "${statusConfig[status].label}"`);
+  };
 
   const handleCreate = () => {
     const created = createPain(currentProduct.id);
+    toast.success("Nova dor criada");
     router.push(`/dores/${created.id}?new=1`);
   };
 
