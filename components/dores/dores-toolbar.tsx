@@ -9,9 +9,10 @@ import {
   List,
   Columns3,
   Calendar,
+  Workflow,
 } from "lucide-react";
 
-export type ViewMode = "grid" | "list" | "board" | "calendar";
+export type ViewMode = "grid" | "list" | "board" | "calendar" | "flow";
 
 interface Props {
   view: ViewMode;
@@ -99,6 +100,11 @@ export function DoresToolbar({ view, onViewChange }: Props) {
             icon={Columns3}
             active={view === "board"}
             onClick={() => onViewChange("board")}
+          />
+          <ViewBtn
+            icon={Workflow}
+            active={view === "flow"}
+            onClick={() => onViewChange("flow")}
           />
           <ViewBtn
             icon={Calendar}

@@ -10,6 +10,7 @@ import { useState } from "react";
 import { DoresToolbar, type ViewMode } from "@/components/dores/dores-toolbar";
 import { PainBoard } from "@/components/dores/pain-board";
 import { PainList } from "@/components/dores/pain-list";
+import { PainFlow } from "@/components/dores/pain-flow";
 
 import { useProducts } from "@/lib/products-context";
 
@@ -91,6 +92,7 @@ export default function DoresPage() {
         {view === "board" && <PainBoard pains={pains} onMove={handleMove} />}
         {view === "list" && <PainList pains={pains} />}
         {view === "grid" && <PainList pains={pains} />}
+        {view === "flow" && <PainFlow pains={pains} />}
         {view === "calendar" && (
           <div
             className="rounded-xl border p-10 text-center text-[13px]"
