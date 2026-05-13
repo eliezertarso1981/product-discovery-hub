@@ -115,6 +115,96 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
             />
           </Section>
 
+          <Section
+            title={`Hipóteses geradas (${linkedHypotheses.length})`}
+            action={
+              <button
+                onClick={() => {
+                  const h = createHypothesis(pain.productId, pain.id);
+                  router.push(`/hipoteses/${h.id}?new=1`);
+                }}
+                className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-[11px] text-[#4b5563] hover:bg-[#f9fafb]"
+                style={{ borderColor: "#e5e7eb" }}
+              >
+                <Plus size={12} /> Nova hipótese
+              </button>
+            }
+          >
+            {linkedHypotheses.length === 0 ? (
+              <p className="text-[13px] text-[#9ca3af]">Ainda não há hipóteses derivadas desta dor.</p>
+            ) : (
+              <ul className="space-y-1.5">
+                {linkedHypotheses.map((h) => {
+                  const cfg = hypothesisStatusConfig[h.status];
+                  return (
+                    <li key={h.id}>
+                      <Link
+                        href={`/hipoteses/${h.id}`}
+                        className="flex items-center justify-between rounded-md border bg-white px-2.5 py-2 text-[13px] hover:bg-[#f9fafb]"
+                        style={{ borderColor: "#e5e7eb" }}
+                      >
+                        <span className="flex min-w-0 items-center gap-2">
+                          <span className="font-mono text-[11px] text-[#9ca3af]">{h.id}</span>
+                          <span className="truncate text-[#2b364a]">{h.title}</span>
+                        </span>
+                        <span className="inline-flex shrink-0 items-center gap-1.5 text-[12px] text-[#4b5563]">
+                          <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: cfg.dot }} />
+                          {cfg.label}
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </Section>
+
+          {pain.status === "validada" && (
+            <Section
+              title={`Itens de roadmap (${linkedRoadmap.length})`}
+              action={
+                <button
+                  onClick={() => {
+                    const r = createRoadmap(pain.productId, pain.id);
+                    router.push(`/roadmap/${r.id}?new=1`);
+                  }}
+                  className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-[11px] text-[#4b5563] hover:bg-[#f9fafb]"
+                  style={{ borderColor: "#e5e7eb" }}
+                >
+                  <Plus size={12} /> Novo item
+                </button>
+              }
+            >
+              {linkedRoadmap.length === 0 ? (
+                <p className="text-[13px] text-[#9ca3af]">Nenhum item de roadmap ainda.</p>
+              ) : (
+                <ul className="space-y-1.5">
+                  {linkedRoadmap.map((r) => {
+                    const cfg = roadmapStatusConfig[r.status];
+                    return (
+                      <li key={r.id}>
+                        <Link
+                          href={`/roadmap/${r.id}`}
+                          className="flex items-center justify-between rounded-md border bg-white px-2.5 py-2 text-[13px] hover:bg-[#f9fafb]"
+                          style={{ borderColor: "#e5e7eb" }}
+                        >
+                          <span className="flex min-w-0 items-center gap-2">
+                            <span className="font-mono text-[11px] text-[#9ca3af]">{r.id}</span>
+                            <span className="truncate text-[#2b364a]">{r.title}</span>
+                          </span>
+                          <span className="inline-flex shrink-0 items-center gap-1.5 text-[12px] text-[#4b5563]">
+                            <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: cfg.dot }} />
+                            {cfg.label}
+                          </span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </Section>
+          )}
+
           <Section title="Anexos">
             <Attachments
               attachments={pain.attachments}
