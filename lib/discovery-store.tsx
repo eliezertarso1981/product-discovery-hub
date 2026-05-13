@@ -209,6 +209,7 @@ export function DiscoveryProvider({ children }: { children: React.ReactNode }) {
           title: "Novo experimento",
           description: "",
           method: "",
+          expectedResults: [],
           status: "planejado",
           result: null,
           owner: currentUser,
