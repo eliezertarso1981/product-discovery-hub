@@ -262,6 +262,7 @@ export function DiscoveryProvider({ children }: { children: React.ReactNode }) {
           source: "",
           type: "entrevista",
           notes: "",
+          attachments: [],
           createdAt: now(),
           updatedAt: now(),
         };
