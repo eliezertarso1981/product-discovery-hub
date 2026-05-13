@@ -21,3 +21,22 @@ kbd,
 pre {
   font-family: "Geist Mono", ui-monospace, monospace;
 }
+
+/* SortableJS — drag & drop visuals for Dores board */
+.pain-ghost > div {
+  opacity: 0.35;
+  background: #f4fdfb !important;
+  border: 2px dashed #13c8b5 !important;
+  filter: grayscale(0.2);
+}
+.pain-chosen {
+  cursor: grabbing !important;
+}
+.pain-drag > div {
+  transform: rotate(3deg) scale(1.04);
+  box-shadow:
+    0 24px 40px -14px rgba(19, 200, 181, 0.35),
+    0 0 0 2px rgba(19, 200, 181, 0.5) !important;
+  border-color: #13c8b5 !important;
+  cursor: grabbing !important;
+}

@@ -9,33 +9,18 @@ import { PersonaStack } from "./persona-chip";
 interface Props {
   pain: Pain;
   selected?: boolean;
-  dragging?: boolean;
   onSelect?: () => void;
-  onDragStart?: (e: React.DragEvent) => void;
-  onDragEnd?: () => void;
 }
 
-export function PainCard({ pain, selected, dragging, onSelect, onDragStart, onDragEnd }: Props) {
+export function PainCard({ pain, selected, onSelect }: Props) {
   const baseBorder = selected ? "#13c8b5" : "#e5e7eb";
   const baseBg = selected ? "#f4fdfb" : "#ffffff";
 
   return (
     <div
-      draggable
-      onDragStart={onDragStart}
-      onDragEnd={onDragEnd}
       onClick={onSelect}
       className="group relative cursor-grab rounded-lg border p-3 transition-all duration-150 ease-out hover:-translate-y-0.5 hover:shadow-md active:cursor-grabbing active:scale-[1.02] active:shadow-lg"
-      style={{
-        backgroundColor: baseBg,
-        borderColor: dragging ? "#13c8b5" : baseBorder,
-        opacity: dragging ? 0.92 : 1,
-        transform: dragging ? "rotate(3deg) scale(1.04)" : undefined,
-        boxShadow: dragging
-          ? "0 24px 40px -14px rgba(19,200,181,0.35), 0 0 0 2px rgba(19,200,181,0.4)"
-          : undefined,
-        cursor: dragging ? "grabbing" : undefined,
-      }}
+      style={{ backgroundColor: baseBg, borderColor: baseBorder }}
     >
       <span
         className="absolute left-1 top-2 opacity-0 transition-opacity group-hover:opacity-100"

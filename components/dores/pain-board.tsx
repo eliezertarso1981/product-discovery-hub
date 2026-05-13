@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Sortable from "sortablejs";
 import { Plus, MoreHorizontal } from "lucide-react";
 import { boardColumns, statusConfig, type Pain, type PainStatus } from "@/lib/dores-data";
 import { PainCard } from "./pain-card";
@@ -11,42 +12,49 @@ interface Props {
 }
 
 export function PainBoard({ pains, onMove }: Props) {
-  const [draggingId, setDraggingId] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [overCol, setOverCol] = useState<PainStatus | null>(null);
+  const listRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const onMoveRef = useRef(onMove);
+  onMoveRef.current = onMove;
+
+  useEffect(() => {
+    const instances: Sortable[] = [];
+    boardColumns.forEach((status) => {
+      const el = listRefs.current[status];
+      if (!el) return;
+      instances.push(
+        Sortable.create(el, {
+          group: "pains",
+          animation: 180,
+          easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+          ghostClass: "pain-ghost",
+          chosenClass: "pain-chosen",
+          dragClass: "pain-drag",
+          forceFallback: true,
+          fallbackOnBody: true,
+          fallbackTolerance: 4,
+          onEnd: (evt) => {
+            const id = evt.item.dataset.painId;
+            const target = (evt.to as HTMLElement).dataset.status as PainStatus | undefined;
+            if (id && target) onMoveRef.current(id, target);
+          },
+        }),
+      );
+    });
+    return () => instances.forEach((i) => i.destroy());
+  }, []);
 
   return (
     <div className="flex gap-4 overflow-x-auto pb-4">
       {boardColumns.map((status) => {
         const cfg = statusConfig[status];
         const items = pains.filter((p) => p.status === status);
-        const isOver = overCol === status;
 
         return (
-          <div
-            key={status}
-            onDragOver={(e) => {
-              e.preventDefault();
-              setOverCol(status);
-            }}
-            onDragLeave={() => setOverCol((c) => (c === status ? null : c))}
-            onDrop={() => {
-              if (draggingId) onMove(draggingId, status);
-              setOverCol(null);
-            }}
-            className="flex w-[300px] shrink-0 flex-col rounded-xl"
-            style={{
-              backgroundColor: isOver ? "#f4fdfb" : "transparent",
-              outline: isOver ? "2px dashed #13c8b5" : "none",
-              outlineOffset: -2,
-              transition: "background-color 120ms",
-            }}
-          >
+          <div key={status} className="flex w-[300px] shrink-0 flex-col rounded-xl">
             <div
               className="relative flex items-center justify-between rounded-t-xl px-2 py-2"
-              style={{
-                backgroundColor: status === "enderecada" ? "#fffbeb" : "#f9fafb",
-              }}
+              style={{ backgroundColor: status === "enderecada" ? "#fffbeb" : "#f9fafb" }}
             >
               {cfg.accent && (
                 <span
@@ -73,39 +81,22 @@ export function PainBoard({ pains, onMove }: Props) {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2 p-2 min-h-[120px]">
-              {items.map((p) => {
-                const isDragging = draggingId === p.id;
-                return (
-                  <div key={p.id} className="relative">
-                    {isDragging && (
-                      <div
-                        className="rounded-lg border-2 border-dashed"
-                        style={{
-                          borderColor: "#cbd5e1",
-                          height: 140,
-                          backgroundColor: "#f9fafb",
-                        }}
-                      />
-                    )}
-                    {!isDragging && (
-                      <PainCard
-                        pain={p}
-                        selected={selectedId === p.id}
-                        onSelect={() => setSelectedId(p.id === selectedId ? null : p.id)}
-                        onDragStart={(e) => {
-                          e.dataTransfer.effectAllowed = "move";
-                          setDraggingId(p.id);
-                        }}
-                        onDragEnd={() => {
-                          setDraggingId(null);
-                          setOverCol(null);
-                        }}
-                      />
-                    )}
-                  </div>
-                );
-              })}
+            <div
+              ref={(el) => {
+                listRefs.current[status] = el;
+              }}
+              data-status={status}
+              className="flex min-h-[120px] flex-col gap-2 rounded-b-xl p-2 transition-colors"
+            >
+              {items.map((p) => (
+                <div key={p.id} data-pain-id={p.id}>
+                  <PainCard
+                    pain={p}
+                    selected={selectedId === p.id}
+                    onSelect={() => setSelectedId(p.id === selectedId ? null : p.id)}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         );
