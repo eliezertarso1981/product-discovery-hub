@@ -3,7 +3,7 @@
 import { use, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Trash2 } from "lucide-react";
+import { Trash2, Plus, X, Link as LinkIcon, ExternalLink } from "lucide-react";
 import { useDiscovery } from "@/lib/discovery-store";
 import { evidenceTypeConfig, evidenceTypes, type EvidenceType } from "@/lib/discovery-data";
 import { BackLink, Field, TextInput, Textarea, formatDate } from "@/components/shared/crud-ui";
