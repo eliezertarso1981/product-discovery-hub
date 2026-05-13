@@ -35,6 +35,12 @@ export interface Experiment {
   updatedAt: string;
 }
 
+export interface EvidenceAttachment {
+  id: string;
+  label: string;
+  url: string;
+}
+
 export interface Evidence {
   id: string;
   productId: string;
@@ -43,6 +49,7 @@ export interface Evidence {
   source: string;
   type: EvidenceType;
   notes: string;
+  attachments: EvidenceAttachment[];
   createdAt: string;
   updatedAt: string;
 }
