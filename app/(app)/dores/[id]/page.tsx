@@ -243,6 +243,20 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
             />
           </Field>
 
+          <Field label="Data prevista de validação">
+            <input
+              type="date"
+              value={pain.dueDate ? pain.dueDate.slice(0, 10) : ""}
+              onChange={(e) =>
+                updatePain(pain.id, {
+                  dueDate: e.target.value ? new Date(e.target.value).toISOString() : undefined,
+                })
+              }
+              className="w-full rounded-md border bg-white px-2.5 py-1.5 text-[13px] text-[#2b364a] outline-none focus:border-[#13c8b5]"
+              style={{ borderColor: "#e5e7eb" }}
+            />
+          </Field>
+
           <Field label="Criado em">
             <div className="text-[13px] text-[#4b5563]">{formatDate(pain.createdAt)}</div>
           </Field>
