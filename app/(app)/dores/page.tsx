@@ -1,12 +1,12 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Download, Bookmark, Plus } from "lucide-react";
-import { type PainStatus } from "@/lib/dores-data";
+import { type PainStatus, statusConfig } from "@/lib/dores-data";
 import { useDores } from "@/lib/dores-store";
-import { useState } from "react";
 import { DoresToolbar, type ViewMode } from "@/components/dores/dores-toolbar";
 import { PainBoard } from "@/components/dores/pain-board";
 import { PainList } from "@/components/dores/pain-list";
