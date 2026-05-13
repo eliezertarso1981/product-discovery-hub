@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   LayoutGrid,
   Columns3,
@@ -11,6 +12,7 @@ import {
   Map,
   Users,
   Settings,
+  ChevronDown,
 } from "lucide-react";
 import { NavItem } from "./nav-item";
 
@@ -21,19 +23,19 @@ export function SidebarMenu({ collapsed = false }: { collapsed?: boolean }) {
         <NavItem href="/dashboard" icon={LayoutGrid} label="Home" collapsed={collapsed} />
       </div>
 
-      <Group title="Estratégia" collapsed={collapsed}>
+      <Group id="estrategia" title="Estratégia" collapsed={collapsed}>
         <NavItem href="/pilares" icon={Columns3} label="Pilares" collapsed={collapsed} />
         <NavItem href="/okrs" icon={Target} label="OKRs" collapsed={collapsed} />
       </Group>
 
-      <Group title="Discovery" collapsed={collapsed}>
+      <Group id="discovery" title="Discovery" collapsed={collapsed}>
         <NavItem href="/evidencias" icon={Lightbulb} label="Evidências" collapsed={collapsed} />
         <NavItem href="/dores" icon={AlertCircle} label="Dores" badge={12} collapsed={collapsed} />
         <NavItem href="/hipoteses" icon={FlaskConical} label="Hipóteses" collapsed={collapsed} />
         <NavItem href="/experimentos" icon={Beaker} label="Experimentos" collapsed={collapsed} />
       </Group>
 
-      <Group title="Delivery" collapsed={collapsed}>
+      <Group id="delivery" title="Delivery" collapsed={collapsed}>
         <NavItem href="/roadmap" icon={Map} label="Roadmap" collapsed={collapsed} />
         <NavItem href="/outcomes" icon={Target} label="Outcomes" collapsed={collapsed} />
       </Group>
@@ -48,25 +50,70 @@ export function SidebarMenu({ collapsed = false }: { collapsed?: boolean }) {
 }
 
 function Group({
+  id,
   title,
   children,
   collapsed,
 }: {
+  id: string;
   title: string;
   children: React.ReactNode;
   collapsed?: boolean;
 }) {
+  const storageKey = `sidebar-group:${id}`;
+  const [open, setOpen] = useState(true);
+
+  useEffect(() => {
+    try {
+      const v = localStorage.getItem(storageKey);
+      if (v !== null) setOpen(v === "1");
+    } catch {}
+  }, [storageKey]);
+
+  const toggle = () => {
+    setOpen((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem(storageKey, next ? "1" : "0");
+      } catch {}
+      return next;
+    });
+  };
+
+  if (collapsed) {
+    return (
+      <div className="mt-6">
+        <div className="mx-2 mb-2 h-px" style={{ backgroundColor: "#e5e7eb" }} />
+        <div className="space-y-1">{children}</div>
+      </div>
+    );
+  }
+
   return (
     <div className="mt-6">
-      {!collapsed && (
-        <div
-          className="mb-2 px-3 text-[11px] font-semibold uppercase tracking-wider"
-          style={{ color: "#9ca3af" }}
-        >
-          {title}
-        </div>
-      )}
-      <div className="space-y-1">{children}</div>
+      <button
+        type="button"
+        onClick={toggle}
+        aria-expanded={open}
+        className="mb-2 flex w-full items-center justify-between px-3 text-[11px] font-semibold uppercase tracking-wider transition-colors hover:text-[#4b5563]"
+        style={{ color: "#9ca3af" }}
+      >
+        <span>{title}</span>
+        <ChevronDown
+          size={14}
+          className="transition-transform duration-200"
+          style={{ transform: open ? "rotate(0deg)" : "rotate(-90deg)" }}
+        />
+      </button>
+      <div
+        className="overflow-hidden transition-all duration-200"
+        style={{
+          maxHeight: open ? 1000 : 0,
+          opacity: open ? 1 : 0,
+        }}
+      >
+        <div className="space-y-1">{children}</div>
+      </div>
     </div>
   );
 }
