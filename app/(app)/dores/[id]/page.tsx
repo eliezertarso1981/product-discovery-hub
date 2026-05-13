@@ -83,18 +83,28 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
           <ArrowLeft size={14} /> Dores
         </Link>
         <button
-          onClick={() => {
-            if (confirm("Excluir esta dor?")) {
-              deletePain(pain.id);
-              router.push("/dores");
-            }
-          }}
-          className="inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[12px] text-[var(--danger)] hover:bg-[var(--danger-soft)]"
+          onClick={() => setConfirmDelete(true)}
+          className="inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[12px] text-[var(--danger)] transition-colors hover:bg-[var(--danger-soft)]"
           style={{ borderColor: "var(--danger-border)" }}
         >
           <Trash2 size={13} /> Excluir
         </button>
       </div>
+
+      <ConfirmDialog
+        open={confirmDelete}
+        title="Excluir esta dor?"
+        description="Esta ação remove a dor e suas referências locais. Não pode ser desfeita."
+        confirmLabel="Excluir"
+        destructive
+        onCancel={() => setConfirmDelete(false)}
+        onConfirm={() => {
+          deletePain(pain.id);
+          setConfirmDelete(false);
+          toast.success("Dor excluída");
+          router.push("/dores");
+        }}
+      />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
         <div>
