@@ -56,7 +56,7 @@ export function PainFlow({ pains }: Props) {
                     <span className="font-mono text-[11px]" style={{ color: "#9ca3af" }}>
                       {pain.id}
                     </span>
-                    <SeverityDots value={pain.severity} />
+                    <SeverityDots level={pain.severity} />
                   </div>
                   <div
                     className="mt-1.5 line-clamp-2 text-[13px] font-medium leading-snug group-hover:text-[#13c8b5]"
