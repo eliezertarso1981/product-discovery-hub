@@ -102,6 +102,11 @@ export function DoresToolbar({ view, onViewChange }: Props) {
             onClick={() => onViewChange("board")}
           />
           <ViewBtn
+            icon={Workflow}
+            active={view === "flow"}
+            onClick={() => onViewChange("flow")}
+          />
+          <ViewBtn
             icon={Calendar}
             active={view === "calendar"}
             onClick={() => onViewChange("calendar")}
