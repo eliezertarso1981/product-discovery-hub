@@ -261,6 +261,57 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
             />
           </Field>
 
+          <Field label="Pilar estratégico">
+            <PillarSelect
+              value={pain.pillarId}
+              pillars={productPillars}
+              onChange={(pillarId) => updatePain(pain.id, { pillarId })}
+            />
+            {pain.pillarId && getPillar(pain.pillarId) && (
+              <Link
+                href={`/pilares/${pain.pillarId}`}
+                className="mt-1 inline-block text-[11px] text-[var(--primary)] hover:underline"
+              >
+                Abrir pilar →
+              </Link>
+            )}
+          </Field>
+
+          <Field label="OKRs vinculados">
+            <OkrMultiSelect
+              selected={pain.okrIds ?? []}
+              okrs={productOkrs}
+              onChange={(ids) => updatePain(pain.id, { okrIds: ids })}
+            />
+            {(pain.okrIds ?? []).length > 0 && (
+              <ul className="mt-2 space-y-1">
+                {(pain.okrIds ?? []).map((oid) => {
+                  const o = getOKR(oid);
+                  if (!o) return null;
+                  const cfg = okrStatusConfig[o.status];
+                  return (
+                    <li key={oid}>
+                      <Link
+                        href={`/okrs/${oid}`}
+                        className="flex items-center justify-between rounded-md border bg-white px-2 py-1.5 text-[12px] hover:bg-[var(--bg-muted)]"
+                        style={{ borderColor: "var(--border)" }}
+                      >
+                        <span className="flex min-w-0 items-center gap-1.5">
+                          <span className="font-mono text-[10px] text-[var(--fg-faint)]">{o.id}</span>
+                          <span className="truncate text-[var(--fg)]">{o.objective}</span>
+                        </span>
+                        <span className="inline-flex shrink-0 items-center gap-1 text-[10px] text-[var(--fg-muted)]">
+                          <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: cfg.dot }} />
+                          {formatPeriod(o.period)}
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </Field>
+
           <Field label="Data prevista de validação">
             <input
               type="date"
