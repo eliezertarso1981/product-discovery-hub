@@ -1,113 +1,113 @@
-# Plano — Dashboard SaaS de Product Discovery
+# Plano — Tela de login mock
 
-## Etapa 1 — Migração do projeto para Next.js 15
+## Stack & restrições (mantidas da etapa anterior)
 
-Reescrita do bootstrap (atualmente TanStack Start + Vite). Necessário porque o escopo todo assume App Router.
+Next.js 15 App Router, TypeScript, Tailwind v4, Lucide, Geist. Sem shadcn/Radix. Cores HEX literais (sem tokens). Max `font-semibold`, max `rounded-2xl`. Login mock: qualquer email+senha vai para `/dashboard`. Botões Google/Microsoft só visuais.
 
-- Remover: `vite.config.ts`, `wrangler.jsonc`, `src/router.tsx`, `src/server.ts`, `src/start.ts`, `src/routeTree.gen.ts`, `src/routes/**`, `src/lib/error-capture.ts`, `src/lib/error-page.ts`.
-- Remover dependências: `@tanstack/*`, `vite`, `@vitejs/*`, `wrangler`, `tw-animate-css`.
-- Instalar: `next@15`, `react@19`, `react-dom@19`, `@fontsource/geist-sans`, `@fontsource/geist-mono`, `lucide-react` (já existe), `tailwindcss@4`, `@tailwindcss/postcss`, `postcss`.
-- Criar config Next: `next.config.ts`, `postcss.config.mjs`, `tsconfig.json` (Next preset), `app/globals.css` (Tailwind v4 import + reset mínimo, sem theme tokens).
-- Atualizar `package.json` scripts: `dev`, `build`, `start`, `lint` para Next.
-- Manter `src/components/ui/*` instalado mas **não importar** (pedido: sem shadcn). Não removo para não mexer fora do escopo de UI; se preferir, removo numa segunda passada.
-
-## Etapa 2 — Estrutura de arquivos
+## Estrutura de arquivos
 
 ```text
 app/
-  layout.tsx                 // <html>, Geist no body, sem providers
-  page.tsx                   // redirect("/dashboard")
-  globals.css                // tailwind v4, reset
-  (app)/
-    layout.tsx               // shell: <Sidebar/> + <Topbar/> + {children}
-    dashboard/page.tsx
-    pilares/page.tsx
-    okrs/page.tsx
-    evidencias/page.tsx
-    dores/page.tsx
-    hipoteses/page.tsx
-    experimentos/page.tsx
-    roadmap/page.tsx
-    outcomes/page.tsx
-    personas/page.tsx
-    settings/page.tsx
+  (auth)/
+    layout.tsx              // sem Sidebar/Topbar; <html> já vem do app/layout.tsx
+    login/page.tsx          // form + painel direito
+    forgot-password/page.tsx// pede email
+    check-email/page.tsx    // "Verifique seu email"
 components/
-  shell/
-    sidebar.tsx
-    topbar.tsx
-    nav-item.tsx
-    workspace-switcher.tsx
-    user-card.tsx
-  shared/
-    avatar.tsx
-    placeholder-page.tsx
-  dashboard/
-    dashboard-header.tsx
-    metric-tile.tsx
-    funnel-view.tsx
-    recent-activity.tsx
-    upcoming-measurements.tsx
-    health-signals.tsx
+  auth/
+    auth-shell.tsx          // split desktop, single mobile, com toggle de tema
+    brand-mark.tsx          // logo "Product" + "Gen" turquesa
+    testimonial-panel.tsx   // painel direito dark com depoimento + clientes
+    theme-toggle.tsx        // botão Sol/Lua, persiste em localStorage
+    social-buttons.tsx      // Google + Microsoft (visuais)
+    text-field.tsx          // input com ícone + erro + (opcional) toggle senha
 lib/
-  mock-data.ts
-  entity-config.ts
+  theme.ts                  // helpers do toggle (apply class no <html>)
 ```
 
-Login: pulado (conforme resposta). `app/page.tsx` redireciona direto para `/dashboard`.
+`app/layout.tsx`: adicionar script inline pequeno que lê `localStorage.theme` e aplica `data-theme="dark"` no `<html>` antes do paint, evitando flash. Body troca cores via seletores CSS.
 
-## Etapa 3 — Design system (sem tokens, HEX literal)
+`app/globals.css`: além do reset, adicionar variáveis CSS escopadas em `[data-theme="dark"]` **apenas para a área de auth** — para não quebrar o resto do app que está em HEX literal puro. Alternativa mais simples: cada componente de auth recebe `theme` por prop e aplica HEX correspondente. Vou usar esta segunda via para respeitar a regra de "HEX literal sempre" e não introduzir tokens.
 
-Paleta fixada nos componentes (estilo inline ou classes arbitrárias `bg-[#13c8b5]`):
+## Página `/login`
 
-- Turquesa primária: `#13c8b5`
-- Turquesa sutil (ativo sidebar): `#e6f8f5`
-- Texto principal: `#2b364a`
-- Texto secundário: `#6b7280`
-- Bordas: `#e5e7eb`
-- Sidebar bg: `#f7f8fa`
-- Canvas bg: `#ffffff`
-- Warning: `#f59e0b` / bg `#fff7ed`
-- Danger: `#ef4444` / bg `#fef2f2`
-- Avatares: paleta fixa por iniciais
+Layout split 1:1 desktop, single column mobile.
 
-Regras: max `font-semibold`, max `rounded-2xl` (16px), sem emoji, ícones só Lucide.
+**Lado esquerdo — formulário (≈ 480px coluna):**
+- Logo `BrandMark` no topo
+- Título "Entrar" (font-semibold, ~36px) + subtítulo "Acesse sua plataforma de Product Intelligence."
+- Botão "Continuar com Google" (ícone G colorido) — visual
+- Botão "Continuar com Microsoft" (ícone MS colorido) — visual
+- Divisor "ou continue com email"
+- Campo Email com ícone Mail (Lucide)
+- Campo Senha com ícone Lock + toggle Eye/EyeOff
+- Link "Esqueci a senha" → `/forgot-password`
+- Botão "Entrar" turquesa (`#13c8b5`), ocupa largura total
+- Estado loading: ícone Loader2 girando + "Entrar"
+- Estado erro: borda vermelha nos dois campos + linha "Email ou senha incorretos. Tente novamente." (ícone CircleAlert)
+- Footer link: "Ainda não tem conta? Criar workspace"
+- Rodapé do bloco: "© 2025 ProductGen, Inc." + Privacidade / Termos / Status
+- Toggle de tema (Sol/Lua) no canto superior direito do painel esquerdo
 
-## Etapa 4 — Componentes
+**Lado direito — painel (oculto em mobile):**
+- Fundo `#0f172a` (dark navy) com padrão de pontos via `radial-gradient`
+- Logo ProductGen no topo
+- Aspas grandes turquesa + depoimento "Pela primeira vez consigo provar que o que entregamos moveu o que prometemos."
+- Avatar "MS" + "Maria Souza" / "VP de Produto, Acme Corp"
+- Rodapé com nomes de clientes em letra cinza esmaecida: ACME · NIMBUS · HELIA · STRATA · VOLTA
 
-**Shell**
-- `Sidebar` 280px fixo, fundo `#f7f8fa`, grupos: Estratégia (Pilares, OKRs), Discovery (Evidências, Dores [badge 12], Hipóteses, Experimentos), Delivery (Roadmap, Outcomes), e fora de grupo: Personas, Settings. Topo: `WorkspaceSwitcher` (Acme Product Team / 12 membros). Rodapé: `UserCard` (Eliezer Silva).
-- `NavItem` recebe `href`, `icon`, `label`, `badge?`. Usa `usePathname` para estado ativo (barra esquerda turquesa + bg `#e6f8f5` + texto `#13c8b5`).
-- `Topbar` 56px: busca central com `⌘K`, botão `+ Novo` turquesa, sino com dot, avatar.
+## Comportamento mock
 
-**Shared**
-- `Avatar` com initials e cor derivada.
-- `PlaceholderPage` com título centralizado e subtítulo "Em breve".
+Submit do form (`<form onSubmit>`):
+1. `e.preventDefault()`
+2. Validação local com Zod: `email().min(1)` + `password.min(1)`. Erro de schema → estado de erro genérico (igual print C/H).
+3. Se válido → `setLoading(true)`, `setTimeout(600ms)` e `router.push("/dashboard")` (puro mock, sem auth real).
 
-**Dashboard**
-- `DashboardHeader`: "Bom dia, Eliezer" + subtítulo + seletor "Esta semana".
-- `MetricTile`: label, valor, delta com ícone Lucide.
-- `FunnelView`: 8 estágios horizontais com chevrons entre eles + alerta de gargalo.
-- `RecentActivity`: lista com ícone por tipo de entidade.
-- `UpcomingMeasurements`: lista com badges de prazo (em N dias / vencido).
-- `HealthSignals`: 3 indicadores (taxa invalidação com barra, idade média, cobertura).
+Botões sociais: `type="button"`, sem handler.
 
-## Etapa 5 — Mock data
+`/forgot-password`: form com 1 campo email + botão "Enviar link de recuperação". Submit → `router.push("/check-email?email=<encoded>")`.
 
-`lib/entity-config.ts` mapeia entidade → `{ icon, color, label }` para evidence / pain / hypothesis / experiment / roadmap / outcome.
+`/check-email`: lê `?email=` via `useSearchParams`, exibe ícone CheckCircle turquesa pálido, título "Verifique seu email", texto com email + "O link expira em 30 minutos.", botão "Reenviar email" (visual), link "← Voltar para login", linha "Não recebeu? Verifique sua pasta de spam ou fale com suporte."
 
-`lib/mock-data.ts` exporta: `currentUser`, `workspace`, `kpis`, `funnel`, `recentActivity`, `upcomingMeasurements`, `healthSignals` — valores idênticos aos prints anexados.
+## Dark mode (escopo apenas auth)
 
-## Etapa 6 — Validação
+Toggle armazena `localStorage.setItem("auth-theme", "dark"|"light")`.
+Componentes de auth lêem o estado via hook `useAuthTheme()` (Client Component) e aplicam HEX correspondentes:
 
-- `npm run dev`, conferir `/` → `/dashboard`, sidebar com item ativo correto em cada placeholder, layout desktop bate com os screenshots fornecidos.
+| token              | light       | dark        |
+|--------------------|-------------|-------------|
+| canvas             | `#ffffff`   | `#0a0f1c`   |
+| text primary       | `#2b364a`   | `#ffffff`   |
+| text secondary     | `#6b7280`   | `#94a3b8`   |
+| border             | `#e5e7eb`   | `#1e293b`   |
+| input bg           | `#ffffff`   | `#111827`   |
+| social btn bg      | `#ffffff`   | `#0f172a`   |
+| primary CTA        | `#13c8b5`   | `#13c8b5`   |
 
-## O que NÃO entra nesta etapa
+Aplicado via `style={{ backgroundColor: dark ? "#0a0f1c" : "#ffffff" }}`. Nada de classes utilitárias `dark:`.
 
-- Login, dark mode, drawer mobile, auth real, APIs, persistência, formulários funcionais, remoção de shadcn/ui já instalado.
+## Responsivo
 
-## Detalhes técnicos
+- `< 768px`: painel direito oculto, formulário ocupa 100% com padding 24px, sem rodapé "© 2025…" (igual prints F/G/H).
+- `≥ 768px`: split 50/50, max-width do form ≈ 440px centralizado na coluna esquerda.
 
-- Tailwind v4 via `@import "tailwindcss"` em `app/globals.css`, sem `@theme` customizado (pedido: sem tokens).
-- Geist via `@fontsource/geist-sans` + `@fontsource/geist-mono` importados no `app/layout.tsx`, aplicados como `font-family` no body.
-- Path alias `@/*` → raiz.
-- `app/(app)/layout.tsx` é Server Component; `Sidebar`/`Topbar` viram Client Components (usam `usePathname`).
+## Validação & segurança
+
+- Zod schema `{ email: z.string().email().max(255), password: z.string().min(1).max(128) }`.
+- `encodeURIComponent` no email passado para `/check-email`.
+- Sem logs de credencial.
+
+## Integração com app existente
+
+- Mudar `app/page.tsx`: redirect → `/login` (em vez de `/dashboard`).
+- Não criar guard ainda (login é mock; qualquer um pode acessar `/dashboard` direto).
+- Adicionar dependência: `zod`. (Lucide e clsx já existem.)
+
+## Validação final
+
+- `/login` light + dark
+- Submeter com qualquer email+senha → `/dashboard`
+- Submeter vazio → estado de erro
+- "Esqueci a senha" → `/forgot-password` → `/check-email?email=…`
+- Mobile (375px): coluna única, painel direito sumido
+- `/` redireciona para `/login`
