@@ -1,0 +1,200 @@
+"use client";
+
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import {
+  initialPains,
+  owners,
+  type Pain,
+  type PainAttachment,
+  type PainComment,
+  type PainStatus,
+} from "./dores-data";
+
+const STORAGE_KEY = "dores-store-v1";
+
+interface Ctx {
+  pains: Pain[];
+  ready: boolean;
+  currentUser: typeof owners.CM;
+  getPain: (id: string) => Pain | undefined;
+  createPain: () => Pain;
+  updatePain: (id: string, patch: Partial<Pain>) => void;
+  deletePain: (id: string) => void;
+  moveStatus: (id: string, status: PainStatus) => void;
+  addComment: (id: string, text: string) => void;
+  addAttachments: (id: string, files: PainAttachment[]) => void;
+  removeAttachment: (id: string, attId: string) => void;
+}
+
+const DoresCtx = createContext<Ctx | null>(null);
+
+function nextPainId(pains: Pain[]): string {
+  const nums = pains
+    .map((p) => parseInt(p.id.replace(/\D/g, ""), 10))
+    .filter((n) => Number.isFinite(n));
+  const max = nums.length ? Math.max(...nums) : 0;
+  return `PN-${String(max + 1).padStart(2, "0")}`;
+}
+
+export function DoresProvider({ children }: { children: React.ReactNode }) {
+  const [pains, setPains] = useState<Pain[]>(initialPains);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) setPains(JSON.parse(raw));
+    } catch {
+      // ignore
+    }
+    setReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!ready) return;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(pains));
+    } catch {
+      // ignore
+    }
+  }, [pains, ready]);
+
+  const currentUser = owners.CM;
+
+  const getPain = useCallback((id: string) => pains.find((p) => p.id === id), [pains]);
+
+  const updatePain = useCallback((id: string, patch: Partial<Pain>) => {
+    setPains((prev) =>
+      prev.map((p) =>
+        p.id === id ? { ...p, ...patch, updatedAt: new Date().toISOString() } : p,
+      ),
+    );
+  }, []);
+
+  const createPain = useCallback((): Pain => {
+    const now = new Date().toISOString();
+    let created: Pain | null = null;
+    setPains((prev) => {
+      const id = nextPainId(prev);
+      const newPain: Pain = {
+        id,
+        title: "Nova dor",
+        description: "",
+        status: "backlog",
+        severity: 3,
+        reach: 0,
+        evidences: 0,
+        hypotheses: 0,
+        personas: [],
+        owner: currentUser,
+        responsibles: [currentUser],
+        attachments: [],
+        comments: [],
+        createdAt: now,
+        updatedAt: now,
+      };
+      created = newPain;
+      return [newPain, ...prev];
+    });
+    return created!;
+  }, [currentUser]);
+
+  const deletePain = useCallback((id: string) => {
+    setPains((prev) => prev.filter((p) => p.id !== id));
+  }, []);
+
+  const moveStatus = useCallback(
+    (id: string, status: PainStatus) => updatePain(id, { status }),
+    [updatePain],
+  );
+
+  const addComment = useCallback(
+    (id: string, text: string) => {
+      const trimmed = text.trim();
+      if (!trimmed) return;
+      const comment: PainComment = {
+        id: `c-${Date.now()}`,
+        author: currentUser,
+        text: trimmed,
+        createdAt: new Date().toISOString(),
+      };
+      setPains((prev) =>
+        prev.map((p) =>
+          p.id === id
+            ? {
+                ...p,
+                comments: [...p.comments, comment],
+                updatedAt: new Date().toISOString(),
+              }
+            : p,
+        ),
+      );
+    },
+    [currentUser],
+  );
+
+  const addAttachments = useCallback((id: string, files: PainAttachment[]) => {
+    setPains((prev) =>
+      prev.map((p) =>
+        p.id === id
+          ? {
+              ...p,
+              attachments: [...p.attachments, ...files],
+              updatedAt: new Date().toISOString(),
+            }
+          : p,
+      ),
+    );
+  }, []);
+
+  const removeAttachment = useCallback((id: string, attId: string) => {
+    setPains((prev) =>
+      prev.map((p) =>
+        p.id === id
+          ? {
+              ...p,
+              attachments: p.attachments.filter((a) => a.id !== attId),
+              updatedAt: new Date().toISOString(),
+            }
+          : p,
+      ),
+    );
+  }, []);
+
+  const value = useMemo<Ctx>(
+    () => ({
+      pains,
+      ready,
+      currentUser,
+      getPain,
+      createPain,
+      updatePain,
+      deletePain,
+      moveStatus,
+      addComment,
+      addAttachments,
+      removeAttachment,
+    }),
+    [
+      pains,
+      ready,
+      currentUser,
+      getPain,
+      createPain,
+      updatePain,
+      deletePain,
+      moveStatus,
+      addComment,
+      addAttachments,
+      removeAttachment,
+    ],
+  );
+
+  return <DoresCtx.Provider value={value}>{children}</DoresCtx.Provider>;
+}
+
+export function useDores() {
+  const ctx = useContext(DoresCtx);
+  if (!ctx) throw new Error("useDores precisa estar dentro de <DoresProvider>");
+  return ctx;
+}
