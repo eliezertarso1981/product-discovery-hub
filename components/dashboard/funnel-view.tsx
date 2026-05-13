@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { ChevronRight, AlertTriangle } from "lucide-react";
 import { funnel, bottleneck } from "@/lib/mock-data";
 
@@ -24,17 +25,24 @@ export function FunnelView() {
         </button>
       </div>
 
-      <div className="mt-6 flex items-stretch gap-1 overflow-x-auto">
+      <div className="mt-6 flex w-full items-stretch gap-1">
         {funnel.map((stage, i) => (
-          <div key={stage.label} className="flex items-center gap-1">
+          <Fragment key={stage.label}>
             <div
-              className="flex min-w-[110px] flex-col rounded-xl p-3"
+              className="flex min-w-0 flex-1 flex-col rounded-xl p-3"
               style={{ backgroundColor: "var(--primary-soft)" }}
             >
-              <div className="text-[11px] leading-tight" style={{ color: "#0f766e" }}>
+              <div
+                className="truncate text-[11px] leading-tight"
+                style={{ color: "#0f766e" }}
+                title={stage.label}
+              >
                 {stage.label}
               </div>
-              <div className="mt-2 text-2xl font-semibold" style={{ color: "var(--fg)" }}>
+              <div
+                className="mt-2 text-xl font-semibold sm:text-2xl"
+                style={{ color: "var(--fg)" }}
+              >
                 {stage.value}
               </div>
               {stage.rate && (
@@ -43,8 +51,12 @@ export function FunnelView() {
                 </div>
               )}
             </div>
-            {i < funnel.length - 1 && <ChevronRight size={16} color="var(--fg-faint)" />}
-          </div>
+            {i < funnel.length - 1 && (
+              <div key={`sep-${stage.label}`} className="flex shrink-0 items-center">
+                <ChevronRight size={16} color="var(--fg-faint)" />
+              </div>
+            )}
+          </Fragment>
         ))}
       </div>
 
