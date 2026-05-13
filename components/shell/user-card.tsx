@@ -14,10 +14,7 @@ export function UserCard() {
           {currentUser.email}
         </div>
       </div>
-      <button
-        className="rounded-md p-1 transition-colors hover:bg-white"
-        aria-label="Mais opções"
-      >
+      <button className="rounded-md p-1 transition-colors hover:bg-white" aria-label="Mais opções">
         <MoreHorizontal size={16} color="#6b7280" />
       </button>
     </div>

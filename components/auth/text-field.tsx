@@ -66,7 +66,11 @@ export function TextField({
             aria-label={show ? "Ocultar senha" : "Mostrar senha"}
             className="flex h-11 w-11 items-center justify-center"
           >
-            {show ? <EyeOff size={16} color={p.textMuted} /> : <Eye size={16} color={p.textMuted} />}
+            {show ? (
+              <EyeOff size={16} color={p.textMuted} />
+            ) : (
+              <Eye size={16} color={p.textMuted} />
+            )}
           </button>
         ) : (
           trailing

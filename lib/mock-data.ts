@@ -13,10 +13,34 @@ export const workspace = {
 };
 
 export const kpis = [
-  { label: "EVIDÊNCIAS · 30D", value: "47", delta: "+12%", deltaTone: "up" as const, deltaLabel: "vs. mês anterior" },
-  { label: "DORES EM INVESTIGAÇÃO", value: "8", delta: "—", deltaTone: "flat" as const, deltaLabel: "sem mudança esta semana" },
-  { label: "HIPÓTESES VALIDADAS", value: "12", delta: "+3", deltaTone: "up" as const, deltaLabel: "vs. trimestre" },
-  { label: "OUTCOMES EM MEDIÇÃO", value: "5", delta: "", deltaTone: "warn" as const, deltaLabel: "2 vencem esta semana" },
+  {
+    label: "EVIDÊNCIAS · 30D",
+    value: "47",
+    delta: "+12%",
+    deltaTone: "up" as const,
+    deltaLabel: "vs. mês anterior",
+  },
+  {
+    label: "DORES EM INVESTIGAÇÃO",
+    value: "8",
+    delta: "—",
+    deltaTone: "flat" as const,
+    deltaLabel: "sem mudança esta semana",
+  },
+  {
+    label: "HIPÓTESES VALIDADAS",
+    value: "12",
+    delta: "+3",
+    deltaTone: "up" as const,
+    deltaLabel: "vs. trimestre",
+  },
+  {
+    label: "OUTCOMES EM MEDIÇÃO",
+    value: "5",
+    delta: "",
+    deltaTone: "warn" as const,
+    deltaLabel: "2 vencem esta semana",
+  },
 ];
 
 export const funnel = [
@@ -93,20 +117,57 @@ export const recentActivity: Array<{
 ];
 
 export const upcomingMeasurements = [
-  { id: "1", title: "Hub Unificador de Feedback", measuring: "NPS enterprise +5pp", status: "em 4 dias", tone: "warn" as const },
-  { id: "2", title: "Tour Interativo Guiado", measuring: "MAU D30 de 42% → 55%", status: "em 11 dias", tone: "warn" as const },
-  { id: "3", title: "Dashboard executivo automático", measuring: "redução de horas/mês com reports manuais", status: "em 18 dias", tone: "warn" as const },
-  { id: "4", title: "App mobile native", measuring: "retenção D7 mobile +30%", status: "vencido há 3 dias", tone: "danger" as const },
+  {
+    id: "1",
+    title: "Hub Unificador de Feedback",
+    measuring: "NPS enterprise +5pp",
+    status: "em 4 dias",
+    tone: "warn" as const,
+  },
+  {
+    id: "2",
+    title: "Tour Interativo Guiado",
+    measuring: "MAU D30 de 42% → 55%",
+    status: "em 11 dias",
+    tone: "warn" as const,
+  },
+  {
+    id: "3",
+    title: "Dashboard executivo automático",
+    measuring: "redução de horas/mês com reports manuais",
+    status: "em 18 dias",
+    tone: "warn" as const,
+  },
+  {
+    id: "4",
+    title: "App mobile native",
+    measuring: "retenção D7 mobile +30%",
+    status: "vencido há 3 dias",
+    tone: "danger" as const,
+  },
 ];
 
 export const healthSignals = {
-  invalidationRate: { value: 33, healthyMin: 10, healthyMax: 60, note: "Saudável — entre 10% e 60% indica que vocês estão testando, não confirmando." },
-  avgPainAge: { value: 23, unit: "dias", delta: "+6 dias vs. mês anterior", note: "Acima da média esperada (14d). Possível gargalo no triage." },
-  strategicCoverage: { value: 87, note: "87% das iniciativas no roadmap têm hipótese validada e ligada a um pilar estratégico." },
+  invalidationRate: {
+    value: 33,
+    healthyMin: 10,
+    healthyMax: 60,
+    note: "Saudável — entre 10% e 60% indica que vocês estão testando, não confirmando.",
+  },
+  avgPainAge: {
+    value: 23,
+    unit: "dias",
+    delta: "+6 dias vs. mês anterior",
+    note: "Acima da média esperada (14d). Possível gargalo no triage.",
+  },
+  strategicCoverage: {
+    value: 87,
+    note: "87% das iniciativas no roadmap têm hipótese validada e ligada a um pilar estratégico.",
+  },
 };
 
 export const bottleneck = {
-  stage: 'Triadas → Dores',
-  rate: '61%',
-  expected: '>70%',
+  stage: "Triadas → Dores",
+  rate: "61%",
+  expected: ">70%",
 };

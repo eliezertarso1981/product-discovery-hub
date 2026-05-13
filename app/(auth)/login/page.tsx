@@ -17,11 +17,7 @@ const schema = z.object({
 });
 
 export default function LoginPage() {
-  return (
-    <AuthShell>
-      {(theme) => <LoginForm theme={theme} p={palette[theme]} />}
-    </AuthShell>
-  );
+  return <AuthShell>{(theme) => <LoginForm theme={theme} p={palette[theme]} />}</AuthShell>;
 }
 
 function LoginForm({

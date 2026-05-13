@@ -43,9 +43,15 @@ export function AuthShell({ children, showFooter = true }: AuthShellProps) {
             >
               <span>© 2025 ProductGen, Inc.</span>
               <div className="flex gap-5">
-                <a href="#" className="hover:opacity-80">Privacidade</a>
-                <a href="#" className="hover:opacity-80">Termos</a>
-                <a href="#" className="hover:opacity-80">Status</a>
+                <a href="#" className="hover:opacity-80">
+                  Privacidade
+                </a>
+                <a href="#" className="hover:opacity-80">
+                  Termos
+                </a>
+                <a href="#" className="hover:opacity-80">
+                  Status
+                </a>
               </div>
             </div>
           )}

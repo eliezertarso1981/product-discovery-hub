@@ -2,8 +2,7 @@ import { Quote } from "lucide-react";
 import { BrandMark } from "./brand-mark";
 
 export function TestimonialPanel() {
-  const dotPattern =
-    "radial-gradient(circle, rgba(94,234,212,0.18) 1px, transparent 1px)";
+  const dotPattern = "radial-gradient(circle, rgba(94,234,212,0.18) 1px, transparent 1px)";
 
   return (
     <div
