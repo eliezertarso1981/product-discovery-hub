@@ -68,15 +68,15 @@
 }
 
 .dark {
-  --bg: #0b1220;
-  --bg-subtle: #0f172a;
-  --bg-muted: #111a2e;
-  --bg-muted-2: #1a2540;
-  --bg-elevated: #131c33;
+  --bg: #181a1c;
+  --bg-subtle: #1d1f22;
+  --bg-muted: #202225;
+  --bg-muted-2: #26282c;
+  --bg-elevated: #1f2125;
 
-  --border: #1f2a44;
-  --border-strong: #2b3a5e;
-  --border-soft: #172037;
+  --border: #2c2f33;
+  --border-strong: #3a3e44;
+  --border-soft: #232629;
 
   --fg: #e6edf7;
   --fg-muted: #b7c2d6;
