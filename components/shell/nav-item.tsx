@@ -1,8 +1,21 @@
 "use client";
 
-import Link from "next/link";
+import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
 import type { LucideIcon } from "lucide-react";
+import { Loader2 } from "lucide-react";
+
+function PendingDot() {
+  const { pending } = useLinkStatus();
+  if (!pending) return null;
+  return (
+    <Loader2
+      size={14}
+      className="animate-spin"
+      style={{ color: "var(--primary)" }}
+    />
+  );
+}
 
 interface NavItemProps {
   href: string;
@@ -19,6 +32,7 @@ export function NavItem({ href, icon: Icon, label, badge, collapsed }: NavItemPr
   return (
     <Link
       href={href}
+      prefetch
       title={collapsed ? label : undefined}
       className={`group relative flex items-center gap-3 rounded-lg py-2 text-sm transition-all duration-150 hover:translate-x-0.5 ${
         collapsed ? "justify-center px-2" : "px-3"
@@ -52,6 +66,7 @@ export function NavItem({ href, icon: Icon, label, badge, collapsed }: NavItemPr
       {!collapsed && (
         <>
           <span className="flex-1">{label}</span>
+          <PendingDot />
           {badge !== undefined && (
             <span
               className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-md px-1.5 text-xs font-semibold"
@@ -62,6 +77,7 @@ export function NavItem({ href, icon: Icon, label, badge, collapsed }: NavItemPr
           )}
         </>
       )}
+      {collapsed && <PendingDot />}
     </Link>
   );
 }
