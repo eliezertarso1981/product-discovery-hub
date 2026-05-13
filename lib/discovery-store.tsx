@@ -149,7 +149,15 @@ export function DiscoveryProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setState(JSON.parse(raw));
+      if (raw) {
+        const parsed = JSON.parse(raw) as State;
+        // migrate older shapes
+        parsed.experiments = (parsed.experiments ?? []).map((e) => ({
+          ...e,
+          expectedResults: Array.isArray(e.expectedResults) ? e.expectedResults : [],
+        }));
+        setState(parsed);
+      }
     } catch {
       // ignore
     }
