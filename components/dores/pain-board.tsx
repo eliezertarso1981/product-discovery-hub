@@ -36,6 +36,12 @@ export function PainBoard({ pains, onMove }: Props) {
           onEnd: (evt) => {
             const id = evt.item.dataset.painId;
             const target = (evt.to as HTMLElement).dataset.status as PainStatus | undefined;
+            // Revert Sortable's DOM mutation so React can reconcile cleanly.
+            if (evt.from !== evt.to || evt.oldIndex !== evt.newIndex) {
+              const fromChildren = evt.from.children;
+              const reference = fromChildren[evt.oldIndex ?? 0] ?? null;
+              evt.from.insertBefore(evt.item, reference);
+            }
             if (id && target) onMoveRef.current(id, target);
           },
         }),
