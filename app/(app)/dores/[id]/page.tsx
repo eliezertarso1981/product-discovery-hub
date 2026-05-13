@@ -255,7 +255,15 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({
+  title,
+  action,
+  children,
+}: {
+  title: string;
+  action?: React.ReactNode;
+  children: React.ReactNode;
+}) {
   return (
     <div className="mt-6">
       <div className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-[#9ca3af]">
