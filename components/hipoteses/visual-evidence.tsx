@@ -48,19 +48,24 @@ export function VisualEvidence({
   onChange: (patch: { prototypes?: HypothesisPrototype[]; images?: HypothesisImage[] }) => void;
 }) {
   return (
-    <div className="mt-6">
-      <div className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-[var(--fg-faint)]">
+    <div className="mt-6 space-y-3">
+      <div className="text-[11px] font-semibold uppercase tracking-wider text-[var(--fg-faint)]">
         Evidências visuais
       </div>
-      <div
-        className="rounded-lg border bg-white"
-        style={{ borderColor: "var(--border)" }}
-      >
-        <div className="grid grid-cols-1 divide-y md:grid-cols-2 md:divide-x md:divide-y-0" style={{ borderColor: "var(--border)" }}>
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        <div
+          className="rounded-lg border bg-white"
+          style={{ borderColor: "var(--border)" }}
+        >
           <PrototypesPanel
             items={prototypes}
             onChange={(next) => onChange({ prototypes: next })}
           />
+        </div>
+        <div
+          className="rounded-lg border bg-white"
+          style={{ borderColor: "var(--border)" }}
+        >
           <ImagesPanel
             items={images}
             onChange={(next) => onChange({ images: next })}
