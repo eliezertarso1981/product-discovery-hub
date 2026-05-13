@@ -9,9 +9,10 @@ import {
   List,
   Columns3,
   Calendar,
+  Workflow,
 } from "lucide-react";
 
-export type ViewMode = "grid" | "list" | "board" | "calendar";
+export type ViewMode = "grid" | "list" | "board" | "calendar" | "flow";
 
 interface Props {
   view: ViewMode;
