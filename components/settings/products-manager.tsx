@@ -193,7 +193,7 @@ export function ProductsManager() {
         {!selected ? (
           <div className="flex h-full items-center justify-center">
             <EmptyState
-              icon={<Columns3size />}
+              icon={Columns3}
               title="Selecione um produto"
               description="Escolha um produto à esquerda para gerenciar pilares, OKRs, dores e equipe."
             />
@@ -514,7 +514,7 @@ function PillarsTab({ product }: { product: Product }) {
         </button>
       </div>
       {items.length === 0 ? (
-        <EmptyState icon={<Columns3 size={24} />} title="Sem pilares" description="Crie um pilar para começar." />
+        <EmptyState icon={Columns3} title="Sem pilares" description="Crie um pilar para começar." />
       ) : (
         <div className="space-y-2">
           {items.map((p) => (
@@ -581,7 +581,7 @@ function OkrsTab({ product }: { product: Product }) {
       </div>
 
       {items.length === 0 ? (
-        <EmptyState icon={<Target size={24} />} title="Sem OKRs" description="Crie um OKR para começar." />
+        <EmptyState icon={Target} title="Sem OKRs" description="Crie um OKR para começar." />
       ) : (
         <div className="space-y-3">
           {items.map((o) => {
@@ -718,7 +718,7 @@ function DoresTab({ product, pains, onMove }: { product: Product; pains: Array<{
   const { activeProducts } = useProducts();
 
   if (pains.length === 0) {
-    return <EmptyState icon={<AlertCircle size={24} />} title="Sem dores" description="Este produto ainda não tem dores cadastradas." />;
+    return <EmptyState icon={AlertCircle} title="Sem dores" description="Este produto ainda não tem dores cadastradas." />;
   }
 
   return (
@@ -820,7 +820,7 @@ function TeamTab({ product }: { product: Product }) {
           </span>
         </div>
         {linkedMemberIds.size === 0 ? (
-          <EmptyState icon={<Users size={24} />} title="Sem pessoas" description="Vincule um time acima para popular a equipe." />
+          <EmptyState icon={Users} title="Sem pessoas" description="Vincule um time acima para popular a equipe." />
         ) : (
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {members
