@@ -567,7 +567,10 @@ function Comments({
           </li>
         ))}
       </ul>
-      <div className="flex items-end gap-2">
+      <div
+        className="relative rounded-md border bg-white transition-colors focus-within:border-[var(--primary)]"
+        style={{ borderColor: "var(--border)" }}
+      >
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -579,16 +582,15 @@ function Comments({
           }}
           rows={2}
           placeholder="Escreva um comentário... (⌘+Enter para enviar)"
-          className="flex-1 rounded-md border bg-white px-3 py-2 text-[13px] outline-none placeholder:text-[var(--border-strong)] focus:border-[var(--primary)]"
-          style={{ borderColor: "var(--border)" }}
+          className="w-full resize-none rounded-md bg-transparent px-3 py-2 pr-24 text-[13px] outline-none placeholder:text-[var(--border-strong)]"
         />
         <button
           onClick={submit}
           disabled={!text.trim()}
-          className="inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-[13px] font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+          className="absolute bottom-2 right-2 inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[12px] font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
           style={{ backgroundColor: "var(--primary)" }}
         >
-          <Send size={13} /> Enviar
+          <Send size={12} /> Enviar
         </button>
       </div>
     </div>
