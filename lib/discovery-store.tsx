@@ -56,6 +56,10 @@ const seedExperiments: Experiment[] = [
     title: "Piloto com 5 PMs usando integração Slack",
     description: "MVP de integração unidirecional Slack → hub. 2 semanas.",
     method: "Concierge MVP + entrevistas semanais",
+    expectedResults: [
+      "≥ 3 dos 5 PMs reduzem ≥ 2h/semana em consolidação manual",
+      "NPS qualitativo positivo em pelo menos 4 entrevistas",
+    ],
     status: "em_andamento",
     result: null,
     owner: owners.AS,
@@ -145,7 +149,15 @@ export function DiscoveryProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setState(JSON.parse(raw));
+      if (raw) {
+        const parsed = JSON.parse(raw) as State;
+        // migrate older shapes
+        parsed.experiments = (parsed.experiments ?? []).map((e) => ({
+          ...e,
+          expectedResults: Array.isArray(e.expectedResults) ? e.expectedResults : [],
+        }));
+        setState(parsed);
+      }
     } catch {
       // ignore
     }
@@ -205,6 +217,7 @@ export function DiscoveryProvider({ children }: { children: React.ReactNode }) {
           title: "Novo experimento",
           description: "",
           method: "",
+          expectedResults: [],
           status: "planejado",
           result: null,
           owner: currentUser,

@@ -111,6 +111,64 @@ export default function ExperimentDetail({ params }: { params: Promise<{ id: str
             />
           </div>
 
+          <div className="mt-6">
+            <div className="mb-2 flex items-center justify-between">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-[var(--fg-faint)]">
+                Resultados esperados ({exp.expectedResults.length})
+              </div>
+              <button
+                onClick={() =>
+                  updateExperiment(exp.id, {
+                    expectedResults: [...exp.expectedResults, ""],
+                  })
+                }
+                className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-[11px] text-[var(--fg-muted)] hover:bg-[var(--bg-muted)]"
+                style={{ borderColor: "var(--border)" }}
+              >
+                <Plus size={12} /> Adicionar
+              </button>
+            </div>
+            <p className="mb-2 text-[12px] text-[var(--fg-subtle)]">
+              Defina critérios mensuráveis que indicam sucesso. Você pode adicionar mais de um.
+            </p>
+            {exp.expectedResults.length === 0 ? (
+              <p className="text-[13px] text-[var(--fg-faint)]">Nenhum resultado esperado definido.</p>
+            ) : (
+              <ul className="space-y-1.5">
+                {exp.expectedResults.map((r, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span
+                      aria-hidden
+                      className="mt-2 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                      style={{ backgroundColor: "var(--primary)" }}
+                    />
+                    <Textarea
+                      rows={1}
+                      value={r}
+                      onChange={(e) => {
+                        const next = [...exp.expectedResults];
+                        next[i] = e.target.value;
+                        updateExperiment(exp.id, { expectedResults: next });
+                      }}
+                      placeholder="Ex.: ≥ 60% dos usuários completam a ação em < 30s"
+                    />
+                    <button
+                      onClick={() =>
+                        updateExperiment(exp.id, {
+                          expectedResults: exp.expectedResults.filter((_, j) => j !== i),
+                        })
+                      }
+                      className="mt-1 inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md text-[var(--fg-faint)] hover:bg-[var(--danger-soft)] hover:text-[var(--danger)]"
+                      aria-label="Remover resultado esperado"
+                    >
+                      <X size={14} />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
           <div className="mt-6 rounded-lg border p-4" style={{ borderColor: "var(--border)" }}>
             <div className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-[var(--fg-faint)]">
               Resultado

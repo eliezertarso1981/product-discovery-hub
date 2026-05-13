@@ -25,6 +25,7 @@ export interface Experiment {
   title: string;
   description: string;
   method: string;
+  expectedResults: string[];
   status: ExperimentStatus;
   result: ExperimentResult;
   owner: PainOwner;
