@@ -32,6 +32,7 @@ export function NavItem({ href, icon: Icon, label, badge, collapsed }: NavItemPr
   return (
     <Link
       href={href}
+      prefetch
       title={collapsed ? label : undefined}
       className={`group relative flex items-center gap-3 rounded-lg py-2 text-sm transition-all duration-150 hover:translate-x-0.5 ${
         collapsed ? "justify-center px-2" : "px-3"
