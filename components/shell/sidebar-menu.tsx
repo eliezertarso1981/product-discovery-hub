@@ -15,8 +15,12 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { NavItem } from "./nav-item";
+import { useDiscovery } from "@/lib/discovery-store";
+import { useDores } from "@/lib/dores-store";
 
 export function SidebarMenu({ collapsed = false }: { collapsed?: boolean }) {
+  const { hypotheses, experiments } = useDiscovery();
+  const { pains } = useDores();
   return (
     <nav className="flex-1 overflow-y-auto px-3 pb-4">
       <div className="space-y-1">
@@ -29,9 +33,9 @@ export function SidebarMenu({ collapsed = false }: { collapsed?: boolean }) {
       </Group>
 
       <Group id="discovery" title="Discovery" collapsed={collapsed}>
-        <NavItem href="/dores" icon={AlertCircle} label="Dores" badge={12} collapsed={collapsed} />
-        <NavItem href="/hipoteses" icon={FlaskConical} label="Hipóteses" collapsed={collapsed} />
-        <NavItem href="/experimentos" icon={Beaker} label="Experimentos" collapsed={collapsed} />
+        <NavItem href="/dores" icon={AlertCircle} label="Dores" badge={pains.length} collapsed={collapsed} />
+        <NavItem href="/hipoteses" icon={FlaskConical} label="Hipóteses" badge={hypotheses.length} collapsed={collapsed} />
+        <NavItem href="/experimentos" icon={Beaker} label="Experimentos" badge={experiments.length} collapsed={collapsed} />
         <NavItem href="/evidencias" icon={Lightbulb} label="Evidências" collapsed={collapsed} />
       </Group>
 
