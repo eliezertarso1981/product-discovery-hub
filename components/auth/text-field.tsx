@@ -33,13 +33,15 @@ export function TextField({
 
   return (
     <div className="space-y-1.5">
-      <label
-        htmlFor={fieldId}
-        className="block text-[11px] font-semibold uppercase tracking-wider"
-        style={{ color: p.textSecondary }}
-      >
-        {label}
-      </label>
+      {label && (
+        <label
+          htmlFor={fieldId}
+          className="block text-[11px] font-semibold uppercase tracking-wider"
+          style={{ color: p.textSecondary }}
+        >
+          {label}
+        </label>
+      )}
       <div
         className="relative flex items-center rounded-xl border transition-colors"
         style={{
