@@ -11,7 +11,7 @@ import {
   type PainStatus,
 } from "./dores-data";
 
-const STORAGE_KEY = "dores-store-v2";
+const STORAGE_KEY = "dores-store-v3";
 
 const STATUS_MIGRATION: Record<string, PainStatus> = {
   identificada: "backlog",
@@ -22,13 +22,14 @@ const STATUS_MIGRATION: Record<string, PainStatus> = {
   descartada: "descartada",
 };
 
-function sanitize(p: Pain): Pain {
+function sanitize(p: Pain, fallbackProductId: string): Pain {
   const status = (boardColumns as string[]).includes(p.status)
     ? p.status
     : (STATUS_MIGRATION[p.status as unknown as string] ?? "backlog");
   return {
     ...p,
     status,
+    productId: p.productId ?? fallbackProductId,
     responsibles: p.responsibles ?? (p.owner ? [p.owner] : []),
     attachments: p.attachments ?? [],
     comments: p.comments ?? [],
