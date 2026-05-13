@@ -51,7 +51,10 @@ export function PainList({ pains }: { pains: Pain[] }) {
                   </div>
                 </td>
                 <td className="px-4 py-3">
-                  <span className="inline-flex items-center gap-2 text-[13px]" style={{ color: "#4b5563" }}>
+                  <span
+                    className="inline-flex items-center gap-2 text-[13px]"
+                    style={{ color: "#4b5563" }}
+                  >
                     <span className="h-2 w-2 rounded-full" style={{ backgroundColor: cfg.dot }} />
                     {cfg.label}
                   </span>

@@ -14,9 +14,7 @@ export default function DoresPage() {
 
   const counts = useMemo(() => {
     const total = pains.length;
-    const ativas = pains.filter(
-      (p) => !["resolvida", "descartada"].includes(p.status),
-    ).length;
+    const ativas = pains.filter((p) => !["resolvida", "descartada"].includes(p.status)).length;
     const descartada = pains.filter((p) => p.status === "descartada").length;
     return { total, ativas, descartada };
   }, [pains]);
@@ -34,10 +32,12 @@ export default function DoresPage() {
             <Link href="/dashboard" className="hover:underline">
               Discovery
             </Link>{" "}
-            <span className="mx-1">›</span>{" "}
-            <span style={{ color: "#4b5563" }}>Dores</span>
+            <span className="mx-1">›</span> <span style={{ color: "#4b5563" }}>Dores</span>
           </div>
-          <h1 className="mt-1 text-[28px] font-semibold tracking-tight" style={{ color: "#2b364a" }}>
+          <h1
+            className="mt-1 text-[28px] font-semibold tracking-tight"
+            style={{ color: "#2b364a" }}
+          >
             Dores
           </h1>
           <div className="mt-1 text-[13px]" style={{ color: "#6b7280" }}>
