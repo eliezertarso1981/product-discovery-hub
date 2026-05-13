@@ -92,6 +92,7 @@ export default function DoresPage() {
         {view === "board" && <PainBoard pains={pains} onMove={handleMove} />}
         {view === "list" && <PainList pains={pains} />}
         {view === "grid" && <PainList pains={pains} />}
+        {view === "flow" && <PainFlow pains={pains} />}
         {view === "calendar" && (
           <div
             className="rounded-xl border p-10 text-center text-[13px]"
