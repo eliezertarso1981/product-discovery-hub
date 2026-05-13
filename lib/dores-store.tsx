@@ -69,7 +69,7 @@ export function DoresProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setPains(JSON.parse(raw));
+      if (raw) setPains((JSON.parse(raw) as Pain[]).map(sanitize));
     } catch {
       // ignore
     }
