@@ -2,6 +2,7 @@ import { Search, Plus, Bell, ChevronDown } from "lucide-react";
 import { Avatar } from "@/components/shared/avatar";
 import { currentUser } from "@/lib/mock-data";
 import { ProductSwitcher } from "./product-switcher";
+import { ThemeToggle } from "./theme-toggle";
 
 export function Topbar() {
   return (
