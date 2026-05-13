@@ -20,13 +20,25 @@ export function NavItem({ href, icon: Icon, label, badge, collapsed }: NavItemPr
     <Link
       href={href}
       title={collapsed ? label : undefined}
-      className={`relative flex items-center gap-3 rounded-lg py-2 text-sm transition-colors ${
+      className={`group relative flex items-center gap-3 rounded-lg py-2 text-sm transition-all duration-150 hover:translate-x-0.5 ${
         collapsed ? "justify-center px-2" : "px-3"
       }`}
       style={{
         backgroundColor: active ? "var(--primary-soft)" : "transparent",
         color: active ? "var(--primary)" : "var(--fg-muted)",
         fontWeight: active ? 600 : 500,
+      }}
+      onMouseEnter={(e) => {
+        if (!active) {
+          e.currentTarget.style.backgroundColor = "var(--bg-muted)";
+          e.currentTarget.style.color = "var(--fg)";
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (!active) {
+          e.currentTarget.style.backgroundColor = "transparent";
+          e.currentTarget.style.color = "var(--fg-muted)";
+        }
       }}
     >
       {active && (
@@ -36,7 +48,7 @@ export function NavItem({ href, icon: Icon, label, badge, collapsed }: NavItemPr
           style={{ backgroundColor: "var(--primary)" }}
         />
       )}
-      <Icon size={18} />
+      <Icon size={18} className="transition-transform group-hover:scale-110" />
       {!collapsed && (
         <>
           <span className="flex-1">{label}</span>
