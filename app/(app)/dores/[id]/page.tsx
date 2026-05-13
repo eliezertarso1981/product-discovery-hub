@@ -266,8 +266,11 @@ function Section({
 }) {
   return (
     <div className="mt-6">
-      <div className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-[#9ca3af]">
-        {title}
+      <div className="mb-2 flex items-center justify-between">
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-[#9ca3af]">
+          {title}
+        </div>
+        {action}
       </div>
       {children}
     </div>
