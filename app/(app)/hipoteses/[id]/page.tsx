@@ -19,6 +19,7 @@ import {
   Textarea,
   formatDate,
 } from "@/components/shared/crud-ui";
+import { VisualEvidence } from "@/components/hipoteses/visual-evidence";
 
 export default function HypothesisDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
