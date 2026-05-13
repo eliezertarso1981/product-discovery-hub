@@ -15,8 +15,12 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { NavItem } from "./nav-item";
+import { useDiscovery } from "@/lib/discovery-store";
+import { useDores } from "@/lib/dores-store";
 
 export function SidebarMenu({ collapsed = false }: { collapsed?: boolean }) {
+  const { hypotheses, experiments } = useDiscovery();
+  const { pains } = useDores();
   return (
     <nav className="flex-1 overflow-y-auto px-3 pb-4">
       <div className="space-y-1">
