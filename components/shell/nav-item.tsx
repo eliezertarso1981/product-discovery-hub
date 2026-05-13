@@ -1,8 +1,21 @@
 "use client";
 
-import Link from "next/link";
+import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
 import type { LucideIcon } from "lucide-react";
+import { Loader2 } from "lucide-react";
+
+function PendingDot() {
+  const { pending } = useLinkStatus();
+  if (!pending) return null;
+  return (
+    <Loader2
+      size={14}
+      className="animate-spin"
+      style={{ color: "var(--primary)" }}
+    />
+  );
+}
 
 interface NavItemProps {
   href: string;
