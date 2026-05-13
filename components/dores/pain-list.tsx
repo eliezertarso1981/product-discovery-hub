@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { statusConfig, type Pain } from "@/lib/dores-data";
 import { Avatar } from "@/components/shared/avatar";
@@ -29,23 +30,25 @@ export function PainList({ pains }: { pains: Pain[] }) {
           {pains.map((p) => {
             const cfg = statusConfig[p.status];
             const muted = p.status === "descartada";
-            const Icon = p.status === "resolvida" ? CheckCircle2 : AlertCircle;
+            const Icon = p.status === "validada" ? CheckCircle2 : AlertCircle;
             return (
               <tr
                 key={p.id}
-                className="border-t transition-colors hover:bg-[#f9fafb]"
+                className="cursor-pointer border-t transition-colors hover:bg-[#f9fafb]"
                 style={{ borderColor: "#f1f5f9", opacity: muted ? 0.7 : 1 }}
               >
                 <td className="px-4 py-3 font-mono text-[12px]" style={{ color: "#6b7280" }}>
-                  <span className="inline-flex items-center gap-1.5">
-                    <Icon size={13} color={p.status === "resolvida" ? "#16a34a" : undefined} />
+                  <Link href={`/dores/${p.id}`} className="inline-flex items-center gap-1.5 hover:underline">
+                    <Icon size={13} color={p.status === "validada" ? "#16a34a" : undefined} />
                     {p.id}
-                  </span>
+                  </Link>
                 </td>
                 <td className="px-4 py-3">
-                  <div className="font-semibold" style={{ color: muted ? "#9ca3af" : "#2b364a" }}>
-                    {p.title}
-                  </div>
+                  <Link href={`/dores/${p.id}`} className="block hover:underline">
+                    <div className="font-semibold" style={{ color: muted ? "#9ca3af" : "#2b364a" }}>
+                      {p.title}
+                    </div>
+                  </Link>
                   <div className="mt-0.5 line-clamp-1 text-[13px]" style={{ color: "#9ca3af" }}>
                     {p.description}
                   </div>
