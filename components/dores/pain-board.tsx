@@ -52,13 +52,13 @@ export function PainBoard({ pains, onMove }: Props) {
   }, []);
 
   return (
-    <div className="flex gap-4 overflow-x-auto pb-4">
+    <div className="flex w-full gap-4 pb-4">
       {boardColumns.map((status) => {
         const cfg = statusConfig[status];
         const items = pains.filter((p) => p.status === status);
 
         return (
-          <div key={status} className="flex w-[300px] shrink-0 flex-col rounded-xl">
+          <div key={status} className="flex min-w-0 flex-1 flex-col rounded-xl">
             <div
               className="relative flex items-center justify-between rounded-t-xl px-2 py-2"
               style={{ backgroundColor: status === "em_validacao" ? "var(--info-soft)" : "var(--bg-muted)" }}
