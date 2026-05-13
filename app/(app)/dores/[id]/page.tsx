@@ -30,7 +30,7 @@ import {
   hypothesisStatusConfig,
   roadmapStatusConfig,
 } from "@/lib/discovery-data";
-import { formatPeriod, okrStatusConfig } from "@/lib/strategy-data";
+import { formatPeriod, okrStatusConfig, type OKR, type Pillar } from "@/lib/strategy-data";
 import { Plus } from "lucide-react";
 import { Avatar } from "@/components/shared/avatar";
 
