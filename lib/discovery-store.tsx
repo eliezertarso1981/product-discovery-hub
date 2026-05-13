@@ -45,6 +45,8 @@ const seedHypotheses: Hypothesis[] = [
       "Acreditamos que templates por vertical reduzirão o time-to-value de 2 semanas para 3 dias.",
     status: "rascunho",
     owner: owners.CM,
+    prototypes: [],
+    images: [],
     createdAt: now(),
     updatedAt: now(),
   },
