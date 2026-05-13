@@ -1,31 +1,37 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Download, Bookmark, Plus } from "lucide-react";
-import { initialPains, type Pain, type PainStatus } from "@/lib/dores-data";
+import { type PainStatus } from "@/lib/dores-data";
+import { useDores } from "@/lib/dores-store";
+import { useState } from "react";
 import { DoresToolbar, type ViewMode } from "@/components/dores/dores-toolbar";
 import { PainBoard } from "@/components/dores/pain-board";
 import { PainList } from "@/components/dores/pain-list";
 
 export default function DoresPage() {
-  const [pains, setPains] = useState<Pain[]>(initialPains);
+  const router = useRouter();
+  const { pains, moveStatus, createPain } = useDores();
   const [view, setView] = useState<ViewMode>("board");
 
   const counts = useMemo(() => {
     const total = pains.length;
-    const ativas = pains.filter((p) => !["resolvida", "descartada"].includes(p.status)).length;
+    const ativas = pains.filter((p) => !["validada", "descartada"].includes(p.status)).length;
     const descartada = pains.filter((p) => p.status === "descartada").length;
     return { total, ativas, descartada };
   }, [pains]);
 
-  const handleMove = (id: string, status: PainStatus) => {
-    setPains((prev) => prev.map((p) => (p.id === id ? { ...p, status } : p)));
+  const handleMove = (id: string, status: PainStatus) => moveStatus(id, status);
+
+  const handleCreate = () => {
+    const created = createPain();
+    router.push(`/dores/${created.id}?new=1`);
   };
 
   return (
     <div className="px-6 py-5">
-      {/* Header */}
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <div className="text-[13px]" style={{ color: "#9ca3af" }}>
@@ -43,8 +49,7 @@ export default function DoresPage() {
           <div className="mt-1 text-[13px]" style={{ color: "#6b7280" }}>
             <span className="font-mono">{counts.total} dores</span>
             <Sep /> <span className="font-mono">{counts.ativas} ativas</span>
-            <Sep /> <span className="font-mono">{counts.descartada} descartada</span>
-            <Sep /> atualizado há 2 min
+            <Sep /> <span className="font-mono">{counts.descartada} descartada(s)</span>
           </div>
         </div>
 
@@ -62,6 +67,7 @@ export default function DoresPage() {
             <Bookmark size={14} /> Filtros salvos
           </button>
           <button
+            onClick={handleCreate}
             className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[13px] font-semibold text-white transition-opacity hover:opacity-90"
             style={{ backgroundColor: "#13c8b5" }}
           >
