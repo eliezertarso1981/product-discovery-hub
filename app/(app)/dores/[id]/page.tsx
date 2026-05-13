@@ -669,3 +669,130 @@ function formatDate(iso: string): string {
     minute: "2-digit",
   });
 }
+
+function PillarSelect({
+  value,
+  pillars,
+  onChange,
+}: {
+  value?: string;
+  pillars: Pillar[];
+  onChange: (id: string | undefined) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const selected = pillars.find((p) => p.id === value);
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-center justify-between rounded-md border bg-white px-2.5 py-1.5 text-[13px] hover:bg-[var(--bg-muted)]"
+        style={{ borderColor: "var(--border)" }}
+      >
+        <span className="inline-flex min-w-0 items-center gap-2">
+          {selected ? (
+            <>
+              <span className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: selected.color }} />
+              <span className="truncate text-[var(--fg)]">{selected.name}</span>
+            </>
+          ) : (
+            <span className="text-[var(--fg-faint)]">Sem pilar</span>
+          )}
+        </span>
+        <ChevronDown size={14} color="var(--fg-faint)" />
+      </button>
+      {open && (
+        <div className="absolute z-10 mt-1 w-full rounded-md border bg-white py-1 shadow-lg" style={{ borderColor: "var(--border)" }}>
+          <button
+            onClick={() => { onChange(undefined); setOpen(false); }}
+            className="flex w-full items-center justify-between px-2.5 py-1.5 text-[13px] hover:bg-[var(--bg-muted)]"
+          >
+            <span className="text-[var(--fg-faint)]">Sem pilar</span>
+            {!value && <Check size={14} color="var(--primary)" />}
+          </button>
+          {pillars.length === 0 && (
+            <div className="px-2.5 py-2 text-[12px] text-[var(--fg-faint)]">Nenhum pilar criado.</div>
+          )}
+          {pillars.map((p) => {
+            const sel = p.id === value;
+            return (
+              <button
+                key={p.id}
+                onClick={() => { onChange(p.id); setOpen(false); }}
+                className="flex w-full items-center justify-between px-2.5 py-1.5 text-[13px] hover:bg-[var(--bg-muted)]"
+              >
+                <span className="inline-flex min-w-0 items-center gap-2">
+                  <span className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: p.color }} />
+                  <span className="truncate text-[var(--fg)]">{p.name}</span>
+                </span>
+                {sel && <Check size={14} color="var(--primary)" />}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function OkrMultiSelect({
+  selected,
+  okrs,
+  onChange,
+}: {
+  selected: string[];
+  okrs: OKR[];
+  onChange: (ids: string[]) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const set = new Set(selected);
+  const toggle = (id: string) => {
+    if (set.has(id)) onChange(selected.filter((x) => x !== id));
+    else onChange([...selected, id]);
+  };
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-center justify-between rounded-md border bg-white px-2.5 py-1.5 text-[13px] hover:bg-[var(--bg-muted)]"
+        style={{ borderColor: "var(--border)" }}
+      >
+        <span className="text-[var(--fg)]">
+          {selected.length === 0 ? (
+            <span className="text-[var(--fg-faint)]">Nenhum</span>
+          ) : (
+            `${selected.length} selecionado(s)`
+          )}
+        </span>
+        <ChevronDown size={14} color="var(--fg-faint)" />
+      </button>
+      {open && (
+        <div className="absolute z-10 mt-1 max-h-72 w-full overflow-y-auto rounded-md border bg-white py-1 shadow-lg" style={{ borderColor: "var(--border)" }}>
+          {okrs.length === 0 && (
+            <div className="px-2.5 py-2 text-[12px] text-[var(--fg-faint)]">Nenhum OKR criado.</div>
+          )}
+          {okrs.map((o) => {
+            const isSel = set.has(o.id);
+            return (
+              <button
+                key={o.id}
+                onClick={() => toggle(o.id)}
+                className="flex w-full items-start justify-between gap-2 px-2.5 py-1.5 text-left text-[13px] hover:bg-[var(--bg-muted)]"
+              >
+                <span className="flex min-w-0 flex-col">
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="font-mono text-[10px] text-[var(--fg-faint)]">{o.id}</span>
+                    <span className="rounded-full border px-1.5 text-[10px] text-[var(--fg-muted)]" style={{ borderColor: "var(--border)" }}>
+                      {formatPeriod(o.period)}
+                    </span>
+                  </span>
+                  <span className="truncate text-[var(--fg)]">{o.objective}</span>
+                </span>
+                {isSel && <Check size={14} color="var(--primary)" />}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
