@@ -51,6 +51,7 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
   const linkedRoadmap = pain ? roadmapByPain(pain.id) : [];
 
   const titleInputRef = useRef<HTMLInputElement>(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   useEffect(() => {
     if (isNew && titleInputRef.current) {
       titleInputRef.current.focus();
