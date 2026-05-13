@@ -19,10 +19,7 @@ const schema = z.object({
 export default function LoginPage() {
   return (
     <AuthShell>
-      {(theme) => {
-        const p = palette[theme];
-        return <LoginForm theme={theme} p={p} />;
-      }}
+      {(theme) => <LoginForm theme={theme} p={palette[theme]} />}
     </AuthShell>
   );
 }
@@ -32,7 +29,7 @@ function LoginForm({
   p,
 }: {
   theme: "light" | "dark";
-  p: typeof palette.light;
+  p: (typeof palette)["light" | "dark"];
 }) {
   const router = useRouter();
   const [email, setEmail] = useState("");
