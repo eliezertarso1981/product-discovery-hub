@@ -4,6 +4,7 @@ import { ProductsProvider } from "@/lib/products-context";
 import { DoresProvider } from "@/lib/dores-store";
 import { DiscoveryProvider } from "@/lib/discovery-store";
 import { StrategyProvider } from "@/lib/strategy-store";
+import { PersonasProvider } from "@/lib/personas-store";
 import { WorkspaceProvider } from "@/lib/workspace-store";
 import { ThemeProvider } from "@/lib/theme-context";
 import { AppToaster } from "@/components/shared/app-toaster";
@@ -15,6 +16,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <WorkspaceProvider>
           <StrategyProvider>
             <DoresProvider>
+              <PersonasProvider>
               <DiscoveryProvider>
                 <div className="flex min-h-screen" style={{ backgroundColor: "var(--bg-elevated)" }}>
                   <Sidebar />
@@ -25,6 +27,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </div>
                 <AppToaster />
               </DiscoveryProvider>
+              </PersonasProvider>
             </DoresProvider>
           </StrategyProvider>
         </WorkspaceProvider>
