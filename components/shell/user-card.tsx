@@ -2,7 +2,15 @@ import { MoreHorizontal } from "lucide-react";
 import { Avatar } from "@/components/shared/avatar";
 import { currentUser } from "@/lib/mock-data";
 
-export function UserCard() {
+export function UserCard({ collapsed = false }: { collapsed?: boolean }) {
+  if (collapsed) {
+    return (
+      <div className="flex justify-center p-1" title={currentUser.name}>
+        <Avatar initials={currentUser.initials} color="#13c8b5" size={36} />
+      </div>
+    );
+  }
+
   return (
     <div className="flex items-center gap-3 rounded-lg p-2">
       <Avatar initials={currentUser.initials} color="#13c8b5" size={36} />
