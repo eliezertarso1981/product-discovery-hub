@@ -303,9 +303,6 @@ export function ProductsManager() {
   );
 }
 
-function Columns3size() {
-  return <Columns3 size={28} />;
-}
 
 function NewProductRow({ onCancel, onSave }: { onCancel: () => void; onSave: (name: string) => void }) {
   const [name, setName] = useState("");
