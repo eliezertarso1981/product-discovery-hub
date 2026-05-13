@@ -66,6 +66,7 @@ export function NavItem({ href, icon: Icon, label, badge, collapsed }: NavItemPr
       {!collapsed && (
         <>
           <span className="flex-1">{label}</span>
+          <PendingDot />
           {badge !== undefined && (
             <span
               className="inline-flex h-5 min-w-[20px] items-center justify-center rounded-md px-1.5 text-xs font-semibold"
@@ -76,6 +77,7 @@ export function NavItem({ href, icon: Icon, label, badge, collapsed }: NavItemPr
           )}
         </>
       )}
+      {collapsed && <PendingDot />}
     </Link>
   );
 }
