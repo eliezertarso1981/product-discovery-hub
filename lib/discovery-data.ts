@@ -6,6 +6,22 @@ export type ExperimentResult = "valida" | "invalida" | "inconclusivo" | null;
 export type RoadmapStatus = "now" | "next" | "later" | "concluido";
 export type EvidenceType = "entrevista" | "metrica" | "suporte" | "nps" | "outro";
 
+export interface HypothesisPrototype {
+  id: string;
+  label: string;
+  url: string;
+  source?: "figma" | "maze" | "invision" | "framer" | "other";
+  addedAt: string;
+}
+
+export interface HypothesisImage {
+  id: string;
+  name: string;
+  dataUrl: string;
+  size: number;
+  addedAt: string;
+}
+
 export interface Hypothesis {
   id: string;
   productId: string;
@@ -14,6 +30,8 @@ export interface Hypothesis {
   statement: string;
   status: HypothesisStatus;
   owner: PainOwner;
+  prototypes: HypothesisPrototype[];
+  images: HypothesisImage[];
   createdAt: string;
   updatedAt: string;
 }

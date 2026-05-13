@@ -31,6 +31,8 @@ const seedHypotheses: Hypothesis[] = [
       "Acreditamos que se PMs tiverem um hub que conecta Slack/Zendesk/email, reduziremos o tempo de consolidação em 70%.",
     status: "em_teste",
     owner: owners.AS,
+    prototypes: [],
+    images: [],
     createdAt: now(),
     updatedAt: now(),
   },
@@ -43,6 +45,8 @@ const seedHypotheses: Hypothesis[] = [
       "Acreditamos que templates por vertical reduzirão o time-to-value de 2 semanas para 3 dias.",
     status: "rascunho",
     owner: owners.CM,
+    prototypes: [],
+    images: [],
     createdAt: now(),
     updatedAt: now(),
   },
@@ -155,6 +159,11 @@ export function DiscoveryProvider({ children }: { children: React.ReactNode }) {
       if (raw) {
         const parsed = JSON.parse(raw) as State;
         // migrate older shapes
+        parsed.hypotheses = (parsed.hypotheses ?? []).map((h) => ({
+          ...h,
+          prototypes: Array.isArray(h.prototypes) ? h.prototypes : [],
+          images: Array.isArray(h.images) ? h.images : [],
+        }));
         parsed.experiments = (parsed.experiments ?? []).map((e) => ({
           ...e,
           expectedResults: Array.isArray(e.expectedResults) ? e.expectedResults : [],
@@ -201,6 +210,8 @@ export function DiscoveryProvider({ children }: { children: React.ReactNode }) {
           statement: "Acreditamos que ...",
           status: "rascunho",
           owner: currentUser,
+          prototypes: [],
+          images: [],
           createdAt: now(),
           updatedAt: now(),
         };

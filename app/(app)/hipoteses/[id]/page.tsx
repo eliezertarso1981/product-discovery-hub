@@ -19,6 +19,7 @@ import {
   Textarea,
   formatDate,
 } from "@/components/shared/crud-ui";
+import { VisualEvidence } from "@/components/hipoteses/visual-evidence";
 
 export default function HypothesisDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -96,6 +97,12 @@ export default function HypothesisDetail({ params }: { params: Promise<{ id: str
               placeholder="Acreditamos que [solução] para [persona] vai gerar [resultado] e saberemos disso quando [métrica]."
             />
           </div>
+
+          <VisualEvidence
+            prototypes={h.prototypes}
+            images={h.images}
+            onChange={(patch) => updateHypothesis(h.id, patch)}
+          />
 
           <div className="mt-6">
             <div className="mb-2 flex items-center justify-between">
