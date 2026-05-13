@@ -99,31 +99,30 @@ export function DoresProvider({ children }: { children: React.ReactNode }) {
 
   const createPain = useCallback((): Pain => {
     const now = new Date().toISOString();
-    let created: Pain | null = null;
-    setPains((prev) => {
-      const id = nextPainId(prev);
-      const newPain: Pain = {
-        id,
-        title: "Nova dor",
-        description: "",
-        status: "backlog",
-        severity: 3,
-        reach: 0,
-        evidences: 0,
-        hypotheses: 0,
-        personas: [],
-        owner: currentUser,
-        responsibles: [currentUser],
-        attachments: [],
-        comments: [],
-        createdAt: now,
-        updatedAt: now,
-      };
-      created = newPain;
-      return [newPain, ...prev];
-    });
-    return created!;
-  }, [currentUser]);
+    const id = nextPainId(pains);
+    const newPain: Pain = {
+      id,
+      title: "Nova dor",
+      description: "",
+      status: "backlog",
+      severity: 3,
+      reach: 0,
+      evidences: 0,
+      hypotheses: 0,
+      personas: [],
+      owner: currentUser,
+      responsibles: [currentUser],
+      attachments: [],
+      comments: [],
+      createdAt: now,
+      updatedAt: now,
+    };
+    setPains((prev) =>
+      prev.some((p) => p.id === id) ? prev : [newPain, ...prev],
+    );
+    return newPain;
+  }, [pains, currentUser]);
+
 
   const deletePain = useCallback((id: string) => {
     setPains((prev) => prev.filter((p) => p.id !== id));
