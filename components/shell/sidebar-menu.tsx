@@ -33,9 +33,9 @@ export function SidebarMenu({ collapsed = false }: { collapsed?: boolean }) {
       </Group>
 
       <Group id="discovery" title="Discovery" collapsed={collapsed}>
-        <NavItem href="/dores" icon={AlertCircle} label="Dores" badge={12} collapsed={collapsed} />
-        <NavItem href="/hipoteses" icon={FlaskConical} label="Hipóteses" collapsed={collapsed} />
-        <NavItem href="/experimentos" icon={Beaker} label="Experimentos" collapsed={collapsed} />
+        <NavItem href="/dores" icon={AlertCircle} label="Dores" badge={pains.length} collapsed={collapsed} />
+        <NavItem href="/hipoteses" icon={FlaskConical} label="Hipóteses" badge={hypotheses.length} collapsed={collapsed} />
+        <NavItem href="/experimentos" icon={Beaker} label="Experimentos" badge={experiments.length} collapsed={collapsed} />
         <NavItem href="/evidencias" icon={Lightbulb} label="Evidências" collapsed={collapsed} />
       </Group>
 
