@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import {
+  boardColumns,
   initialPains,
   owners,
   type Pain,
@@ -10,7 +11,32 @@ import {
   type PainStatus,
 } from "./dores-data";
 
-const STORAGE_KEY = "dores-store-v1";
+const STORAGE_KEY = "dores-store-v2";
+
+const STATUS_MIGRATION: Record<string, PainStatus> = {
+  identificada: "backlog",
+  investigando: "em_validacao",
+  priorizada: "em_validacao",
+  enderecada: "em_validacao",
+  resolvida: "validada",
+  descartada: "descartada",
+};
+
+function sanitize(p: Pain): Pain {
+  const status = (boardColumns as string[]).includes(p.status)
+    ? p.status
+    : (STATUS_MIGRATION[p.status as unknown as string] ?? "backlog");
+  return {
+    ...p,
+    status,
+    responsibles: p.responsibles ?? (p.owner ? [p.owner] : []),
+    attachments: p.attachments ?? [],
+    comments: p.comments ?? [],
+    createdAt: p.createdAt ?? new Date().toISOString(),
+    updatedAt: p.updatedAt ?? new Date().toISOString(),
+  };
+}
+
 
 interface Ctx {
   pains: Pain[];
