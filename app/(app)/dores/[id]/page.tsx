@@ -22,6 +22,12 @@ import {
   boardColumns,
 } from "@/lib/dores-data";
 import { useDores } from "@/lib/dores-store";
+import { useDiscovery } from "@/lib/discovery-store";
+import {
+  hypothesisStatusConfig,
+  roadmapStatusConfig,
+} from "@/lib/discovery-data";
+import { Plus } from "lucide-react";
 import { Avatar } from "@/components/shared/avatar";
 
 export default function PainDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -31,8 +37,16 @@ export default function PainDetailPage({ params }: { params: Promise<{ id: strin
   const isNew = searchParams.get("new") === "1";
   const { ready, getPain, updatePain, deletePain, addComment, addAttachments, removeAttachment } =
     useDores();
+  const {
+    hypothesesByPain,
+    roadmapByPain,
+    createHypothesis,
+    createRoadmap,
+  } = useDiscovery();
 
   const pain = getPain(id);
+  const linkedHypotheses = pain ? hypothesesByPain(pain.id) : [];
+  const linkedRoadmap = pain ? roadmapByPain(pain.id) : [];
 
   const titleInputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
