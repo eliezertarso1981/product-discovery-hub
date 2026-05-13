@@ -205,6 +205,8 @@ export function DiscoveryProvider({ children }: { children: React.ReactNode }) {
           statement: "Acreditamos que ...",
           status: "rascunho",
           owner: currentUser,
+          prototypes: [],
+          images: [],
           createdAt: now(),
           updatedAt: now(),
         };
